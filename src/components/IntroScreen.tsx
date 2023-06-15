@@ -27,7 +27,9 @@ const IntroScreen = () => {
   return (
     <Box border='2px' borderColor='whiteAlpha.800' boxSize='400px'>
       <Box pos='absolute' top='0' left='0' marginTop='7em' marginLeft='3em' marginRight='3em' fontSize='20px' fontFamily='mono'>
-        <p>{displayText}</p>
+        <p>
+          {displayText}
+        </p>
       </Box>
 
       <Button onClick={addText} position='absolute' bottom='0' left='0' marginBottom='3em' marginLeft='10em' bg='blackAlpha.900' border='2px' borderColor='whiteAlpha.800' color='whiteAlpha.800'> 
