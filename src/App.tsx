@@ -1,5 +1,13 @@
 import { ChakraProvider, extendTheme, AbsoluteCenter, Box } from "@chakra-ui/react";
 import IntroScreen from './components/IntroScreen';
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
+import TestComponent from "./components/testComponent.tsx"
+
+const Root = () => {
+  return <>
+  </>
+}
+
 
 const theme = extendTheme({
   colors: {
@@ -21,9 +29,18 @@ const theme = extendTheme({
 })
 
 const App = () => {
-
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<Root />} >
+        <Route index element={<App />} />
+        <Route path="test" element={<TestComponent />} />
+      </Route>
+    )
+  );
+  
   return (
     <ChakraProvider theme = {theme}>
+      <RouterProvider router={router} />
       <Box pos='relative' w='100vw' minHeight='100vh'>
         <AbsoluteCenter>
           <IntroScreen/>
