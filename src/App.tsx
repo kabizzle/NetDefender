@@ -1,13 +1,8 @@
-import { ChakraProvider, extendTheme, AbsoluteCenter, Box } from "@chakra-ui/react";
-import IntroScreen from './components/IntroScreen';
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import TestComponent from "./components/testComponent.tsx"
-
-const Root = () => {
-  return <>
-  </>
-}
-
+import Home from "./pages/Home.tsx";
+import Message from "./pages/Message.tsx"
 
 const theme = extendTheme({
   colors: {
@@ -28,24 +23,20 @@ const theme = extendTheme({
   }
 })
 
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<TestComponent />} >
+      <Route path="test" element={<Home />} />
+      <Route path="message" element={<Message />} />
+    </Route>
+  )
+);
+
 const App = () => {
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <Route path="/" element={<Root />} >
-        <Route index element={<App />} />
-        <Route path="test" element={<TestComponent />} />
-      </Route>
-    )
-  );
   
   return (
     <ChakraProvider theme = {theme}>
       <RouterProvider router={router} />
-      <Box pos='relative' w='100vw' minHeight='100vh'>
-        <AbsoluteCenter>
-          <IntroScreen/>
-        </AbsoluteCenter>
-      </Box>
     </ChakraProvider>
   )
 }
