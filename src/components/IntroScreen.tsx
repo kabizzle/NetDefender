@@ -1,6 +1,7 @@
 import { useState } from "react";
 import './intro.css';
 
+
 const IntroScreen = () => {
   const [displayText, setDisplayText] = useState("Welcome to NetDefender.");
   const [count, setCount] = useState(0);
@@ -16,14 +17,17 @@ const IntroScreen = () => {
     if (count == 3) {
       setDisplayText("It is up to you to save the company from the attack and prove your innocence. Enter the world of NetDefender.");
     }
+    if (count == 4) {
+      setDisplayText("...");
+    }
+    
+    
   }
 
   return (  
     <div className="intro_box">
       <p>{displayText}</p>
-
       <button onClick={addText}> next </button>
-
     </div>
   );
 };

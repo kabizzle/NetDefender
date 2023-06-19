@@ -1,0 +1,174 @@
+body {
+  background: black;
+  color: white;
+}
+
+.quiz_box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: monospace;
+}
+
+.start_screen,
+.last_screen {
+  flex-direction: column;
+  text-align: center;
+  font-family: monospace;
+}
+
+.start_button,
+.restart_button {
+  margin-top: 16px;
+  padding: 8px 16px;
+  border: 2px solid white;
+  background: transparent;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.question_box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.question_text {
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.options_box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.option_button {
+  margin-bottom: 8px;
+  padding: 8px 16px;
+  border: 2px solid white;
+  background: transparent;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.option_button.correct {
+  border-color: #00ff00;
+}
+
+.option_button.wrong {
+  border-color: #ff0000;
+}
+
+.next_button {
+  margin-top: 16px;
+  padding: 8px 16px;
+  border: 2px solid white;
+  background: transparent;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.circles_box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.circle {
+  width: 16px;
+  height: 16px;
+  border: 2px solid white;
+  border-radius: 50%;
+  margin: 0 8px;
+}
+
+.circle.correct {
+  border-color: #00ff00;
+}
+
+.circle.wrong {
+  border-color: #ff0000;
+}
+
+.explanation_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.question_info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.answer_text {
+  margin-top: 8px;
+}
+
+.information_text {
+  width: 400px;
+  padding: 16px;
+  border: 2px solid white;
+  margin-bottom: 16px;
+}
+
+.info_title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.info_content {
+  font-size: 16px;
+}
+
+.congratulations_text {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.infoScreen{
+  display:flex;
+  flex-direction: column;
+}
+
+.infoBox{
+  display: flex;
+  flex-direction: row;
+  
+}
+
+.questionBox {
+  font-family: monospace;
+}
+
+.answerBox {
+  margin-bottom: 8px;
+  padding: 8px 16px;
+  border: 2px solid #00ff00;
+  background: transparent;
+  color: white;
+  font-size: 16px;
+  font-family: monospace;
+  
+}
+
+.informationBox {
+  font-family: monospace;
+  
+}
