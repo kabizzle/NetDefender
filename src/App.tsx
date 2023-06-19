@@ -1,4 +1,5 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import type { StyleFunctionProps } from '@chakra-ui/styled-system'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import TestComponent from "./components/testComponent.tsx"
 import Home from "./pages/Home.tsx";
@@ -10,7 +11,8 @@ const theme = extendTheme({
       green: "#04A130",
       black: "#0A0A0A",
       white: "#F9F9F9",
-      red: "#C0181F"
+      red: "#C0181F",
+      gray: "#5F5F5F"
     }
   },
   styles: {
@@ -21,6 +23,14 @@ const theme = extendTheme({
         fontFamily:'mono'
       }
     })
+  },
+  components: {
+    Progress: {
+      defaultProps:{
+        size: "lg",
+        colorScheme:"green"
+      }
+    }
   }
 })
 
