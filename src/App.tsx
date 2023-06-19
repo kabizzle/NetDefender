@@ -1,15 +1,44 @@
-import './App.css'
-//import IntroScreen from './components/IntroScreen'
-import Level1 from './components/Level1'
-//import Quiz from './components/MultipleChoiceQuestion';
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
+import TestComponent from "./components/testComponent.tsx"
+import Home from "./pages/Home.tsx";
+import Message from "./pages/Message.tsx"
 
+const theme = extendTheme({
+  colors: {
+    game: {
+      green: "#04A130",
+      black: "#0A0A0A",
+      white: "#F9F9F9",
+      red: "#C0181F"
+    }
+  },
+  styles: {
+    global: () => ({
+      body: {
+        bg: 'game.black',
+        color:'game.white',
+        fontFamily:'mono'
+      }
+    })
+  }
+})
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<TestComponent />} >
+      <Route path="test" element={<Home />} />
+      <Route path="message" element={<Message />} />
+    </Route>
+  )
+);
 
 const App = () => {
   
   return (
-  <div>
-    <Level1/>
-  </div>
+    <ChakraProvider theme = {theme}>
+      <RouterProvider router={router} />
+    </ChakraProvider>
   )
 }
 
