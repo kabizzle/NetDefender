@@ -1,5 +1,4 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import type { StyleFunctionProps } from '@chakra-ui/styled-system'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import TestComponent from "./components/testComponent.tsx"
 import Home from "./pages/Home.tsx";
