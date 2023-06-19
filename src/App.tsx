@@ -17,7 +17,8 @@ const theme = extendTheme({
     global: () => ({
       body: {
         bg: 'game.black',
-        color:'game.white'
+        color:'game.white',
+        fontFamily:'mono'
       }
     })
   }
