@@ -2,7 +2,6 @@ import { Image, Box } from '@chakra-ui/react'
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { log } from "console";
 
 interface Level {
     forwardSource: string;

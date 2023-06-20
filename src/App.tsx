@@ -29,6 +29,11 @@ const theme = extendTheme({
         size: "lg",
         colorScheme:"green"
       }
+    },
+    Text: {
+      defaultProps:{
+        fontFamily:"mono"
+      }
     }
   }
 })
