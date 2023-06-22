@@ -1,8 +1,9 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
-import TestComponent from "./components/testComponent.tsx"
+import TestComponent from "./components/testComponent.tsx";
 import Home from "./pages/Home.tsx";
-import Message from "./pages/Message.tsx"
+import Message from "./pages/Message.tsx";
+import Tutorial from "./pages/Tutorial.tsx";
 
 const theme = extendTheme({
   colors: {
@@ -40,10 +41,13 @@ const theme = extendTheme({
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<TestComponent />} >
-      <Route path="test" element={<Home />} />
-      <Route path="message" element={<Message />} />
-    </Route>
+    <>
+      <Route path="/" element={<TestComponent />} >
+        <Route path="test" element={<Home />} />
+        <Route path="message" element={<Message />} />
+      </Route>
+      <Route path="tutorial" element={<Tutorial />} />
+    </>
   )
 );
 

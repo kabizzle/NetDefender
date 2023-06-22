@@ -10,7 +10,7 @@ interface Level {
 }
 
 const Folder = ( {forwardSource, backSource, folderType}: Level) => {
-    const [source , setSource] = useState(forwardSource)
+    const [source, setSource] = useState("")
     const [folderIcon, setFolderIcon] = useState("/folder_unlocked.png")
     const [folderStatus, setFolderStatus] = useState(folderType)
     const location = useLocation();
@@ -19,8 +19,7 @@ const Folder = ( {forwardSource, backSource, folderType}: Level) => {
         if (folderType === "locked") {
             setFolderIcon("/folder_locked.svg")
         }
-        if (location.pathname == "/" && folderStatus == "unlocked") {
-            setSource(forwardSource)
+        else if (location.pathname === "/" && folderStatus === "opened") {
             setFolderStatus("unlocked")
             setFolderIcon("/folder_unlocked.svg")
         }
@@ -31,23 +30,23 @@ const Folder = ( {forwardSource, backSource, folderType}: Level) => {
         console.log(folderStatus);
         
         if (folderStatus == "unlocked"){
-            setSource(backSource)
-            setFolderStatus("opened")
-            setFolderIcon("/folder_opened.svg")
+          setSource(backSource)
+          setFolderStatus("opened")
+          setFolderIcon("/folder_opened.svg")
         }
         else if (folderStatus == "opened") {
-            setSource(forwardSource)
-            setFolderStatus("unlocked")
-            setFolderIcon("/folder_unlocked.svg")
+          setSource(forwardSource)
+          setFolderStatus("unlocked")
+          setFolderIcon("/folder_unlocked.svg")
         }
     }
 
-    return (
+      return (
         <Box>
-            <Link to={source} onClick={handleChange}>
-                <Image src={folderIcon} w="10em"/>
-            </Link>
-        </Box>
+          <Link to={source} onClick={handleChange}>
+            <Image src={folderIcon} w="10em"/>
+          </Link>
+        </Box>          
     )
 };
 

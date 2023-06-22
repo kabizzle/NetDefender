@@ -18,7 +18,7 @@ const TestComponent = () => {
             <Folder forwardSource="/" backSource="/" folderType="locked"/>
             <Folder forwardSource="/" backSource="/" folderType="locked"/> 
             <Folder forwardSource="/" backSource="/" folderType="locked"/> 
-            <Folder forwardSource="/" backSource="/" folderType="locked"/> 
+            <Folder folderType="locked"/> 
           </Flex>
         </Box>
         <Outlet />
