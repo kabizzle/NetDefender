@@ -4,6 +4,7 @@ import TestComponent from "./components/testComponent.tsx";
 import Home from "./pages/Home.tsx";
 import Message from "./pages/Message.tsx";
 import Tutorial from "./pages/Tutorial.tsx";
+import Error from "./pages/Error.tsx";
 
 const theme = extendTheme({
   colors: {
@@ -47,6 +48,7 @@ const router = createBrowserRouter(
         <Route path="message" element={<Message />} />
       </Route>
       <Route path="tutorial" element={<Tutorial />} />
+      <Route path="*" element={<Error />} /> 
     </>
   )
 );
