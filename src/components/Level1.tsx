@@ -1,5 +1,6 @@
 import { useState } from "react";
 import './Level1.css';
+import StartScreen from "./screen";
 
 const Level1 = () => {
 
@@ -69,12 +70,14 @@ const Level1 = () => {
   const renderScreen = () => {
     switch (currentScreen) {
       case "startScreen":
-        return (
-          <div>
-            <h1>Welcome to the Game</h1>
-            <button onClick={() => handleScreenChange("questionScreen")}>Start</button>
-          </div>
-        );
+        //return (
+        //  <div>
+        //    <h1>Welcome to the Game</h1>
+          //  <button onClick={() => handleScreenChange("questionScreen")}>Start</button>
+        //  </div>
+        //);
+        <StartScreen handleScreenChange={handleScreenChange("questionScreen")}/>
+
       case "questionScreen":
         return (
           <div className="quiz_box">

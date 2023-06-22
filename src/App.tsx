@@ -3,6 +3,8 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import TestComponent from "./components/testComponent.tsx"
 import Home from "./pages/Home.tsx";
 import Message from "./pages/Message.tsx"
+//import MultipleChoiceQuestion from "./components/MultipleChoiceQuestion.tsx";
+import Level0 from "./components/MS/Level0.tsx";
 
 const theme = extendTheme({
   colors: {
@@ -29,6 +31,9 @@ const router = createBrowserRouter(
     <Route path="/" element={<TestComponent />} >
       <Route path="test" element={<Home />} />
       <Route path="message" element={<Message />} />
+      <Route path="level">
+        <Route path="1" element={<Level0 />}/>
+      </Route>
     </Route>
   )
 );
