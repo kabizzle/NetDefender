@@ -27,7 +27,7 @@ const IntroScreen = () => {
   }
 
   return (
-    <Box border='2px' borderColor='game.white' w='500px' h="350px">
+    <Box pos="relative" border='2px' borderColor='game.white' w='500px' h="350px">
       <Center w="36px" h="36px" border="2px" borderColor="game.white" pos="absolute" top="0" right="0" m="1em 1em 0">
         <Link to="/">
           <CloseIcon />

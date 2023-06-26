@@ -10,11 +10,11 @@ interface Messages {
 const Notification = ( { containsMessages, nextMessage="/" } : Messages) => {
   
   return(
-    <Box>
+    <Box pos="relative">
       <Link to={nextMessage}>
         <Image src="/message_icon.svg" />
         {containsMessages ? 
-          <Box pos="absolute" top="0" right="0">
+        <Box pos="absolute" top="0" left="6em">
             <WarningIcon boxSize={6} color="game.red" bg="game.white" borderRadius="2xl"/>
           </Box>
           : null}
