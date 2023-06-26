@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
 import UserProgress from "../components/UserProgress"
 import Folder from "../components/Folder"
@@ -18,7 +18,7 @@ const TestComponent = () => {
             <Folder forwardSource="/" backSource="/" folderType="locked"/>
             <Folder forwardSource="/" backSource="/" folderType="locked"/> 
             <Folder forwardSource="/" backSource="/" folderType="locked"/> 
-            <Folder folderType="locked"/> 
+            <Folder forwardSource="/" backSource="/" folderType="locked"/> 
           </Flex>
         </Box>
         <Outlet />
