@@ -10,7 +10,7 @@ const Rating = ( {amount}: RatingNumber ) => {
     const grayStars = Array(5-amount).fill(null);
     return (
         <>
-        <Box m="1.5em 0 0 2em">
+        <Box m="1.5em 0 0 2em" maxW="10em">
             {whiteStars.map((_, index) => (
                 <StarIcon key={`white-${index}`} color="game.white" boxSize={6} marginRight="4px"/>
             ))}
