@@ -1,36 +1,17 @@
-import { useState } from "react";
 import { Box, Button, Center, Image } from "@chakra-ui/react";
 import { CloseIcon } from '@chakra-ui/icons'
 import { Link } from "react-router-dom";
 
-const IntroScreen = () => {
-  const [displayText, setDisplayText] = useState("Welcome to NetDefender.");
-  const [count, setCount] = useState(0);
-  const [arrowProps, setArrowProps] = useState(["20em", "", "5em"]);
-
-  const addText = () => {
-    setCount(count+1);
-    if (count == 1) { 
-      setDisplayText("Your company has been hacked.");
-      setArrowProps(["20em", "", "5em"])
-    }
-    if (count == 2) {
-      setDisplayText("IT has detected that the threat originated from your computer.");
-    }
-    if (count == 3) {
-      setDisplayText("But you are innocent.");
-    }
-    if (count == 4) {
-      setDisplayText("It is up to you to save the company from the attack and prove your innocence.");
-    }
-    if (count == 5) {
-      setDisplayText("Enter the world of NetDefender.");
-    }
-  }
+interface introProps{
+  displayText: string;
+  arrowProps: string[];
+  handleClick(): void;
+}
+const IntroScreen = ({ displayText, arrowProps, handleClick }: introProps) => {
 
   return (
     <>
-      <Box pos="absolute" top="0" m={arrowProps[0]} transform={arrowProps[1]}>
+      <Box pos="absolute" top="0" left="0" m={arrowProps[0]} transform={arrowProps[1]}>
         <Image src="/arrow.svg" w={arrowProps[2]}/>
       </Box>
       <Box pos="relative" border='2px' borderColor='game.white' w='500px' h="350px">
@@ -44,7 +25,7 @@ const IntroScreen = () => {
             {displayText}
           </p>
         </Box>
-        <Button onClick={addText} pos='absolute' m="16em 2.5em 0 13em" bg='game.black' border='2px' borderColor='whiteAlpha.800' color='whiteAlpha.800'> 
+        <Button onClick={handleClick} pos='absolute' m="16em 2.5em 0 13em" bg='game.black' border='2px' borderColor='whiteAlpha.800' color='whiteAlpha.800'> 
           next
         </Button>
       </Box>
