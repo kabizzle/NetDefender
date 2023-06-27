@@ -1,6 +1,15 @@
 import { useState } from "react";
 import { Box, Button } from "@chakra-ui/react";
 
+/*export type LevelQuestion = {
+  id: number; 
+  question: string;
+  options: string[]; 
+  correctAnswer: string; 
+  explanation: string;
+}
+
+export interface LevelQuestions extends Array<LevelQuestion>{}*/
 
   export const testQuestions = [
     {
