@@ -10,6 +10,7 @@ const Tutorial = () => {
   const [displayText, setDisplayText] = useState("Welcome to NetDefender.");
   const [count, setCount] = useState(0);
   const [arrowProps, setArrowProps] = useState(["", "", "0"]);
+  const [endTutorial, setEndTutorial] = useState(false);
 
   const handleClick = () => {
     setCount(count+1);
@@ -34,6 +35,7 @@ const Tutorial = () => {
     }
     else if (count === 5) {
       setDisplayText("Enter the world of NetDefender.");
+      setEndTutorial(true)
     }
   }
 
@@ -52,7 +54,7 @@ const Tutorial = () => {
           </GridItem>
           <GridItem colSpan={3}>
             <Center m="5em 0 0 0">
-              <IntroScreen displayText={displayText} arrowProps={arrowProps} handleClick={handleClick}/>
+              <IntroScreen displayText={displayText} arrowProps={arrowProps} handleClick={handleClick} endTutorial={endTutorial}/>
             </Center>
           </GridItem>
           <GridItem rowSpan={1} colSpan={3}  padding="3em 10em 2em 10em">

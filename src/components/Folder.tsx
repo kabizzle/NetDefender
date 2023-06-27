@@ -10,7 +10,7 @@ interface Level {
 }
 
 const Folder = ( {forwardSource, backSource, folderType}: Level) => {
-    const [source, setSource] = useState("")
+    const [source, setSource] = useState(forwardSource)
     const [folderIcon, setFolderIcon] = useState("/folder_unlocked.png")
     const [folderStatus, setFolderStatus] = useState(folderType)
     const location = useLocation();

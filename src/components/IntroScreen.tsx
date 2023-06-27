@@ -6,9 +6,10 @@ interface introProps{
   displayText: string;
   arrowProps: string[];
   handleClick(): void;
+  endTutorial: boolean;
 }
 
-const IntroScreen = ({ displayText, arrowProps, handleClick }: introProps) => {
+const IntroScreen = ({ displayText, arrowProps, handleClick, endTutorial }: introProps) => {
 
   return (
     <>
@@ -26,9 +27,21 @@ const IntroScreen = ({ displayText, arrowProps, handleClick }: introProps) => {
             {displayText}
           </p>
         </Box>
-        <Button onClick={handleClick} pos='absolute' m="16em 2.5em 0 13em" bg='game.black' border='2px' borderColor="game.white" color="game.white" _hover={{color:"game.black", bg:"game.white"}}> 
-          next
-        </Button>
+        {endTutorial ?
+          <Link to="/"> 
+            <Button onClick={handleClick} pos='absolute' m="16em 2.5em 0 13em" 
+              bg='game.black' border='2px' borderColor="game.white" color="game.white" 
+              _hover={{color:"game.black", bg:"game.white"}}> 
+              next
+            </Button>
+          </Link> 
+        : 
+          <Button onClick={handleClick} pos='absolute' m="16em 2.5em 0 13em" 
+            bg='game.black' border='2px' borderColor="game.white" color="game.white" 
+            _hover={{color:"game.black", bg:"game.white"}}> 
+            next
+          </Button>
+        }
       </Box>
     </>
   );

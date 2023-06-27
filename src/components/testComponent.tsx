@@ -14,7 +14,7 @@ const TestComponent = () => {
           </Box>
           <UserProgress name={"Student name"} completed={1} rating={4}/>
           <Flex align="center" justify="space-between" m="40em 10em 5em 10em">
-            <Folder forwardSource="test" backSource="/" folderType="unlocked"/> 
+            <Folder forwardSource="/level/1" backSource="/" folderType="unlocked"/> 
             <Folder forwardSource="/" backSource="/" folderType="locked"/>
             <Folder forwardSource="/" backSource="/" folderType="locked"/> 
             <Folder forwardSource="/" backSource="/" folderType="locked"/> 
