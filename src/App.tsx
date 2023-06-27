@@ -48,9 +48,9 @@ const router = createBrowserRouter(
       <Route path="/" element={<TestComponent />} >
         <Route path="test" element={<Home />} />
         <Route path="message" element={<Message />} />
-        <Route path="level">
-          <Route path="1" element={<Level0 />}/>
-        </Route>
+      </Route>
+      <Route path="level">
+        <Route path="1" element={<Level0 />}/>
       </Route>
       <Route path="tutorial" element={<Tutorial />} />
       <Route path="*" element={<Error />} /> 
