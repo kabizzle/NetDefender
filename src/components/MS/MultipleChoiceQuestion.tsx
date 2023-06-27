@@ -1,15 +1,13 @@
 import { useState } from "react";
 import { Box, Button } from "@chakra-ui/react";
 
-/*export type LevelQuestion = {
+export interface LevelQuestion {
   id: number; 
   question: string;
   options: string[]; 
   correctAnswer: string; 
   explanation: string;
 }
-
-export interface LevelQuestions extends Array<LevelQuestion>{}*/
 
   export const testQuestions = [
     {
@@ -36,7 +34,7 @@ export interface LevelQuestions extends Array<LevelQuestion>{}*/
   ];
 
   // explanation part needs to be changed
-  export const level1Questions = [
+  export const level1Questions: LevelQuestion[] = [
     {
       id: 1,
       question: "Which type of attack renders a website unusable for legitimate users?",
