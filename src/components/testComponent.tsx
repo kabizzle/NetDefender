@@ -1,25 +1,28 @@
-import { Box, Button } from "@chakra-ui/react";
-import { Link, Outlet } from "react-router-dom";
+import { Box, Flex } from "@chakra-ui/react";
+import { Outlet } from "react-router-dom";
+import UserProgress from "../components/UserProgress"
+import Folder from "../components/Folder"
+import Notification from "./Notification";
 
 const TestComponent = () => {
     
     return (
-        <>
-            <Box border="2px" borderColor="game.green">
-                <h1>Hello world</h1>
-                <Button bgColor="game.black" border="2px" m="3em" borderColor="game.red" color="game.white"> 
-                    <Link to="/"> Home </Link>
-                </Button>
-                <Button bgColor="game.black" border="2px" borderColor="game.white" color="game.white"> 
-                    <Link to="/test"> Game </Link>
-                </Button>
-                <Button bgColor="game.black" border="2px" marginLeft="3em" borderColor="game.green" color="game.white"> 
-                    <Link to="/message"> Messages </Link>
-                </Button>
-            </Box>
-
-            <Outlet />
-        </>
+      <>  
+        <Box pos='relative' w='100vw' h='100vh'>
+          <Box pos="absolute" right="0" top="0" m="0 2em 0 0">
+            <Notification containsMessages={true} nextMessage="test" />
+          </Box>
+          <UserProgress name={"Student name"} completed={1} rating={4}/>
+          <Flex align="center" justify="space-between" m="40em 10em 5em 10em">
+            <Folder forwardSource="test" backSource="/" folderType="unlocked"/> 
+            <Folder forwardSource="/" backSource="/" folderType="locked"/>
+            <Folder forwardSource="/" backSource="/" folderType="locked"/> 
+            <Folder forwardSource="/" backSource="/" folderType="locked"/> 
+            <Folder forwardSource="/" backSource="/" folderType="locked"/> 
+          </Flex>
+        </Box>
+        <Outlet />
+      </>
     )
 };
 
