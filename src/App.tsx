@@ -7,6 +7,7 @@ import Message from "./pages/Message.tsx"
 import Level0 from "./components/MS/Level0.tsx";
 import Tutorial from "./pages/Tutorial.tsx";
 import Error from "./pages/Error.tsx";
+import LevelView from "./components/LevelView.tsx";
 
 const theme = extendTheme({
   colors: {
@@ -46,11 +47,13 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<TestComponent />}>
-        <Route path="test" element={<Home />} />
         <Route path="message" element={<Message />} />
       </Route>
       <Route path="level">
         <Route path="1" element={<Level0 />}/>
+      </Route>
+      <Route path="test" element={<Home />} >
+        <Route path="1" element={<LevelView />}/>
       </Route>
       <Route path="tutorial" element={<Tutorial />} />
       <Route path="*" element={<Error />} /> 
