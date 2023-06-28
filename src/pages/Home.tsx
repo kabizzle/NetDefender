@@ -1,8 +1,9 @@
-import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Center, Flex, Grid, GridItem } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
 import UserProgress from "../components/UserProgress"
 import Folder from "../components/Folder"
 import Notification from "../components/Notification";
+import { relative } from "path";
 
 const TestComponent = () => {
     
@@ -22,13 +23,15 @@ const TestComponent = () => {
             </Box>
           </GridItem>
           
-          <GridItem colSpan={3}>
-            <Outlet />
+          <GridItem colSpan={3} pos="relative">
+            <Center m="5em 0 0 0">
+              <Outlet />
+            </Center>
           </GridItem>
         
           <GridItem rowSpan={1} colSpan={3}  padding="3em 10em 2em 10em">
             <Flex align="center" justify="space-between" >
-              <Folder forwardSource="/level/2" backSource="/" folderType="unlocked"/> 
+              <Folder forwardSource="/1" backSource="" folderType="unlocked"/> 
               <Folder forwardSource="/" backSource="/" folderType="locked"/>
               <Folder forwardSource="/" backSource="/" folderType="locked"/> 
               <Folder forwardSource="/" backSource="/" folderType="locked"/> 

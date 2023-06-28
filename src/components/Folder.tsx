@@ -16,12 +16,15 @@ const Folder = ( {forwardSource, backSource, folderType}: Level) => {
     const location = useLocation();
 
     useEffect(() => {
+        console.log(location)
         if (folderType === "locked") {
             setFolderIcon("/folder_locked.svg")
         }
-        else if (location.pathname === "/" && folderStatus === "opened") {
-            setFolderStatus("unlocked")
-            setFolderIcon("/folder_unlocked.svg")
+        else if (location.pathname == forwardSource) {
+            setFolderIcon("/folder_opened.svg")
+        }
+        else {
+          setFolderIcon("/folder_unlocked.png")
         }
     },[folderStatus, folderType, forwardSource, location])
 

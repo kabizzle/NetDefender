@@ -46,15 +46,13 @@ const theme = extendTheme({
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/" element={<TestComponent />}>
-        <Route path="message" element={<Message />} />
+      <Route path="/" element={<Home />}>
+        <Route path="1" element={<LevelView />}/>
       </Route>
       <Route path="level">
         <Route path="1" element={<Level0 />}/>
       </Route>
-      <Route path="test" element={<Home />} >
-        <Route path="1" element={<LevelView />}/>
-      </Route>
+      <Route path="test" element={<TestComponent />} />
       <Route path="tutorial" element={<Tutorial />} />
       <Route path="*" element={<Error />} /> 
     </>
