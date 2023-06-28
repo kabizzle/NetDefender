@@ -3,7 +3,6 @@ import { Outlet } from "react-router-dom";
 import UserProgress from "../components/UserProgress"
 import Folder from "../components/Folder"
 import Notification from "../components/Notification";
-import { relative } from "path";
 
 const TestComponent = () => {
     
