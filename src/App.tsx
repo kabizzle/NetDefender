@@ -8,6 +8,7 @@ import Level0 from "./components/MS/Level0.tsx";
 import Tutorial from "./pages/Tutorial.tsx";
 import Error from "./pages/Error.tsx";
 import LevelView from "./components/LevelView.tsx";
+import LevelRSA from "./components/MS/LevelRSA.tsx";
 
 const theme = extendTheme({
   colors: {
@@ -51,6 +52,7 @@ const router = createBrowserRouter(
       </Route>
       <Route path="level">
         <Route path="1" element={<Level0 />}/>
+        <Route path="2" element={<LevelRSA />}/>
       </Route>
       <Route path="test" element={<TestComponent />} />
       <Route path="tutorial" element={<Tutorial />} />
