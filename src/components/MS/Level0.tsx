@@ -19,7 +19,7 @@ const Level0 = () => {
           <Box padding="10" fontSize="30">
         Welcome to Level 1
         </Box>
-        <Button margin="8" borderRadius="0px" border="2px" borderColor="game.white" bg="game.black" color="game.white" 
+        <Button margin="8" borderRadius="0px" border="2px" borderColor="game.white" bg="game.black" color="game.white" _hover={{color:"game.black", bg:"game.white"}}
         onClick={() => setCurrentScreen("questionScreen")}>
           Start</Button>
         </Box>

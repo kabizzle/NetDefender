@@ -1,5 +1,5 @@
 import { useState } from "react";
-//import Quiz, {testQuestions, level1Questions, LevelQuestions} from "./MultipleChoiceQuestion";
+import Quiz, {testQuestions, level1Questions,} from "./MultipleChoiceQuestion";
 import { Box, Button, ButtonGroup,   Step,
   StepDescription,
   StepIndicator,
@@ -10,9 +10,14 @@ import { Box, Button, ButtonGroup,   Step,
   Stepper,
   useSteps,Progress, Flex, AbsoluteCenter, Grid, GridItem, Icon, Text, extendTheme, Stack } from "@chakra-ui/react";
 
-interface QuestionProps{
 
-}
+  /*interface LevelQuestion {
+    id: number; 
+    question: string;
+    options: string[]; 
+    correctAnswer: string; 
+    explanation: string;
+  }*/
 
 const Questions = (props: any) => {
 /*const questions = [
@@ -72,8 +77,8 @@ const Questions = (props: any) => {
       count: steps.length,
     })
   
-    const max = questions.length - 1
-    const progressPercent = (activeStep / max) * 100
+    //const max = questions.length - 1
+    //const progressPercent = (activeStep / max) * 100
   
     return (
       
@@ -163,14 +168,14 @@ const Questions = (props: any) => {
     if (buttonStage == "choose") {
     return (
       <Button
-        onClick={isCorrect} border="2px" borderColor="game.white" bg="game.black" color="game.white" borderRadius="0px">
+        onClick={isCorrect} border="2px" borderColor="game.white" bg="game.black" color="game.white" borderRadius="0px" _hover={{color:"game.black", bg:"game.white"}}>
         Choose
       </Button>
     )
     }if (buttonStage=="next") {
       return (
         <Button
-          onClick={infoScreen} border="2px" borderColor="game.white" bg="game.black" color="game.white" borderRadius="0px">
+          onClick={infoScreen} border="2px" borderColor="game.white" bg="game.black" color="game.white" borderRadius="0px" _hover={{color:"game.black", bg:"game.white"}}>
           Next
         </Button>
       )
@@ -178,7 +183,7 @@ const Questions = (props: any) => {
     } else {
       return (
         <Button
-          onClick={next} border="2px" borderColor="game.white" bg="game.black" color="game.white" borderRadius="0px">
+          onClick={next} border="2px" borderColor="game.white" bg="game.black" color="game.white" borderRadius="0px" _hover={{color:"game.black", bg:"game.white"}}>
           Next
         </Button>
       )
@@ -196,7 +201,7 @@ const Questions = (props: any) => {
       <Button key={index}
       bgColor={buttonColors[index].fill}
       border="2px" borderColor={buttonColors[index].border} color="game.white" borderRadius="0px"
-      marginTop="10" padding="5" width="300px" justifyContent="start"
+      marginTop="10" padding="5" width="300px" justifyContent="start" _hover={{color:"game.black", bg:"game.white"}}
             onClick={() => handleOptionSelect(option, index)} >
             {alphabet[index]}. {option}
         </Button>
