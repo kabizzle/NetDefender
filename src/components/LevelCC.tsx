@@ -8,9 +8,11 @@ import { Box, Button, FormControl, FormLabel, Input, VStack,   NumberInput,
 
 const LevelCC = () => {
 
+    // Decrypting not working because of number selector
+
     const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
     const UPPER_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    
+      
     const [plaintext, setPlaintext] = useState('');
     const [shift, setShift] = useState(0);
     const [ciphertext, setCiphertext] = useState('');

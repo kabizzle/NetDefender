@@ -79,7 +79,7 @@ const CC = () => {
                 textAlign="start"
                 type="text"
                 value={plaintext}
-                onChange={handlePlaintextChange}
+                onChange={handlePlaintextChange} 
               />
             </FormControl>
 
