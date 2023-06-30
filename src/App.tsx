@@ -6,7 +6,9 @@ import Message from "./pages/Message.tsx"
 //import MultipleChoiceQuestion from "./components/MultipleChoiceQuestion.tsx";
 import Level0 from "./components/MS/Level0.tsx";
 import CC from "./components/CC.tsx";
-import Email from "./components/email.tsx";
+import Email from "./components/Email.tsx";
+import LevelCC from "./components/LevelCC.tsx";
+import CCEmail from "./components/CCEmail.tsx";
 
 const baseStyle = {
   indicator: {
@@ -77,8 +79,9 @@ const router = createBrowserRouter(
       <Route path="message" element={<Message />} />
       <Route path="level">
         <Route path="1" element={<Level0 />}/>
-        <Route path="2" element={<CC />}/>
-        <Route path="e" element={<Email />}/>
+        <Route path="c" element={<CC />}/>
+        <Route path="2" element={<LevelCC />}/>
+        <Route path="e" element={<CCEmail />}/>
       </Route>
     </Route>
   )

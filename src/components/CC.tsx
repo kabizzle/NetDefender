@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { AbsoluteCenter, Box, Button, FormControl, FormLabel, Input, VStack } from "@chakra-ui/react";
+import { Box, Button, FormControl, FormLabel, Input, VStack } from "@chakra-ui/react";
 
 const CC = () => {
-
   const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
+  const UPPER_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  
   const [plaintext, setPlaintext] = useState('');
   const [shift, setShift] = useState(0);
   const [ciphertext, setCiphertext] = useState('');
@@ -27,21 +28,27 @@ const CC = () => {
   
     for (let i = 0; i < text.length; i++) {
       const char = text[i];
+      let alphabet = ALPHABET;
   
-      // Check if the character is a letter
+      // Determine whether the character is uppercase or lowercase
       if (ALPHABET.includes(char)) {
-        const index = ALPHABET.indexOf(char);
-        let newIndex = (index + shift) % ALPHABET.length;
-  
-        // Handle negative shifts
-        if (newIndex < 0) {
-          newIndex += ALPHABET.length;
-        }
-  
-        result += ALPHABET[newIndex];
+        alphabet = ALPHABET;
+      } else if (UPPER_ALPHABET.includes(char)) {
+        alphabet = UPPER_ALPHABET;
       } else {
         result += char; // Non-alphabetic characters remain the same
+        continue;
       }
+  
+      const index = alphabet.indexOf(char);
+      let newIndex = (index + shift) % alphabet.length;
+  
+      // Handle negative shifts
+      if (newIndex < 0) {
+        newIndex += alphabet.length;
+      }
+  
+      result += alphabet[newIndex];
     }
   
     return result;
@@ -49,39 +56,80 @@ const CC = () => {
 
   return (
     <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
-    <Box display="flex" alignItems="center" justifyContent="center" w="700px" h="500px" borderColor="game.white" borderWidth="6px" >
-      <form onSubmit={handleSubmit}>
-        <VStack spacing={4} align="flex-start">
-          <FormControl id="plaintext">
-            <FormLabel>Plaintext</FormLabel>
-            <Input border="2px" borderColor="game.white" bg="game.black" color="game.white" borderRadius="0px" w="500px" textAlign="start" 
-            type="text" value={plaintext} onChange={handlePlaintextChange} />
-          </FormControl>
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        w="700px"
+        h="500px"
+        borderColor="game.white"
+        borderWidth="6px"
+      >
+        <form onSubmit={handleSubmit}>
+          <VStack spacing={4} align="flex-start">
+            <FormControl id="plaintext">
+              <FormLabel>Plaintext</FormLabel>
+              <Input
+                border="2px"
+                borderColor="game.white"
+                bg="game.black"
+                color="game.white"
+                borderRadius="0px"
+                w="500px"
+                textAlign="start"
+                type="text"
+                value={plaintext}
+                onChange={handlePlaintextChange}
+              />
+            </FormControl>
 
-          <FormControl id="shift" >
-            <FormLabel>Shift Value</FormLabel>
-            <Input border="2px" borderColor="game.white" bg="game.black" color="game.white" borderRadius="0px" w="50px" textAlign="center"
-            type="number" value={shift} onChange={handleShiftChange} />
-          </FormControl>
+            <FormControl id="shift">
+              <FormLabel>Shift Value</FormLabel>
+              <Input
+                border="2px"
+                borderColor="game.white"
+                bg="game.black"
+                color="game.white"
+                borderRadius="0px"
+                w="50px"
+                textAlign="center"
+                type="number"
+                value={shift}
+                onChange={handleShiftChange}
+              />
+            </FormControl>
 
-          <Button type="submit" border="2px" borderColor="game.white" bg="game.black" color="game.white" borderRadius="0px">
-            Encrypt
-          </Button>
+            <Button
+              type="submit"
+              border="2px"
+              borderColor="game.white"
+              bg="game.black"
+              color="game.white"
+              borderRadius="0px"
+            >
+              Encrypt
+            </Button>
 
-          <FormControl id="ciphertext">
-            <FormLabel>Ciphertext</FormLabel>
-            <Input border="2px" borderColor="game.white" bg="game.black" color="game.white" borderRadius="0px" w="500px" textAlign="start"
-            type="text" value={ciphertext} isReadOnly />
-          </FormControl>
-        </VStack>
-      </form>
-    </Box>
+            <FormControl id="ciphertext">
+              <FormLabel>Ciphertext</FormLabel>
+              <Input
+                border="2px"
+                borderColor="game.white"
+                bg="game.black"
+                color="game.white"
+                borderRadius="0px"
+                w="500px"
+                textAlign="start"
+                type="text"
+                value={ciphertext}
+                isReadOnly
+              />
+            </FormControl>
+          </VStack>
+        </form>
+      </Box>
     </Box>
   );
-  
-
-
-
 };
 
 export default CC;
