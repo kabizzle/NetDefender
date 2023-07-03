@@ -14,6 +14,7 @@
     "@chakra-ui/react": "^2.7.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@types/pem": "^1.9.6",
     "framer-motion": "^10.12.16",
     "jsencrypt": "^3.3.2",
     "localforage": "^1.10.0",
