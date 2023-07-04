@@ -1,4 +1,4 @@
-import { Box, Center, Flex, Button, FormLabel, Input, Textarea, Text} from "@chakra-ui/react";
+import { Box, Center, Grid, GridItem, Button, FormLabel, Input, Textarea, Text} from "@chakra-ui/react";
 import React, { useState } from "react";
 import JSEncrypt from "jsencrypt";
 // import fs from "fs";
@@ -7,10 +7,10 @@ import JSEncrypt from "jsencrypt";
 const Sandbox = () => {
 
   const [userPubKey, setUserPubKey] = useState("")
-  const [message, setMessage] = useState("hello")
+  // const [message, setMessage] = useState("hello")
   const [userInput, setUserInput] = useState("")
-  const [cipherText, setCipherText] = useState("")
-  const [encryptedMsg, setEncryptedMsg] = useState("")
+  // const [cipherText, setCipherText] = useState("")
+  // const [encryptedMsg, setEncryptedMsg] = useState("")
   const game_encrypt_RSA = new JSEncrypt();
   const game_decrypt_RSA = new JSEncrypt();
   const student_rsa = new JSEncrypt();
@@ -33,10 +33,10 @@ const Sandbox = () => {
       setUserInput(event.target.value)
     }
 
-    const handleCipherInput: React.ChangeEventHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-      event.preventDefault();
-      setCipherText(event.target.value)
-    }
+    // const handleCipherInput: React.ChangeEventHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //   event.preventDefault();
+    //   setCipherText(event.target.value)
+    // }
 
     const handleSubmit: React.FormEventHandler = (event: React.FormEvent<HTMLInputElement>) => {
       event.preventDefault();
@@ -66,7 +66,7 @@ const Sandbox = () => {
     }
 
     const handleDecrypt = () => {
-      let toDecrypt = game_decrypt_RSA.decrypt(cipherText);
+      let toDecrypt = game_decrypt_RSA.decrypt(userInput);
       if (toDecrypt !== false) {
         console.log(toDecrypt);
         // setDisplayText('Decrypted text: \n' + toDecrypt);
@@ -79,7 +79,7 @@ const Sandbox = () => {
       }
       else {
         console.log("Error: unable to decrypt");
-        console.log("current: " + game_decrypt_RSA.decrypt(cipherText))
+        console.log("current: " + game_decrypt_RSA.decrypt(userInput))
         setDisplayText(<Text>"not decrypted"</Text>);
       }
       // console.log(game_RSA.decrypt(encryptedMsg));
@@ -87,52 +87,71 @@ const Sandbox = () => {
     }
     return (
       <>
-        <Flex direction="column" align="center" justify="space-around">
-          <Box m="1em"> 
-            <form>
-              <FormLabel>Public Key</FormLabel>
-              <Textarea placeholder={
-              '-----BEGIN PUBLIC KEY-----'+
-              'xxxxxxxxxxxxxxxxxxxxxxxxxx\n'+
-              'xxxxxxxxxxxxxxxxxxxxxxxxxx\n'+
-              'xxxxxxxxxxxxxxxxxxxxxxxxxx\n'+
-              '-----END PUBLIC KEY-----'} 
-              w="20em" h="10em" onChange={handleChange}/>
-              <Button onClick={handleSubmit}>submit</Button>
-            </form>
-          </Box>
+        <Grid templateColumns="1fr 1fr" templateRows="1fr 1fr 1fr" m="5em 15em 5em 15em" p="0 2em 0 0" gap={5}>
+          <GridItem rowStart={1} colSpan={1}>
+            <FormLabel>Public Key</FormLabel>
+            <Textarea placeholder={
+            '-----BEGIN PUBLIC KEY-----'+
+            'xxxxxxxxxxxxxxxxxxxxxxxxxx\n'+
+            'xxxxxxxxxxxxxxxxxxxxxxxxxx\n'+
+            'xxxxxxxxxxxxxxxxxxxxxxxxxx\n'+
+            '-----END PUBLIC KEY-----'} 
+            maxW="30em" h="10em" onChange={handleChange}/>
+            <Box>
+            <Button onClick={handleSubmit}>submit</Button>
+            </Box>
+          </GridItem>
+
+          <GridItem rowStart={1} colSpan={1}>
+            <FormLabel>Private Key</FormLabel>
+            <Textarea placeholder={
+            '-----BEGIN PRIVATE KEY-----'+
+            'xxxxxxxxxxxxxxxxxxxxxxxxxx\n'+
+            'xxxxxxxxxxxxxxxxxxxxxxxxxx\n'+
+            'xxxxxxxxxxxxxxxxxxxxxxxxxx\n'+
+            '-----END PRIVATE KEY-----'} 
+            w="30em" h="10em" onChange={handleChange}/>
+            <Box>
+            <Button onClick={handleSubmit}>submit</Button>
+            </Box>
+          </GridItem>
     
-          <Box m="1em"> 
-            <form>
-              <FormLabel>Message to encrypt</FormLabel>
-              <Input placeholder="test message" 
-              w="20em" h="5em" onChange={handleUserInput}/>
+          <GridItem rowSpan={1} colSpan={1}> 
+            <FormLabel>Message to encrypt</FormLabel>
+            <Input placeholder="test message" w="30em" h="10em" onChange={handleUserInput}/>
+          </GridItem>
+
+          <GridItem>
+            <Box>
               <Button onClick={handleEncrypt}>encrypt</Button>
-            </form>
-          </Box>
-          
-          <Box m="1em"> 
+            </Box>
+            <Box>
+            <Button onClick={handleDecrypt}>decrypt</Button>
+            </Box>
+          </GridItem>
+          {/*<Box m="1em"> 
             <form>
               <FormLabel>Message to decrypt</FormLabel>
               <Textarea placeholder="ciphertext" 
               w="20em" h="5em" onChange={handleCipherInput}/>
               <Button onClick={handleDecrypt}>decrypt</Button>
             </form>
-          </Box>
-          
-          <Box w="30em" m="2em" border="2px" padding="1em 2em 1em 2em"> 
-            {displayText}
-          </Box>
-        </Flex>
+          </Box>*/
+          }
+
+          <GridItem rowSpan={1} colSpan={2}>
+            <Box border="1px" h="5em">
+              {displayText}
+            </Box>
+          </GridItem>
+        </Grid>
       </>
     )
   } 
 
   return (
     <>
-      <Center w="100vw">
-        {testForm()}
-      </Center>
+      {testForm()}
     </>
   )
 }
