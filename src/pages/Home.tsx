@@ -1,5 +1,5 @@
-import { Box, Center, Flex, Grid, GridItem } from "@chakra-ui/react";
-import { Outlet } from "react-router-dom";
+import { Box, Center, Flex, Grid, GridItem, Image, Text } from "@chakra-ui/react";
+import { Link, Outlet } from "react-router-dom";
 import UserProgress from "../components/UserProgress"
 import Folder from "../components/Folder"
 import Notification from "../components/Notification";
@@ -26,6 +26,13 @@ const TestComponent = () => {
             <Center m="5em 0 0 0">
               <Outlet />
             </Center>
+            
+            <Link to="/sandbox">
+              <Box pos="absolute" top="0" right="2.5em" minW="105px" minH="105px">
+                <Image src="../sandbox_icon.svg" />
+                <Text>Decryption</Text>
+              </Box>
+            </Link>
           </GridItem>
         
           <GridItem rowSpan={1} colSpan={3}  padding="3em 10em 2em 10em">
