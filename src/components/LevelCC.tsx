@@ -8,8 +8,6 @@ import { Box, Button, FormControl, FormLabel, Input, VStack,   NumberInput,
 
 const LevelCC = () => {
 
-    // Decrypting not working because of number selector
-
     const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
     const UPPER_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
       
@@ -21,8 +19,8 @@ const LevelCC = () => {
       setPlaintext(event.target.value);
     };
   
-    const handleShiftChange = (event: any) => {
-      setShift(parseInt(event.target.value, 10));
+    const handleShiftChange = (value: any) => {
+      setShift(parseInt(value, 10));
     };
   
     const handleSubmit = (event: any) => {
@@ -94,13 +92,18 @@ const LevelCC = () => {
   
               <FormControl id="shift">
                 <FormLabel>Shift Value</FormLabel>
-                <NumberInput defaultValue={0} w="20" variant="outline" color="game.white" focusBorderColor="whiteAlpha" onChange={handleShiftChange}>
-                 <NumberInputField borderRadius="0" />
-                 <NumberInputStepper  >
-                    <NumberIncrementStepper color="game.white" bg="game.black"/>
-                    <NumberDecrementStepper color="game.white" bg="game.black"/>
-                 </NumberInputStepper>
-                </NumberInput>
+                <NumberInput defaultValue={0}
+                  w="20"
+                  variant="outline"
+                  color="game.white"
+                  focusBorderColor="whiteAlpha"
+                  onChange={handleShiftChange}>
+                <NumberInputField borderRadius="0" />
+                <NumberInputStepper>
+                  <NumberIncrementStepper color="game.white" bg="game.black" />
+                  <NumberDecrementStepper color="game.white" bg="game.black" />
+                </NumberInputStepper>
+              </NumberInput>
               </FormControl>
   
               <Button
