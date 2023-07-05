@@ -22,14 +22,26 @@ import LevelCC from "./LevelCC";
  const Phishing = () => {
 
     const heading = "Important message!";
-    const sender = {email: "mysterious.sender@email.com", name: "Mysterious Sender"};
+    const sender = {email: "suspicious.sender@email.com", name: "Suspicious Sender"};
     const you = {email: "your.name@email.com", name: "Player Name"};
-    const message = "SEVEN\n\nIwtgt xh hdbtdct puitg jh. Lt wpkt id bpzt djg rdbbjcxrpixdc hputg. Ugdb cdl dc lt hwdjas jht iwt Rtphpg rxewtg id tcrgnei djg rdbbjcxrpixdc.\n\nNlx gnfuxk yhnk.\n\nX wpkt p rajt lwd bxvwi qt qtwxcs iwxh qji X ctts ndjg wtae. Xu ndj vti iwxh bthhpvt htcs qprz iwt ldgs ZJCXCVPHZPAPHIPYP";
+    const message1 = "\n\nI have new job opportuniti for you. The opportunity is about cubersecurity in our company with a 5000$/month salary and other benefits. Are you interested?\n\nClick the link to find out more!";
+
+    const message = () => {
+      return(
+         <Box>
+            Dear {you.name},
+            {message1}
+            *Here would be a link*
+
+         </Box>
+      )
+
+    };
     
 
     return (
        <Box>
-        <Email heading={heading} sender={sender} you={you} message={message} />
+        <Email heading={heading} sender={sender} you={you} message={message()} />
        </Box> 
     )
 
