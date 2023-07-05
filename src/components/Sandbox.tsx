@@ -16,13 +16,17 @@ const Sandbox = () => {
   // const [encryptedMsg, setEncryptedMsg] = useState("")
   const game_encrypt_RSA = new JSEncrypt();
   const game_decrypt_RSA = new JSEncrypt();
-  const student_encrypt_RSA = new JSEncrypt();
-  const student_decrypt_RSA = new JSEncrypt();
+  // const student_encrypt_RSA = new JSEncrypt();
+  const student_pub_RSA = new JSEncrypt();
+  const student_RSA = new JSEncrypt();
   const [displayText, setDisplayText] = useState(<></>)
   const [showText, setShowText] = useState(false)
-  const [givenPrivKey, setGivenPrivKey] = useState(false)
+  // const [givenPrivKey, setGivenPrivKey] = useState(false)
   const [givenPubKey, setGivenPubKey] = useState(false)
+  const [givenKey, setGivenKey] = useState(false)
   // const game_pub_key = fs.readFileSync('../assets/game_rsa_1024_pub.pem',{encoding: "utf-8"});
+
+  let toEncrypt : string | false = false; 
 
   game_decrypt_RSA.setPrivateKey("-----BEGIN RSA PRIVATE KEY-----MIICXAIBAAKBgQDB0Uko9wj9ULdwcjS8+89sYqPzIpBziLFJod57vtZBF19BUgR/DVO4MlYGodB3Fn86d7szQzEbyHZOdK23JuVH3EL2U/BVH3XeAIj7ybDmDTe2sb7gcA9/3EBxmt0l0bGxal9buWbCn0zOwOvjzNXJ5tXmtqM0eH0yIBEFdwgtiwIDAQABAoGANAzAWP/+qgjDOq9w+k+lpLXY0bK2mFBdTCjsVs8pOtHMAv7Dtlsd4JmkAKP0GAcyo8EDxQCGb6+mFeu/uy/24p2bgWBMn7kPudZnXsmLYxxNWk9DN5YPbNxlsUkM02H9ZDyXn3SZ5rzKNQrKjibHIrvrzmhEu6rCl7O8EVS2LAECQQDuMOFU5xHw3opXgmM+kCIu42pvxYwjgHtJDTMOrrjkQIoD9QJOBbIRGdyON0lvLe7wo2iJjzNhUMSZ8+yVeuVzAkEA0E8SQ7hF5FvwbeU9iKcY70/HpwN4PKGX876ugfgE6mfBFmrfSuTbKeE7bzht5UI/dJbhfcnwkwKASGLXeS5RiQJADiu0TDPPGnBy9I/aTa+PiRCYlXvAQaB0NT1myznT4CiCzYd3EqM+G8xZFdDuOoIWFBT0tDJj0SdX+vzLF32PRwJAD3qwusOIvg1u8luklPEF01K0XV7OooLHjd9PjGznwJtxJ79NVH1pI9WO2xbwY6bmnD1SCEznSaVX7wkZRfIBMQJBAIQUrR8Bz8b86Vjl3UiLNuf2iQl5MdetMRqIWe0uP3sJVCYRdEnLYXiVK2nh1zzzD4+XZH5/KRc27RSyGsqQuR0=-----END RSA PRIVATE KEY-----")
 
@@ -54,25 +58,30 @@ const Sandbox = () => {
       event.preventDefault();
       console.log("clicked")
       setGivenPubKey(true)
-      student_encrypt_RSA.setPublicKey(userPubKey)
+      // student_encrypt_RSA.setPublicKey(userPubKey.valueOf())
+      // student_pub_RSA.setPublicKey(userPubKey)
     }
 
     const handlePrivKeySubmit: React.FormEventHandler = (event: React.FormEvent<HTMLInputElement>) => {
       event.preventDefault();
-      console.log("clicked")
-      setGivenPrivKey(true)
-      student_decrypt_RSA.setPrivateKey(userPrivKey)
+      console.log("priv key submit clicked")
+      // setGivenPrivKey(true)
+      setGivenKey(true)
+      // student_decrypt_RSA.setPrivateKey(userPrivKey.valueOf())
+      // student_RSA.setPrivateKey(userPrivKey)
+      // student_decrypt_RSA.getPublicKey()
+      // console.log("student pub key: " + student_decrypt_RSA.getPublicKey())
     }
     
     const handleEncrypt = () => {
-      let toEncrypt : string | false; 
-
       if (givenPubKey){
-        console.log("using input public key")
-        toEncrypt = student_encrypt_RSA.encrypt(userInput);
+        console.log("encrypting using input private key")
+        // toEncrypt = student_encrypt_RSA.encrypt(userInput);
+        student_pub_RSA.setPublicKey(userPubKey)
+        toEncrypt = student_pub_RSA.encrypt(userInput);
       } else {
         console.log("using game public key")
-        toEncrypt = game_encrypt_RSA.encrypt(userInput);
+        toEncrypt = game_encrypt_RSA.encrypt(userInput.valueOf());
       }
       if (toEncrypt !== false) {
         console.log(toEncrypt);
@@ -80,13 +89,14 @@ const Sandbox = () => {
         setDisplayText(
           <>
             <Text>Encrypted text: </Text>
-            <br/>
             <Text>{toEncrypt}</Text>
           </>
         )
-
-        let decrypted = game_decrypt_RSA.decrypt(toEncrypt);
-        console.log(decrypted)
+        console.log("decrypt attempt (student_decrypt_RSA): " + student_RSA.decrypt(toEncrypt));
+        console.log("typeOf(toEncrypt) " + typeof(toEncrypt));
+        // console.log("decrypt attempt (student_encrypt_RSA): " + student_encrypt_RSA.decrypt(toEncrypt));
+        // let decrypted = game_decrypt_RSA.decrypt(toEncrypt);
+        // console.log(decrypted)
       }
       else {
         console.log("Error: unable to encrypt");
@@ -97,14 +107,19 @@ const Sandbox = () => {
 
     const handleDecrypt = () => {
       // let toDecrypt = game_decrypt_RSA.decrypt(userInput);
-      let toDecrypt : string | false; 
+      let toDecrypt : string | false = false;
 
-      if (givenPrivKey){
+      if (givenKey){
         console.log("using input private key")
-        toDecrypt = student_decrypt_RSA.decrypt(userInput)
+        console.log("attempting to decrypt: \n" + userInput.valueOf())
+        console.log("toEncrypt: " + toEncrypt)
+        console.log("toEncrypt === userInput: " + toEncrypt.valueOf() === userInput.valueOf())
+        // student_RSA.getPrivateKey()
+        student_RSA.setPrivateKey(userPrivKey)
+        toDecrypt = student_RSA.decrypt(userInput)
       } else {
         console.log("using game private key")
-        toDecrypt = game_decrypt_RSA.decrypt(userInput);
+        toDecrypt = game_decrypt_RSA.decrypt(userInput.valueOf());
       }
       if (toDecrypt !== false) {
         console.log(toDecrypt);
@@ -113,14 +128,13 @@ const Sandbox = () => {
         setDisplayText(
           <>
             <Text>Decrypted text: </Text>
-            <br/>
             <Text>{toDecrypt}</Text>
           </>
         )
       }
       else {
         console.log("Error: unable to decrypt");
-        console.log("current: " + game_decrypt_RSA.decrypt(userInput))
+        console.log("current: " + game_decrypt_RSA.decrypt(userInput.valueOf()))
         setShowText(true);
         setDisplayText(<Text>"not decrypted"</Text>);
       }
