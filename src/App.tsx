@@ -10,6 +10,7 @@ import Email from "./components/Email.tsx";
 import LevelCC from "./components/LevelCC.tsx";
 import CCEmail from "./components/CCEmail.tsx";
 import Phishing from "./components/Phishing.tsx";
+import EmailMenu from "./components/EmailMenu.tsx";
 
 const baseStyle = {
   indicator: {
@@ -84,6 +85,7 @@ const router = createBrowserRouter(
         <Route path="2" element={<LevelCC />}/>
         <Route path="e" element={<CCEmail />}/>
         <Route path="p" element={<Phishing />}/>
+        <Route path="em" element={<EmailMenu />}/>
       </Route>
     </Route>
   )
