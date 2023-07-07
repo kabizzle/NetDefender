@@ -18,7 +18,7 @@ const LevelRSA = () => {
   // - Turn these keys into environment variables, instead of hardcoding them.
   game_RSA.setPrivateKey("-----BEGIN RSA PRIVATE KEY-----MIICXAIBAAKBgQDB0Uko9wj9ULdwcjS8+89sYqPzIpBziLFJod57vtZBF19BUgR/DVO4MlYGodB3Fn86d7szQzEbyHZOdK23JuVH3EL2U/BVH3XeAIj7ybDmDTe2sb7gcA9/3EBxmt0l0bGxal9buWbCn0zOwOvjzNXJ5tXmtqM0eH0yIBEFdwgtiwIDAQABAoGANAzAWP/+qgjDOq9w+k+lpLXY0bK2mFBdTCjsVs8pOtHMAv7Dtlsd4JmkAKP0GAcyo8EDxQCGb6+mFeu/uy/24p2bgWBMn7kPudZnXsmLYxxNWk9DN5YPbNxlsUkM02H9ZDyXn3SZ5rzKNQrKjibHIrvrzmhEu6rCl7O8EVS2LAECQQDuMOFU5xHw3opXgmM+kCIu42pvxYwjgHtJDTMOrrjkQIoD9QJOBbIRGdyON0lvLe7wo2iJjzNhUMSZ8+yVeuVzAkEA0E8SQ7hF5FvwbeU9iKcY70/HpwN4PKGX876ugfgE6mfBFmrfSuTbKeE7bzht5UI/dJbhfcnwkwKASGLXeS5RiQJADiu0TDPPGnBy9I/aTa+PiRCYlXvAQaB0NT1myznT4CiCzYd3EqM+G8xZFdDuOoIWFBT0tDJj0SdX+vzLF32PRwJAD3qwusOIvg1u8luklPEF01K0XV7OooLHjd9PjGznwJtxJ79NVH1pI9WO2xbwY6bmnD1SCEznSaVX7wkZRfIBMQJBAIQUrR8Bz8b86Vjl3UiLNuf2iQl5MdetMRqIWe0uP3sJVCYRdEnLYXiVK2nh1zzzD4+XZH5/KRc27RSyGsqQuR0=-----END RSA PRIVATE KEY-----")
 
-  game_RSA.setPublicKey("-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDB0Uko9wj9ULdwcjS8+89sYqPzIpBziLFJod57vtZBF19BUgR/DVO4MlYGodB3Fn86d7szQzEbyHZOdK23JuVH3EL2U/BVH3XeAIj7ybDmDTe2sb7gcA9/3EBxmt0l0bGxal9buWbCn0zOwOvjzNXJ5tXmtqM0eH0yIBEFdwgtiwIDAQAB-----END PUBLIC KEY-----")
+  // game_RSA.setPublicKey("-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDB0Uko9wj9ULdwcjS8+89sYqPzIpBziLFJod57vtZBF19BUgR/DVO4MlYGodB3Fn86d7szQzEbyHZOdK23JuVH3EL2U/BVH3XeAIj7ybDmDTe2sb7gcA9/3EBxmt0l0bGxal9buWbCn0zOwOvjzNXJ5tXmtqM0eH0yIBEFdwgtiwIDAQAB-----END PUBLIC KEY-----")
   
 
   const handleClick = () => {
@@ -56,7 +56,7 @@ const LevelRSA = () => {
     }
   }
 
-  const renderScreen = () => {
+  const pubKeyTask = () => {
     console.log("count = " + count)
     if (count == 0) {
       return (
@@ -196,6 +196,40 @@ const LevelRSA = () => {
         )
       }
     }
+  }
+
+  const decryptTask = () => {
+    student_rsa.setPublicKey(userPubKey)
+    let cipherText = student_rsa.encrypt("Use the game's public key to encrypt the word: Netdefender")
+    return (
+      <>
+        <Center w="100vw">
+          <Flex h="25em" align="start" justify="space-around" direction="column">
+            <Box w="36em">
+              <Text m="0.5em 0 0.5em 0">Now that you have entered your public key, you can recieve your first encrypted message.</Text>
+              <Box w="40em" border="2px" p="0.5em 0 0.5em 1em">{cipherText}</Box>
+              <Text m="0.5em 0 0.5em 0">The public key for the game is:</Text>
+              <Box border="2px" p="0.5em 5em 0.5em 1em">{game_RSA.getPublicKey()}</Box>
+            </Box>
+        
+          <Button onClick={handleClick} marginLeft="15em"
+            bg='game.black' border='2px' borderColor="game.white" color="game.white" 
+            _hover={{color:"game.black", bg:"game.white"}}> 
+            next
+          </Button>
+          </Flex>
+        </Center>
+      </>
+    )
+  }
+
+  const renderScreen = () => {
+    if (!givenPubKey) {
+      return (pubKeyTask())
+    } else {
+      return(decryptTask())
+    }
+    
   }
 
   return (
