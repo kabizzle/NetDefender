@@ -44,15 +44,15 @@ const Email = (props: any) => {
   const you = props.you;
   const message = props.message;
 
+  // Reporting popup
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
-
   const handleReportModalOpen = () => {
     setIsReportModalOpen(true);
   };
-
   const handleReportModalClose = () => {
     setIsReportModalOpen(false);
   };
+
 
   return (
     <Box w="100vw" h="100vh" display="flex" alignItems="center" justifyContent="center">
