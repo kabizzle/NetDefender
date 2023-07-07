@@ -6,7 +6,7 @@ const LevelRSA = () => {
 
   const [count, setCount] = useState(0)
   const [userPubKey, setUserPubKey] = useState("")
-  const [message, setMessage] = useState("hello")
+  const [userInput, setUserInput] = useState("hello")
   const [givenPubKey, setGivenPubKey] = useState(false)
   const [encryptedMsg, setEncryptedMsg] = useState("")
   const game_RSA = new JSEncrypt();
@@ -30,6 +30,12 @@ const LevelRSA = () => {
     event.preventDefault();
     setUserPubKey(event.target.value)
   }
+  
+  // updates userPubKey hook with inputted Public Key
+  const handleTaskInput: React.ChangeEventHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    setUserInput(event.target.value)
+  }
 
   // changes givenPubKey to true, indicating that user has inputted a public key.
   // This public key should be used for encrypting any text input from the user
@@ -41,6 +47,7 @@ const LevelRSA = () => {
     if (pubKeyRegex.test(userPubKey)) {
       // handleClick()
       setGivenPubKey(true)
+      setCount(0)
       toast({
         title:"Public key added.",
         status: "success",
@@ -50,6 +57,30 @@ const LevelRSA = () => {
       toast({
         title: "Error:",
         description: 'Check if public key is inputted correctly.',
+        status: "error",
+          duration: 8000
+      })
+    }
+  }
+
+  // changes givenPubKey to true, indicating that user has inputted a public key.
+  // This public key should be used for encrypting any text input from the user
+  // TODO:
+  // - send userPubKey to database when submitted. Implement a POST request for this in API
+  const handleTaskSubmit: React.FormEventHandler = (event: React.FormEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    console.log("attempt to submit public key")
+    if (game_RSA.decrypt(userInput) === "Netdefender") {
+      toast({
+        title:"Good job!",
+        description: "You solved the first task",
+        status: "success",
+        duration: 3500
+      })
+    } else {
+      toast({
+        title: "Error:",
+        description: "You did not submit the right answer. Did you get the hint from the encrypted message?",
         status: "error",
           duration: 8000
       })
@@ -155,17 +186,17 @@ const LevelRSA = () => {
                 <Text m="0.5em 0 0.5em 0">Future messages will be encrypted using your public key.</Text>
                 <Box w="40em" border="2px" p="0.5em 0 0.5em 1em">openssl rsa -pubout -in rsa_1024_priv.pem -out rsa_1024_pub.pem</Box>
                 <Text m="0.5em 0 0.5em 0">Enter your public key below:</Text>
-                  <FormLabel m="0 0 1em 12em">Public Key</FormLabel>
-                  <Textarea placeholder={
-                    '-----BEGIN PUBLIC KEY-----'+
-                    'xxxxxxxxxxxxxxxxxxxxxxxxxx\n'+
-                    'xxxxxxxxxxxxxxxxxxxxxxxxxx\n'+
-                    'xxxxxxxxxxxxxxxxxxxxxxxxxx\n'+
-                    '-----END PUBLIC KEY-----'} 
-                    maxW="30em" h="10em" p="1em" borderColor="game.gray" onChange={handlePubKeyChange}/>
-                  <Box m="2em 0 0 13em">
+                <FormLabel m="0 0 1em 12em">Public Key</FormLabel>
+                <Textarea placeholder={
+                  '-----BEGIN PUBLIC KEY-----'+
+                  'xxxxxxxxxxxxxxxxxxxxxxxxxx\n'+
+                  'xxxxxxxxxxxxxxxxxxxxxxxxxx\n'+
+                  'xxxxxxxxxxxxxxxxxxxxxxxxxx\n'+
+                  '-----END PUBLIC KEY-----'} 
+                  maxW="30em" h="10em" p="1em" borderColor="game.gray" onChange={handlePubKeyChange}/>
+                <Box m="2em 0 0 13em">
                   <Button onClick={handlePubKeySubmit}>submit</Button>
-                  </Box>
+                </Box>
               </Box>
           
           {//   <Button onClick={handleClick} marginLeft="15em"
@@ -204,19 +235,22 @@ const LevelRSA = () => {
     return (
       <>
         <Center w="100vw">
-          <Flex h="25em" align="start" justify="space-around" direction="column">
+          <Flex align="start" justify="space-around" direction="column">
             <Box w="36em">
-              <Text m="0.5em 0 0.5em 0">Now that you have entered your public key, you can recieve your first encrypted message.</Text>
+              <Text m="0.5em 0 0.5em 0">Now that you have entered your public key, you can receive your first encrypted message.</Text>
               <Box w="40em" border="2px" p="0.5em 0 0.5em 1em">{cipherText}</Box>
-              <Text m="0.5em 0 0.5em 0">The public key for the game is:</Text>
+              <Text m="5em 0 1em 0">The public key for the game is:</Text>
               <Box border="2px" p="0.5em 5em 0.5em 1em">{game_RSA.getPublicKey()}</Box>
             </Box>
-        
-          <Button onClick={handleClick} marginLeft="15em"
-            bg='game.black' border='2px' borderColor="game.white" color="game.white" 
-            _hover={{color:"game.black", bg:"game.white"}}> 
-            next
-          </Button>
+            <Box pos="relative" w="50em">
+              <FormLabel m="5em 0 1em 12em">Your answer:</FormLabel>
+              <Textarea maxW="30em" h="10em" p="1em" borderColor="game.gray" onChange={handleTaskInput}/>
+              <Button onClick={handleTaskSubmit} pos="absolute" right="5em"
+                bg='game.black' border='2px' borderColor="game.white" color="game.white" 
+                _hover={{color:"game.black", bg:"game.white"}}> 
+                submit
+              </Button>
+            </Box>
           </Flex>
         </Center>
       </>
@@ -229,7 +263,6 @@ const LevelRSA = () => {
     } else {
       return(decryptTask())
     }
-    
   }
 
   return (
