@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { Box, Button } from "@chakra-ui/react";
 
+export interface LevelQuestion {
+  id: number; 
+  question: string;
+  options: string[]; 
+  correctAnswer: string; 
+  explanation: string;
+}
 
   export const testQuestions = [
     {
@@ -27,7 +34,7 @@ import { Box, Button } from "@chakra-ui/react";
   ];
 
   // explanation part needs to be changed
-  export const level1Questions = [
+  export const level1Questions: LevelQuestion[] = [
     {
       id: 1,
       question: "Which type of attack renders a website unusable for legitimate users?",

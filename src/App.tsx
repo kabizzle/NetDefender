@@ -5,6 +5,51 @@ import Home from "./pages/Home.tsx";
 import Message from "./pages/Message.tsx"
 //import MultipleChoiceQuestion from "./components/MultipleChoiceQuestion.tsx";
 import Level0 from "./components/MS/Level0.tsx";
+import CC from "./components/CC.tsx";
+import Email from "./components/Email.tsx";
+import LevelCC from "./components/LevelCC.tsx";
+import CCEmail from "./components/CCEmail.tsx";
+import Phishing from "./components/Phishing.tsx";
+import EmailMenu from "./components/EmailMenu.tsx";
+
+const baseStyle = {
+  indicator: {
+    "&[data-status=active]": {
+      borderWidth: "2px",
+      borderColor: "#F9F9F9",
+      bg: "#0A0A0A",
+    },
+    "&[data-status=complete]": {
+      borderWidth: "2px",
+      borderColor: "#F9F9F9",
+      bg: "#0A0A0A",
+    },
+    "&[data-status=incomplete]": {
+      borderWidth: "2px",
+      borderColor: "#F9F9F9",
+      bg: "#0A0A0A",
+      opacity: "50%",
+    },
+  },
+  separator: {
+    bg: "#F9F9F9",
+    opacity: "50%",
+    "&[data-status=complete]": {
+      bg: "#F9F9F9",
+      opacity: "100%",
+    },
+    "&[data-orientation=horizontal]": {
+      width: "100%",
+      height: "2px",
+      marginStart: "0",
+    },
+  }
+}
+
+const stepperTheme = {
+  baseStyle,
+}
+
 
 const theme = extendTheme({
   colors: {
@@ -23,16 +68,24 @@ const theme = extendTheme({
         fontFamily:'mono'
       }
     })
-  }
+  },
+  components: {
+    Stepper: stepperTheme,
+  },
 })
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<TestComponent />} >
+    <Route path="/"  >
       <Route path="test" element={<Home />} />
       <Route path="message" element={<Message />} />
       <Route path="level">
         <Route path="1" element={<Level0 />}/>
+        <Route path="c" element={<CC />}/>
+        <Route path="2" element={<LevelCC />}/>
+        <Route path="e" element={<CCEmail />}/>
+        <Route path="p" element={<Phishing />}/>
+        <Route path="em" element={<EmailMenu />}/>
       </Route>
     </Route>
   )
