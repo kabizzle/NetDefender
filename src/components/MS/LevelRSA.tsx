@@ -1,24 +1,34 @@
-import { Box, Center, Flex, Text, Button, FormLabel, Textarea, useToast} from "@chakra-ui/react";
-import React, { FormEventHandler, useState } from "react";
+import { Box, Center, Flex, Text, Button, FormLabel, Textarea, useToast, FormControl} from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
 import JSEncrypt from "jsencrypt";
 
 const LevelRSA = () => {
-
   const [count, setCount] = useState(0)
   const [userPubKey, setUserPubKey] = useState("")
-  const [userInput, setUserInput] = useState("hello")
+  const [userInput, setUserInput] = useState("")
   const [givenPubKey, setGivenPubKey] = useState(false)
   const [encryptedMsg, setEncryptedMsg] = useState("")
+  const [task, setTask] = useState(1)
   const game_RSA = new JSEncrypt();
   const student_rsa = new JSEncrypt();
-  const [displayText, setDisplayText] = useState("")
+  // const [displayText, setDisplayText] = useState("")
   const toast = useToast()
-  let pubKeyRegex = /^-----BEGIN PUBLIC KEY-----([A-Za-z0-9+\/=\s]+)-----END PUBLIC KEY-----\n?$/  
+  let pubKeyRegex = /^-----BEGIN PUBLIC KEY-----([A-Za-z0-9+\/=\s]+)-----END PUBLIC KEY-----\n?$/ 
+
   // TODO:
   // - Turn these keys into environment variables, instead of hardcoding them.
   game_RSA.setPrivateKey("-----BEGIN RSA PRIVATE KEY-----MIICXAIBAAKBgQDB0Uko9wj9ULdwcjS8+89sYqPzIpBziLFJod57vtZBF19BUgR/DVO4MlYGodB3Fn86d7szQzEbyHZOdK23JuVH3EL2U/BVH3XeAIj7ybDmDTe2sb7gcA9/3EBxmt0l0bGxal9buWbCn0zOwOvjzNXJ5tXmtqM0eH0yIBEFdwgtiwIDAQABAoGANAzAWP/+qgjDOq9w+k+lpLXY0bK2mFBdTCjsVs8pOtHMAv7Dtlsd4JmkAKP0GAcyo8EDxQCGb6+mFeu/uy/24p2bgWBMn7kPudZnXsmLYxxNWk9DN5YPbNxlsUkM02H9ZDyXn3SZ5rzKNQrKjibHIrvrzmhEu6rCl7O8EVS2LAECQQDuMOFU5xHw3opXgmM+kCIu42pvxYwjgHtJDTMOrrjkQIoD9QJOBbIRGdyON0lvLe7wo2iJjzNhUMSZ8+yVeuVzAkEA0E8SQ7hF5FvwbeU9iKcY70/HpwN4PKGX876ugfgE6mfBFmrfSuTbKeE7bzht5UI/dJbhfcnwkwKASGLXeS5RiQJADiu0TDPPGnBy9I/aTa+PiRCYlXvAQaB0NT1myznT4CiCzYd3EqM+G8xZFdDuOoIWFBT0tDJj0SdX+vzLF32PRwJAD3qwusOIvg1u8luklPEF01K0XV7OooLHjd9PjGznwJtxJ79NVH1pI9WO2xbwY6bmnD1SCEznSaVX7wkZRfIBMQJBAIQUrR8Bz8b86Vjl3UiLNuf2iQl5MdetMRqIWe0uP3sJVCYRdEnLYXiVK2nh1zzzD4+XZH5/KRc27RSyGsqQuR0=-----END RSA PRIVATE KEY-----")
 
-  // game_RSA.setPublicKey("-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDB0Uko9wj9ULdwcjS8+89sYqPzIpBziLFJod57vtZBF19BUgR/DVO4MlYGodB3Fn86d7szQzEbyHZOdK23JuVH3EL2U/BVH3XeAIj7ybDmDTe2sb7gcA9/3EBxmt0l0bGxal9buWbCn0zOwOvjzNXJ5tXmtqM0eH0yIBEFdwgtiwIDAQAB-----END PUBLIC KEY-----")
+  // useEffect( () => {
+  //   setUserPubKey("-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDB0Uko9wj9ULdwcjS8+89sYqPzIpBziLFJod57vtZBF19BUgR/DVO4MlYGodB3Fn86d7szQzEbyHZOdK23JuVH3EL2U/BVH3XeAIj7ybDmDTe2sb7gcA9/3EBxmt0l0bGxal9buWbCn0zOwOvjzNXJ5tXmtqM0eH0yIBEFdwgtiwIDAQAB-----END PUBLIC KEY-----")
+  //   setGivenPubKey(true)
+  //   student_rsa.setPublicKey(userPubKey)
+  //   
+  //   let cipherText = student_rsa.encrypt("The encrypted word is: Netdefender")
+  //   if (cipherText !== false) {
+  //     setEncryptedMsg(cipherText)
+  //   }
+  // }, [])
   
 
   const handleClick = () => {
@@ -53,6 +63,12 @@ const LevelRSA = () => {
         status: "success",
         duration: 3500
       })
+      student_rsa.setPublicKey(userPubKey)
+      
+      let cipherText = student_rsa.encrypt("The encrypted word is: Netdefender")
+      if (cipherText !== false) {
+        setEncryptedMsg(cipherText)
+      }
     } else {
       toast({
         title: "Error:",
@@ -67,23 +83,51 @@ const LevelRSA = () => {
   // This public key should be used for encrypting any text input from the user
   // TODO:
   // - send userPubKey to database when submitted. Implement a POST request for this in API
-  const handleTaskSubmit: React.FormEventHandler = (event: React.FormEvent<HTMLInputElement>) => {
+  const handleTaskSubmit: React.FormEventHandler = (event: React.FormEvent<HTMLInputElement>): boolean => {
     event.preventDefault();
-    console.log("attempt to submit public key")
-    if (game_RSA.decrypt(userInput) === "Netdefender") {
-      toast({
-        title:"Good job!",
-        description: "You solved the first task",
-        status: "success",
-        duration: 3500
-      })
+    if (task === 1) {
+      console.log("Task 1: user has to decrypt message")
+      // if (game_RSA.decrypt(userInput) === "Netdefender") {
+      if (userInput === "Netdefender") {
+        toast({
+          title:"Good job!",
+          description: "You solved the first task",
+          status: "success",
+          duration: 3500
+        })
+        setTask(2)
+        // setUserInput("")
+        return true
+      } else {
+        toast({
+          title: "Error:",
+          description: "You did not submit the right answer. Did you get the hint from the encrypted message?",
+          status: "error",
+            duration: 8000
+        })
+        return false
+      }
+    } else if (task == 2) {
+      console.log("Task 2: user has to encrypt message")
+      if (game_RSA.decrypt(userInput) === "1234567") {
+        toast({
+          title:"Good job!",
+          description: "You solved the third task",
+          status: "success",
+          duration: 3500
+        })
+        return true
+      } else {
+        toast({
+          title: "Error:",
+          description: "You did not submit the right answer. Did you get the hint from the encrypted message?",
+          status: "error",
+            duration: 8000
+        })
+        return false
+      }
     } else {
-      toast({
-        title: "Error:",
-        description: "You did not submit the right answer. Did you get the hint from the encrypted message?",
-        status: "error",
-          duration: 8000
-      })
+      return false
     }
   }
 
@@ -229,38 +273,70 @@ const LevelRSA = () => {
     }
   }
 
+  // TODO:
+  // - update task 2 so it checks for student number
   const decryptTask = () => {
-    student_rsa.setPublicKey(userPubKey)
-    let cipherText = student_rsa.encrypt("Use the game's public key to encrypt the word: Netdefender")
-    return (
-      <>
-        <Center w="100vw">
-          <Flex align="start" justify="space-around" direction="column">
-            <Box w="36em">
-              <Text m="0.5em 0 0.5em 0">Now that you have entered your public key, you can receive your first encrypted message.</Text>
-              <Box w="40em" border="2px" p="0.5em 0 0.5em 1em">{cipherText}</Box>
-              <Text m="5em 0 1em 0">The public key for the game is:</Text>
-              <Box border="2px" p="0.5em 5em 0.5em 1em">{game_RSA.getPublicKey()}</Box>
-            </Box>
-            <Box pos="relative" w="50em">
-              <FormLabel m="5em 0 1em 12em">Your answer:</FormLabel>
-              <Textarea maxW="30em" h="10em" p="1em" borderColor="game.gray" onChange={handleTaskInput}/>
-              <Button onClick={handleTaskSubmit} pos="absolute" right="5em"
-                bg='game.black' border='2px' borderColor="game.white" color="game.white" 
-                _hover={{color:"game.black", bg:"game.white"}}> 
-                submit
-              </Button>
-            </Box>
-          </Flex>
-        </Center>
-      </>
-    )
+    if (task === 1) {
+      return (
+        <>
+          <Center w="100vw">
+            <Flex align="start" justify="space-around" direction="column">
+              <Box w="36em">
+                <Text m="0.5em 0 0.5em 0">Now that you have entered your public key, you can receive your first encrypted message.</Text>
+                <Box w="40em" border="2px" p="0.5em 0 0.5em 1em">{encryptedMsg}</Box>
+                {//<Text m="5em 0 1em 0">The public key for the game is:</Text>
+                //<Box border="2px" p="0.5em 5em 0.5em 1em">{game_RSA.getPublicKey()}</Box>
+                }
+              </Box>
+              <Box pos="relative" w="50em">
+                <FormControl>
+                  <FormLabel m="5em 0 1em 12em">Your answer:</FormLabel>
+                  <Textarea maxW="30em" h="10em" p="1em" borderColor="game.gray" onChange={handleTaskInput}/>
+                  <Button onClick={handleTaskSubmit} pos="absolute" right="5em"
+                    bg='game.black' border='2px' borderColor="game.white" color="game.white" 
+                    _hover={{color:"game.black", bg:"game.white"}}> 
+                    submit
+                  </Button>
+                </FormControl>
+              </Box>
+            </Flex>
+          </Center>
+        </>
+      )
+    } else if (task === 2){
+      return (
+        <>
+          <Center w="100vw">
+            <Flex align="start" justify="space-around" direction="column">
+              <Box w="36em">
+                <Text m="0.5em 0 0.5em 0">Now that you are able to decrypt, you can send your first encrypted message.</Text>
+                <Text m="0.5em 0 0.5em 0">Encrypt your student number, using the game's public key.</Text>
+                {// <Box w="40em" border="2px" p="0.5em 0 0.5em 1em">{encryptedMsg}</Box>
+                }
+                <Text m="5em 0 1em 0">The public key for the game is:</Text>
+                <Box border="2px" p="0.5em 5em 0.5em 1em">{game_RSA.getPublicKey()}</Box>
+              </Box>
+              <Box pos="relative" w="50em">
+                <FormLabel m="5em 0 1em 12em">Your answer:</FormLabel>
+                <Textarea maxW="30em" h="10em" p="1em" borderColor="game.gray" onChange={handleTaskInput}/>
+                <Button onClick={handleTaskSubmit} pos="absolute" right="5em"
+                  bg='game.black' border='2px' borderColor="game.white" color="game.white" 
+                  _hover={{color:"game.black", bg:"game.white"}}> 
+                  submit
+                </Button>
+              </Box>
+            </Flex>
+          </Center>
+        </>
+      )
+    }
   }
 
   const renderScreen = () => {
     if (!givenPubKey) {
       return (pubKeyTask())
     } else {
+      student_rsa.setPublicKey(userPubKey)
       return(decryptTask())
     }
   }
