@@ -13,6 +13,7 @@ import Error from "./pages/Error.tsx";
 import LevelView from "./components/LevelView.tsx";
 import LevelRSA from "./components/MS/LevelRSA.tsx";
 import Sandbox from "./components/Sandbox.tsx";
+import WebOfTrust from "./components/WebOfTrust.tsx";
 
 const baseStyle = {
   indicator: {
@@ -101,6 +102,7 @@ const router = createBrowserRouter(
         <Route path="e" element={<CCEmail />}/>
         <Route path="p" element={<Phishing />}/>
         <Route path="em" element={<EmailMenu />}/>
+        <Route path="w" element={<WebOfTrust />}/>
       </Route>
       <Route path="sandbox" element={<Sandbox />} />
       <Route path="test" element={<TestComponent />} />
