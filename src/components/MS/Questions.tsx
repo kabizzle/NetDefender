@@ -10,6 +10,8 @@ import { Box, Button, ButtonGroup,   Step,
   Stepper,
   useSteps,Progress, Flex, AbsoluteCenter, Grid, GridItem, Icon, Text, extendTheme, Stack } from "@chakra-ui/react";
 
+import { Link } from "react-router-dom";
+import { homedir } from "os";
 
   /*interface LevelQuestion {
     id: number; 
@@ -46,8 +48,8 @@ const Questions = (props: any) => {
 
   const alphabet = ["a", "b", "c", "d", "e", "f", "g"]
   const questions = props.quiz
-  const ogButtonColors = Array.from({length: questions.length}, () => ({border: "game.white", fill: "game.black"}));
-  const [buttonColors, setButtonColors] = useState(Array.from({length: questions.length}, () => ({border: "game.white", fill: "game.black"})));
+  const ogButtonColors = Array.from({length: questions.length}, () => ({border: "game.white", fill: "game.black", text_color: "game.white"}));
+  const [buttonColors, setButtonColors] = useState(Array.from({length: questions.length}, () => ({border: "game.white", fill: "game.black", text_color: "game.white"})));
   const [selectedOption, setSelectedOption] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0); // counts correct answers
@@ -108,6 +110,7 @@ const Questions = (props: any) => {
       setButtonColors(() => {
         const updatedColors = ogButtonColors;
         updatedColors[index].fill = "game.white.30"; 
+		updatedColors[index].text_color = "game.black";
         return updatedColors;
       });
   };
@@ -141,6 +144,7 @@ const Questions = (props: any) => {
           const updatedColors = [...prevColors];
           updatedColors[selectedIndex].border = "game.green";
           updatedColors[selectedIndex].fill = "game.black";
+		  updatedColors[selectedIndex].text_color = "game.white";
           return updatedColors;
         });
         setStepColors(() => {
@@ -152,6 +156,7 @@ const Questions = (props: any) => {
         const updatedColors = [...prevColors];
         updatedColors[selectedIndex].border = "game.red";
         updatedColors[selectedIndex].fill = "game.black";
+		updatedColors[selectedIndex].text_color = "game.white";
         return updatedColors;
       });
       setStepColors(() => {
@@ -168,7 +173,7 @@ const Questions = (props: any) => {
     if (buttonStage == "choose") {
     return (
       <Button
-        onClick={isCorrect} border="2px" borderColor="game.white" bg="game.black" color="game.white" borderRadius="0px" _hover={{color:"game.black", bg:"game.white"}}>
+        onClick={isCorrect} border="2px" borderColor="game.white" bg="game.white" color="game.black" borderRadius="0px" _hover={{color:"game.black", bg:"game.white"}}>
         Choose
       </Button>
     )
@@ -200,7 +205,7 @@ const Questions = (props: any) => {
     return (
       <Button key={index}
       bgColor={buttonColors[index].fill}
-      border="2px" borderColor={buttonColors[index].border} color="game.white" borderRadius="0px"
+      border="2px" borderColor={buttonColors[index].border} color={buttonColors[index].text_color} borderRadius="0px"
       marginTop="10" padding="5" width="300px" justifyContent="start" _hover={{color:"game.black", bg:"game.white"}}
             onClick={() => handleOptionSelect(option, index)} >
             {alphabet[index]}. {option}
@@ -343,14 +348,20 @@ const Questions = (props: any) => {
       );
     } if (screenStage == "end") {
       return (
-        <Box display="flex" flexDir="column" alignItems="center" paddingTop="20">
-        <Box border="4px" borderColor="game.white" width="500px" display="flex" flexDir="column" alignItems="center" >
-          <Box padding="10" fontSize="20">
-        You have finished Level 1
-        </Box>
-        <Box paddingBottom="10">Correct answers: {score}/{questions.length}</Box>
-        </Box>
-        </Box>
+		<Box display="flex" flexDir="column" alignItems="center" paddingTop="20">
+			<Box border="4px" borderColor="game.white" width="500px" display="flex" flexDir="column" alignItems="center" >
+				<Box padding="10" fontSize="20">
+					You have finished Level 1
+				</Box>
+				<Box paddingBottom="10">Correct answers: {score}/{questions.length}</Box>
+			</Box>
+			<Link to="/"> 
+				<Button  border="2px" m="5em 0 0 0" borderRadius="0px">
+					Main menu
+				</Button>
+			</Link>
+		</Box>
+
       );
     }
   }; 
