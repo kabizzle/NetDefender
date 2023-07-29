@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --resolve-plugins-relative-to .",
+    "lint-and-fix": "eslint . --ext ts,tsx --fix",
     "preview": "vite preview",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' 'src/**/*.tsx' --write"
   },
@@ -16,6 +17,7 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@types/pem": "^1.9.6",
+    "axios": "^1.4.0",
     "eslint-config-react-app": "^7.0.1",
     "framer-motion": "^10.12.16",
     "jsencrypt": "^3.3.2",
