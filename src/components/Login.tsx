@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import {
   Flex,
   Box,
@@ -8,11 +8,15 @@ import {
   Stack,
   Button,
   Heading,
+  useToast,
 } from '@chakra-ui/react'
 
-const Login = () => {
+import login, { IUserAuthData } from '../services/loginService'
+
+const Login = ( {setUserAuthData, setUserLoggedIn}: {setUserAuthData: Dispatch<SetStateAction<IUserAuthData>>, setUserLoggedIn: Dispatch<SetStateAction<boolean>>}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const toast = useToast();
   
     // updates username hook with user input
     const handleUsernameChange: React.ChangeEventHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,6 +29,36 @@ const Login = () => {
         event.preventDefault();
         setPassword(event.target.value);
     };
+
+    // attempts to authenticate user 
+    const handleLogin: React.FormEventHandler = async (event: React.FormEvent<HTMLInputElement>) => {
+        event.preventDefault();
+
+        try {
+            const user: IUserAuthData = await (login.login({ username, password }));
+            console.log('user: ', user);
+            setUserAuthData(user);
+            setUserLoggedIn(true);
+
+            setUsername('');
+            setPassword('');
+            
+            toast({
+                title: 'Successful login!',
+                status: 'success',
+                duration: 3500,
+                isClosable: true
+            })
+
+        } catch {
+            toast({
+                title: 'Wrong Credentials',
+                status: 'error',
+                duration: 5000,
+                isClosable: true
+            })
+        }
+    }
 
   return (
     <Flex
@@ -50,6 +84,7 @@ const Login = () => {
             </FormControl>
             <Stack spacing={10}>
               <Button
+                onClick={handleLogin}
                 m="2px 0 0 0"
                 bg='game.black'
                 color='game.green'
