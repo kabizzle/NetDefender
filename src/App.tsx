@@ -12,7 +12,6 @@ import Error from './pages/Error.tsx';
 import LevelView from './components/LevelView.tsx';
 import LevelRSA from './components/MS/LevelRSA.tsx';
 import Sandbox from './components/Sandbox.tsx';
-import Login from './components/Login.tsx';
 
 const baseStyle = {
     indicator: {
@@ -109,7 +108,6 @@ const router = createBrowserRouter(
             </Route>
             <Route path="sandbox" element={<Sandbox />} />
             <Route path="tutorial" element={<Tutorial />} />
-            <Route path="login" element={<Login />} />
             <Route path="*" element={<Error />} />
         </>
     )

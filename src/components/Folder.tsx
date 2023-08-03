@@ -17,7 +17,6 @@ const Folder = ({ forwardSource = '/', backSource = '/', folderType, name }: Lev
     const location = useLocation();
 
     useEffect(() => {
-        console.log(location);
         if (folderType === 'locked') {
             setFolderIcon('/folder_locked.svg');
         } else if (location.pathname == forwardSource) {

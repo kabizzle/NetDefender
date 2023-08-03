@@ -13,7 +13,7 @@ import {
 
 import login, { IUserAuthData } from '../services/loginService'
 
-const Login = ( {setUserAuthData, setUserLoggedIn}: {setUserAuthData: Dispatch<SetStateAction<IUserAuthData>>, setUserLoggedIn: Dispatch<SetStateAction<boolean>>}) => {
+const Login = ( {setUserAuthData}: {setUserAuthData: Dispatch<SetStateAction<IUserAuthData>>}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const toast = useToast();
@@ -38,10 +38,10 @@ const Login = ( {setUserAuthData, setUserLoggedIn}: {setUserAuthData: Dispatch<S
             const user: IUserAuthData = await (login.login({ username, password }));
             console.log('user: ', user);
             setUserAuthData(user);
-            setUserLoggedIn(true);
-
+            window.localStorage.setItem('userAuthDataJSON', JSON.stringify(user));
             setUsername('');
             setPassword('');
+            // window.location.reload();
             
             toast({
                 title: 'Successful login!',
@@ -49,7 +49,6 @@ const Login = ( {setUserAuthData, setUserLoggedIn}: {setUserAuthData: Dispatch<S
                 duration: 3500,
                 isClosable: true
             })
-
         } catch {
             toast({
                 title: 'Wrong Credentials',

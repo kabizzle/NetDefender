@@ -10,7 +10,8 @@ export interface ICredentials {
 export interface IUserAuthData {
     token: string,
     username: string,
-    name: string
+    name: string,
+    user_id: string
 }
 
 const login = async ( credentials: ICredentials ) : Promise<IUserAuthData> => {

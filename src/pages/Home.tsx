@@ -1,18 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IUserAuthData } from '../services/loginService';
 import Login from '../components/Login';
 import HomePage from '../components/HomePage';
 
 const Home = () => {
-    
-    const [userLoggedIn, setUserLoggedIn] = useState(false)
-    const [userAuthData, setUserAuthData] = useState<IUserAuthData>({ token: '', username: '', name: '' });
-    
-    
+    const [userAuthData, setUserAuthData] = useState<IUserAuthData>({ token: '', username: '', name: '', user_id: '' });
+   
+    useEffect(() => {
+        const userAuthDataJSON = window.localStorage.getItem('userAuthDataJSON');
+        if (userAuthDataJSON) {
+            const user = JSON.parse(userAuthDataJSON);
+            setUserAuthData(user)
+        }
+    }, []);
+
     return (
-    userLoggedIn 
-    ? <HomePage name={userAuthData.name as string} />
-    : <Login setUserAuthData={setUserAuthData} setUserLoggedIn={setUserLoggedIn} />
+    userAuthData.token !== '' 
+    ? <HomePage token={userAuthData.token} user_id={userAuthData.user_id}/>
+    : <Login setUserAuthData={setUserAuthData} />
     );
 };
 
