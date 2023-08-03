@@ -4,7 +4,7 @@ import UserProgress from '../components/UserProgress';
 import Folder from '../components/Folder';
 import Notification from '../components/Notification';
 
-const TestComponent = () => {
+const HomePage = () => {
     return (
         <>
             <Grid templateRows="1fr 3fr 1fr" templateColumns="25em auto 25em" h="100vh">
@@ -46,4 +46,4 @@ const TestComponent = () => {
     );
 };
 
-export default TestComponent;
+export default HomePage;
