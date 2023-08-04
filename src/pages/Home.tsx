@@ -16,7 +16,7 @@ const Home = () => {
 
     return (
     userAuthData.token !== '' 
-    ? <HomePage token={userAuthData.token} user_id={userAuthData.user_id}/>
+    ? <HomePage token={userAuthData.token} user_id={userAuthData.user_id} setUserAuthData={setUserAuthData} />
     : <Login setUserAuthData={setUserAuthData} />
     );
 };
