@@ -1,35 +1,22 @@
-import { Box, Button, Center, Flex, Grid, GridItem, HStack, Image, Stack, Text } from '@chakra-ui/react';
-import { Link, Navigate, Outlet } from 'react-router-dom';
+import { Box, Button, Center, Flex, Grid, GridItem, Image, Text } from '@chakra-ui/react';
+import { Link, Outlet } from 'react-router-dom';
 import UserProgress from '../components/UserProgress';
 import Folder from '../components/Folder';
 import Notification from '../components/Notification';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { IStudent } from '../interfaces/Student';
-import getUserData from '../services/userData';
+import { IStudent, defaultStudent } from '../interfaces/Student';
+import userDataService from '../services/userDataService';
 import { IUserAuthData } from '../services/loginService';
 import Tutorial from '../pages/Tutorial';
 
 const HomePage = ( {token, user_id, setUserAuthData} : { token: string, user_id: string, setUserAuthData: Dispatch<SetStateAction<IUserAuthData>>} ) => {
 
-    const [userData, setUserData] = useState<IStudent>({
-        name: '',
-        username: '',
-        student_number: '',  // student_number is optional for now, as students may not want to get graded from game. This needs to be discussed further.
-        tutorial_completed: false,
-        public_key: '',
-        levels: [
-            { id: 1, completed: false, points: 20 },
-            { id: 2, completed: false, points: 20 },
-            { id: 3, completed: false, points: 20 },
-            { id: 4, completed: false, points: 20 },
-            { id: 5, completed: false, points: 20 }
-        ],
-        rating: 5
-    })
+    const [userData, setUserData] = useState<IStudent>(defaultStudent)
     const [showTutorial, setShowTutorial] = useState(true);
-    
+    const [levelData, setLevelData] = useState(defaultStudent.levels)
+
     const fetchData = async () => { 
-        const data = await getUserData({user_id: user_id, userToken: token})
+        const data = await userDataService.getUserData({user_id: user_id, userToken: token})
         setUserData(data)
         setShowTutorial(!data.tutorial_completed)
         console.log('user data: ', data)
@@ -91,11 +78,11 @@ const HomePage = ( {token, user_id, setUserAuthData} : { token: string, user_id:
 
                 <GridItem rowSpan={1} colSpan={3} padding="3em 10em 2em 10em">
                     <Flex align="center" justify="space-between">
-                        <Folder forwardSource="/1" backSource="" folderType="unlocked" name="Week 1" />
-                        <Folder folderType="locked" name="Week 2" />
-                        <Folder folderType="locked" name="Week 3" />
-                        <Folder folderType="locked" name="Week 4" />
-                        <Folder folderType="locked" name="Week 5" />
+                        <Folder forwardSource="/1" backSource="" folderType="unlocked" name="Week 1" levelData={levelData[0]} />
+                        <Folder folderType="locked" name="Week 2" levelData={levelData[1]} />
+                        <Folder folderType="locked" name="Week 3" levelData={levelData[2]} />
+                        <Folder folderType="locked" name="Week 4" levelData={levelData[3]} />
+                        <Folder folderType="locked" name="Week 5" levelData={levelData[4]} />
                     </Flex>
                 </GridItem>
             </Grid>

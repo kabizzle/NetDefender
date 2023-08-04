@@ -14,4 +14,14 @@ const getUserData = async ({user_id, userToken}: {user_id: string; userToken: st
     return userData.data.student
 }
 
-export default getUserData;
+const updateUserData = async ({user_id, userToken}: {user_id: string; userToken: string}): Promise<IStudent> => {
+    const token = `Bearer ${userToken}`
+    const httpAuth = {
+        headers: {Authorization: token}
+    }
+
+    const userUrl = baseUrl + '/' + user_id;
+    const userData = await axios.put(userUrl, httpAuth);
+    return userData.data.student
+}
+export default {getUserData, updateUserData};
