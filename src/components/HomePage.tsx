@@ -1,5 +1,5 @@
 import { Box, Button, Center, Flex, Grid, GridItem, HStack, Image, Stack, Text } from '@chakra-ui/react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Navigate, Outlet } from 'react-router-dom';
 import UserProgress from '../components/UserProgress';
 import Folder from '../components/Folder';
 import Notification from '../components/Notification';
@@ -7,6 +7,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { IStudent } from '../interfaces/Student';
 import getUserData from '../services/userData';
 import { IUserAuthData } from '../services/loginService';
+import Tutorial from '../pages/Tutorial';
 
 const HomePage = ( {token, user_id, setUserAuthData} : { token: string, user_id: string, setUserAuthData: Dispatch<SetStateAction<IUserAuthData>>} ) => {
 
@@ -25,10 +26,13 @@ const HomePage = ( {token, user_id, setUserAuthData} : { token: string, user_id:
         ],
         rating: 5
     })
+    const [showTutorial, setShowTutorial] = useState(true);
     
     const fetchData = async () => { 
         const data = await getUserData({user_id: user_id, userToken: token})
         setUserData(data)
+        setShowTutorial(!data.tutorial_completed)
+        console.log('user data: ', data)
     }
 
     useEffect(() => {
@@ -47,7 +51,12 @@ const HomePage = ( {token, user_id, setUserAuthData} : { token: string, user_id:
             console.log(error);
         }
     }
-
+    
+    if (showTutorial) {
+        return (
+           <Tutorial setShowTutorial={setShowTutorial}/> 
+        )
+    }
     return (
         <>
             <Grid templateRows="1fr 3fr 1fr" templateColumns="25em auto 25em" h="100vh">

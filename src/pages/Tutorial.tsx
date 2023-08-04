@@ -3,9 +3,9 @@ import { Outlet } from 'react-router-dom';
 import UserProgress from '../components/UserProgress';
 import Notification from '../components/Notification';
 import IntroScreen from '../components/IntroScreen';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
-const Tutorial = () => {
+const Tutorial = ({setShowTutorial}: {setShowTutorial: Dispatch<SetStateAction<boolean>>}) => {
     const [displayText, setDisplayText] = useState('Welcome to NetDefender.');
     const [count, setCount] = useState(0);
     const [arrowProps, setArrowProps] = useState(['', '', '0']);
@@ -35,6 +35,7 @@ const Tutorial = () => {
         } else if (count === 5) {
             setDisplayText('Enter the world of NetDefender.');
             setEndTutorial(true);
+            setShowTutorial(false);
         }
     };
 
