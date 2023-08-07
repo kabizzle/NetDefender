@@ -1,42 +1,41 @@
 import { Image, Box, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
-interface Level {
-    forwardSource?: string;
-    backSource?: string;
+interface IFolderProps {
+    showLevel: boolean;
+    setShowLevel: Dispatch<SetStateAction<boolean>>;
+    setLevelToShow: Dispatch<SetStateAction<number>>;
     folderType: string;
     name: string;
+    number: number;
 }
 
-const Folder = ({ forwardSource = '/', backSource = '/', folderType, name }: Level) => {
-    const [source, setSource] = useState(forwardSource);
+const Folder = ( { showLevel, setShowLevel, setLevelToShow, folderType, name, number }: IFolderProps ) => {
     const [folderIcon, setFolderIcon] = useState('/folder_unlocked.png');
     const [folderStatus, setFolderStatus] = useState(folderType);
-    const location = useLocation();
 
     useEffect(() => {
         if (folderType === 'locked') {
             setFolderIcon('/folder_locked.svg');
-        } else if (location.pathname == forwardSource) {
+        } else if (showLevel) {
             setFolderIcon('/folder_opened.svg');
-        } else {
+        } else if (!showLevel) {
+            setLevelToShow(number)
             setFolderIcon('/folder_unlocked.png');
         }
-    }, [folderStatus, folderType, forwardSource, location]);
+    }, [showLevel]);
 
     const handleChange = () => {
-        console.log(location);
-        console.log(folderStatus);
-
-        if (folderStatus == 'unlocked') {
-            setSource(backSource);
+        if (folderStatus === 'unlocked') {
+            setShowLevel(true)
             setFolderStatus('opened');
             setFolderIcon('/folder_opened.svg');
-        } else if (folderStatus == 'opened') {
-            setSource(forwardSource);
+        } else if (folderStatus === 'opened') {
+            setShowLevel(false)
             setFolderStatus('unlocked');
+            setFolderIcon('/folder_unlocked.svg');
+        } else if (!showLevel) {
             setFolderIcon('/folder_unlocked.svg');
         }
     };
@@ -52,11 +51,11 @@ const Folder = ({ forwardSource = '/', backSource = '/', folderType, name }: Lev
         );
     }
     return (
-        <Link to={source} onClick={handleChange} >
-            <Box display="flex" flexDir="column" alignItems="center">
-                <Image src={folderIcon} w="10em" />
-                <Text marginTop="1em">{name}</Text>
-            </Box>
+        <Link to='/' >
+        <Box display="flex" flexDir="column" alignItems="center" onClick={handleChange} >
+            <Image src={folderIcon} w="10em" />
+            <Text marginTop="1em">{name}</Text>
+        </Box>
         </Link>
     );
 };

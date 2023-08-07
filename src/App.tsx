@@ -7,16 +7,12 @@ import LevelCC from './components/LevelCC.tsx';
 import CCEmail from './components/CCEmail.tsx';
 import Phishing from './components/Phishing.tsx';
 import EmailMenu from './components/EmailMenu.tsx';
-import Tutorial from './pages/Tutorial.tsx';
 import Error from './pages/Error.tsx';
-import LevelView from './components/LevelView.tsx';
 import LevelRSA from './components/MS/LevelRSA.tsx';
 import Sandbox from './components/Sandbox.tsx';
 import { useEffect, useState } from 'react';
 import { IStudent, defaultStudent } from './interfaces/Student.ts';
-import userDataService from './services/userDataService.ts';
 import { IUserAuthData } from './services/loginService.ts';
-import { ILevel, ILevels } from './interfaces/Levels.ts';
 import Login from './components/Login.tsx';
 
 const baseStyle = {
@@ -134,7 +130,6 @@ const App = () => {
             createRoutesFromElements(
                 <>
                     <Route path="/" element={<Home setUserAuthData={setUserAuthData} userAuthData={userAuthData}/>}>
-                        <Route path="1" element={<LevelView />} />
                     </Route>
                     <Route path="level">
                         <Route path="1" element={<Level0 />} />

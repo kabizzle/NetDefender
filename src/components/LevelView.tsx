@@ -1,30 +1,34 @@
-import { Center, Flex } from '@chakra-ui/react';
+import { Box, Center, Flex } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
 import Level from './Level';
-import { Link, useLocation } from 'react-router-dom';
-import { ILevel, ILevels } from '../interfaces/Levels';
-import { ReactElement, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { ILevel } from '../interfaces/Levels';
+import { Dispatch, SetStateAction } from 'react';
 
+interface ILevelViewProps {
+    levelData: ILevel[];
+    setShowLevel: Dispatch<SetStateAction<boolean>>;
+}
 
-const LevelView = () => {
+const LevelView = ( { levelData, setShowLevel }: ILevelViewProps ) => {
 
     // console.log("level data:", levelData)
     
-    const levels = [<></>];
-
-    const renderLevels = () => { 
-        levelData.map(( level: ILevel ) => {
-            return (
-                <Center w="50vw">
-                    <Level key={level.id} name={level.name} completed={level.completed} activity={'/level/' + level.id} />
-                </Center>);
-        })
-    };
-    
-    useEffect(() => {
-        renderLevels();
-        console.log('levels: ', levels)
-    }, [])
+    // const levels = [<></>];
+    //
+    // const renderLevels = () => { 
+    //     levelData.map(( level: ILevel ) => {
+    //         return (
+    //             <Center w="50vw">
+    //                 <Level key={level.id} name={level.name} completed={level.completed} activity={'/level/' + level.id} />
+    //             </Center>);
+    //     })
+    // };
+    // 
+    // useEffect(() => {
+    //     renderLevels();
+    //     console.log('levels: ', levels)
+    // }, [])
 
 
                 // <Center w="50vw">
@@ -35,31 +39,32 @@ const LevelView = () => {
                 // </Center>
     return (
         <>
-            <Flex direction="column" border="2px" align="center" justify="space-evenly" h="25em" pos="relative">
-                <Center
-                    w="36px"
-                    h="36px"
-                    border="2px"
-                    borderColor="game.white"
-                    pos="absolute"
-                    top="0"
-                    right="0"
-                    m="1em 1em 0"
-                    _hover={{ color: 'game.black', bg: 'game.white' }}
-                >
-                    <Link to="/">
-                        <CloseIcon />
-                    </Link>
-                </Center>
+            <Box border="2px" h="25em" pos="relative">
+                <Link to='/'>
+                    <Center
+                        w="36px"
+                        h="36px"
+                        border="2px"
+                        borderColor="game.white"
+                        pos="absolute"
+                        top="1em"
+                        right="1em"
+                        _hover={{ color: 'game.black', bg: 'game.white' }}
+                    >
+                         <CloseIcon onClick={() => setShowLevel(false)}/>
+                    </Center>
+                </Link>
+                <Flex direction="column" border="2px" align="center" justify="space-evenly" h="25em" >
                 {
                     levelData.map(( level: ILevel ) => {
                         return (
-                            <Center w="50vw">
+                            <Center w="50vw" key={level.id}>
                                 <Level key={level.id} name={level.name} completed={level.completed} activity={'/level/' + level.id} />
                             </Center>
                         )
                 })}
-            </Flex>
+                </Flex>
+            </Box>
         </>
     );
 };
