@@ -2,18 +2,15 @@ import { Image, Box, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { ILevel } from '../interfaces/Levels';
-import JSEncrypt from 'jsencrypt';
 
 interface Level {
     forwardSource?: string;
     backSource?: string;
     folderType: string;
     name: string;
-    levelData: Array<ILevel>;
 }
 
-const Folder = ({ forwardSource = '/', backSource = '/', folderType, name, levelData }: Level) => {
+const Folder = ({ forwardSource = '/', backSource = '/', folderType, name }: Level) => {
     const [source, setSource] = useState(forwardSource);
     const [folderIcon, setFolderIcon] = useState('/folder_unlocked.png');
     const [folderStatus, setFolderStatus] = useState(folderType);
@@ -55,7 +52,7 @@ const Folder = ({ forwardSource = '/', backSource = '/', folderType, name, level
         );
     }
     return (
-        <Link to={source} onClick={handleChange} state={JSON.stringify(levelData)}>
+        <Link to={source} onClick={handleChange} >
             <Box display="flex" flexDir="column" alignItems="center">
                 <Image src={folderIcon} w="10em" />
                 <Text marginTop="1em">{name}</Text>

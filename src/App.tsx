@@ -12,6 +12,12 @@ import Error from './pages/Error.tsx';
 import LevelView from './components/LevelView.tsx';
 import LevelRSA from './components/MS/LevelRSA.tsx';
 import Sandbox from './components/Sandbox.tsx';
+import { useEffect, useState } from 'react';
+import { IStudent, defaultStudent } from './interfaces/Student.ts';
+import userDataService from './services/userDataService.ts';
+import { IUserAuthData } from './services/loginService.ts';
+import { ILevel, ILevels } from './interfaces/Levels.ts';
+import Login from './components/Login.tsx';
 
 const baseStyle = {
     indicator: {
@@ -91,34 +97,65 @@ const theme = extendTheme({
     }
 });
 
-const router = createBrowserRouter(
-    createRoutesFromElements(
-        <>
-            <Route path="/" element={<Home />}>
-                <Route path="1" element={<LevelView />} />
-            </Route>
-            <Route path="level">
-                <Route path="1" element={<Level0 />} />
-                <Route path="rsa" element={<LevelRSA />} />
-                <Route path="c" element={<CC />} />
-                <Route path="2" element={<LevelCC />} />
-                <Route path="e" element={<CCEmail />} />
-                <Route path="p" element={<Phishing />} />
-                <Route path="em" element={<EmailMenu />} />
-            </Route>
-            <Route path="sandbox" element={<Sandbox />} />
-            <Route path="tutorial" element={<Tutorial />} />
-            <Route path="*" element={<Error />} />
-        </>
-    )
-);
-
 const App = () => {
-    return (
-        <ChakraProvider theme={theme}>
-            <RouterProvider router={router} />
-        </ChakraProvider>
-    );
+    // authentication credentials to make calls to api
+    const [userAuthData, setUserAuthData] = useState<IUserAuthData>({ token: '', username: '', name: '', user_id: '' });
+    
+    // user data returned from api
+    const [userGameData, setUserGameData] = useState<IStudent>(defaultStudent)
+
+    
+    // on page load, check if user auth credentials stored.
+    // If so, get user data from api.
+    useEffect(() => {
+        console.log('useEffect begins')
+        const userAuthDataJSON = window.localStorage.getItem('userAuthDataJSON');
+        console.log('userJSON: ', userAuthDataJSON)
+        if (userAuthDataJSON) {
+            const user = JSON.parse(userAuthDataJSON);
+            setUserAuthData(user)
+        }
+
+    }, [])
+    
+    
+    // if (userData == undefined) {
+    //     console.log("lol wtf")
+    // }
+    if (userAuthData.token === '') {
+        return (
+            <ChakraProvider theme={theme}>
+                <Login setUserAuthData={setUserAuthData} />
+            </ChakraProvider>
+        );
+    }
+    else {
+        const router = createBrowserRouter(
+            createRoutesFromElements(
+                <>
+                    <Route path="/" element={<Home setUserAuthData={setUserAuthData} userAuthData={userAuthData}/>}>
+                        <Route path="1" element={<LevelView />} />
+                    </Route>
+                    <Route path="level">
+                        <Route path="1" element={<Level0 />} />
+                        <Route path="rsa" element={<LevelRSA />} />
+                        <Route path="c" element={<CC />} />
+                        <Route path="2" element={<LevelCC />} />
+                        <Route path="e" element={<CCEmail />} />
+                        <Route path="p" element={<Phishing />} />
+                        <Route path="em" element={<EmailMenu />} />
+                    </Route>
+                    <Route path="sandbox" element={<Sandbox />} />
+                    <Route path="*" element={<Error />} />
+                </>
+            )
+        );
+        return (
+            <ChakraProvider theme={theme}>
+                <RouterProvider router={router} />
+            </ChakraProvider>
+        )
+    }
 };
 
 export default App;

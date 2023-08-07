@@ -2,29 +2,28 @@ import { Center, Flex } from '@chakra-ui/react';
 import { CloseIcon } from '@chakra-ui/icons';
 import Level from './Level';
 import { Link, useLocation } from 'react-router-dom';
-import { ILevel } from '../interfaces/Levels';
+import { ILevel, ILevels } from '../interfaces/Levels';
 import { ReactElement, useEffect } from 'react';
 
 
 const LevelView = () => {
-    const levels= [];
 
-    const location = useLocation();
-    const levelData = JSON.parse(location.state);
-    console.log("level data:", levelData)
-    console.log("state data: ", location.state)
+    // console.log("level data:", levelData)
+    
+    const levels = [<></>];
 
     const renderLevels = () => { 
-        return levelData.map(( level: ILevel ) => {
-            return levels.push(
+        levelData.map(( level: ILevel ) => {
+            return (
                 <Center w="50vw">
-                    <Level name={level.name} completed={level.completed} activity={'/level/' + level.id} />
+                    <Level key={level.id} name={level.name} completed={level.completed} activity={'/level/' + level.id} />
                 </Center>);
         })
     };
     
     useEffect(() => {
         renderLevels();
+        console.log('levels: ', levels)
     }, [])
 
 
@@ -52,7 +51,14 @@ const LevelView = () => {
                         <CloseIcon />
                     </Link>
                 </Center>
-                {levels}
+                {
+                    levelData.map(( level: ILevel ) => {
+                        return (
+                            <Center w="50vw">
+                                <Level key={level.id} name={level.name} completed={level.completed} activity={'/level/' + level.id} />
+                            </Center>
+                        )
+                })}
             </Flex>
         </>
     );

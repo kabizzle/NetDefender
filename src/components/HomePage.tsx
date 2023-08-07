@@ -9,24 +9,21 @@ import userDataService from '../services/userDataService';
 import { IUserAuthData } from '../services/loginService';
 import Tutorial from '../pages/Tutorial';
 
-const HomePage = ( {token, user_id, setUserAuthData} : { token: string, user_id: string, setUserAuthData: Dispatch<SetStateAction<IUserAuthData>>} ) => {
+const HomePage = ( { setUserAuthData, userAuthData } : { setUserAuthData: Dispatch<SetStateAction<IUserAuthData>>, userAuthData: IUserAuthData }) => {
 
     const [userData, setUserData] = useState<IStudent>(defaultStudent)
-    const [showTutorial, setShowTutorial] = useState(true);
-    const [levelData, setLevelData] = useState(defaultStudent.levels)
-
+    const [showTutorial, setShowTutorial] = useState(false);
+    // const [levelData, setLevelData] = useState(defaultStudent.levels)
+    // const levelData = userData.levels;
+    
     const fetchData = async () => { 
-        const data = await userDataService.getUserData({user_id: user_id, userToken: token})
+        const data = await userDataService.getUserData({user_id: userAuthData.user_id, userToken: userAuthData.token})
         setUserData(data)
         setShowTutorial(!data.tutorial_completed)
         console.log('user data: ', data)
     }
 
-    useEffect(() => {
-        fetchData()
-    }, [])
-
-    // function that allows user to logout of app
+    // function that allows user to log out of app
     const handleLogout:React.FormEventHandler = (event: React.FormEvent<HTMLInputElement> ) => {
         event.preventDefault();
         console.log('clicked')
@@ -38,6 +35,11 @@ const HomePage = ( {token, user_id, setUserAuthData} : { token: string, user_id:
             console.log(error);
         }
     }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
     
     if (showTutorial) {
         return (
@@ -78,11 +80,11 @@ const HomePage = ( {token, user_id, setUserAuthData} : { token: string, user_id:
 
                 <GridItem rowSpan={1} colSpan={3} padding="3em 10em 2em 10em">
                     <Flex align="center" justify="space-between">
-                        <Folder forwardSource="/1" backSource="" folderType="unlocked" name="Week 1" levelData={levelData[0]} />
-                        <Folder folderType="locked" name="Week 2" levelData={levelData[1]} />
-                        <Folder folderType="locked" name="Week 3" levelData={levelData[2]} />
-                        <Folder folderType="locked" name="Week 4" levelData={levelData[3]} />
-                        <Folder folderType="locked" name="Week 5" levelData={levelData[4]} />
+                        <Folder forwardSource="/1" backSource="" folderType="unlocked" name="Week 1" />
+                        <Folder folderType="locked" name="Week 2" />
+                        <Folder folderType="locked" name="Week 3" />
+                        <Folder folderType="locked" name="Week 4" />
+                        <Folder folderType="locked" name="Week 5" />
                     </Flex>
                 </GridItem>
             </Grid>
