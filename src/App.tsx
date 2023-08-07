@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 import { IStudent, defaultStudent } from './interfaces/Student.ts';
 import { IUserAuthData } from './services/loginService.ts';
 import Login from './components/Login.tsx';
+import Signup from './components/Signup.tsx';
 
 const baseStyle = {
     indicator: {
@@ -96,9 +97,10 @@ const theme = extendTheme({
 const App = () => {
     // authentication credentials to make calls to api
     const [userAuthData, setUserAuthData] = useState<IUserAuthData>({ token: '', username: '', name: '', user_id: '' });
+    const [showLoginPage, setShowLoginPage] = useState(true);
     
     // user data returned from api
-    const [userGameData, setUserGameData] = useState<IStudent>(defaultStudent)
+    // const [userGameData, setUserGameData] = useState<IStudent>(defaultStudent)
 
     
     // on page load, check if user auth credentials stored.
@@ -113,7 +115,26 @@ const App = () => {
         }
 
     }, [])
-    
+   
+    const router = createBrowserRouter(
+        createRoutesFromElements(
+            <>
+                <Route path="/" element={<Home setUserAuthData={setUserAuthData} userAuthData={userAuthData}/>}>
+                </Route>
+                <Route path="level">
+                    <Route path="1" element={<Level0 />} />
+                    <Route path="rsa" element={<LevelRSA />} />
+                    <Route path="c" element={<CC />} />
+                    <Route path="2" element={<LevelCC />} />
+                    <Route path="e" element={<CCEmail />} />
+                    <Route path="p" element={<Phishing />} />
+                    <Route path="em" element={<EmailMenu />} />
+                </Route>
+                <Route path="sandbox" element={<Sandbox />} />
+                <Route path="*" element={<Error />} />
+            </>
+        )
+    );
     
     // if (userData == undefined) {
     //     console.log("lol wtf")
@@ -121,30 +142,14 @@ const App = () => {
     if (userAuthData.token === '') {
         return (
             <ChakraProvider theme={theme}>
-                <Login setUserAuthData={setUserAuthData} />
+                { showLoginPage
+                    ? <Login setUserAuthData={setUserAuthData} setShowLogin={setShowLoginPage}/>
+                    : <Signup setUserAuthData={setUserAuthData} setShowLogin={setShowLoginPage}/> 
+                }
             </ChakraProvider>
         );
     }
     else {
-        const router = createBrowserRouter(
-            createRoutesFromElements(
-                <>
-                    <Route path="/" element={<Home setUserAuthData={setUserAuthData} userAuthData={userAuthData}/>}>
-                    </Route>
-                    <Route path="level">
-                        <Route path="1" element={<Level0 />} />
-                        <Route path="rsa" element={<LevelRSA />} />
-                        <Route path="c" element={<CC />} />
-                        <Route path="2" element={<LevelCC />} />
-                        <Route path="e" element={<CCEmail />} />
-                        <Route path="p" element={<Phishing />} />
-                        <Route path="em" element={<EmailMenu />} />
-                    </Route>
-                    <Route path="sandbox" element={<Sandbox />} />
-                    <Route path="*" element={<Error />} />
-                </>
-            )
-        );
         return (
             <ChakraProvider theme={theme}>
                 <RouterProvider router={router} />
