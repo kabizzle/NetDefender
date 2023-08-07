@@ -13,6 +13,7 @@ import LevelView from './LevelView';
 const HomePage = ( { setUserAuthData, userAuthData } : { setUserAuthData: Dispatch<SetStateAction<IUserAuthData>>, userAuthData: IUserAuthData }) => {
 
     const [userData, setUserData] = useState<IStudent>(defaultStudent)
+    const [userDataFetched, setUserDataFetched] = useState(false);
     const [showTutorial, setShowTutorial] = useState(false);
     const [showLevel, setShowLevel] = useState(false);
     // const [showMessages, setShowMessages] = useState(false);
@@ -21,16 +22,30 @@ const HomePage = ( { setUserAuthData, userAuthData } : { setUserAuthData: Dispat
    
     // get user data from api
     const fetchData = async () => { 
-        const data = await userDataService.getUserData({user_id: userAuthData.user_id, userToken: userAuthData.token})
+        const data = await userDataService.getUserData({userId: userAuthData.user_id, userToken: userAuthData.token})
         setUserData(data)
         setShowTutorial(!data.tutorial_completed)
+        setUserDataFetched(true)
         console.log('user data: ', data)
+    }
+
+    const updateTutorial = async () => {
+        if (userDataFetched) {
+            const updatedUserData = userData;
+            updatedUserData.tutorial_completed = true;
+            await userDataService.updateUserData( { userId: userAuthData.user_id, userToken: userAuthData.token, userData: updatedUserData })
+        }
     }
 
     // fetch user data on page load
     useEffect(() => {
-        fetchData()
+        fetchData();
     }, [])
+    
+    // update tutorial status in api after tutorial is completed
+    useEffect(() => {
+        updateTutorial();
+    }, [showTutorial])
 
     // function that allows user to log out of app
     const handleLogout: React.FormEventHandler = (event: React.FormEvent<HTMLInputElement> ) => {

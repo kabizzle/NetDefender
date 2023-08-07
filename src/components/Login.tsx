@@ -75,11 +75,13 @@ const Login = ( {setUserAuthData}: {setUserAuthData: Dispatch<SetStateAction<IUs
           <Stack spacing={8}>
             <FormControl id='username'>
               <FormLabel>Username</FormLabel>
-              <Input type='text' onChange={handleUsernameChange}/>
+              <Input type='text' onChange={handleUsernameChange}
+                placeholder={username}/>
             </FormControl>
             <FormControl id='password'>
               <FormLabel>Password</FormLabel>
-              <Input type='password' onChange={handlePasswordChange}/>
+              <Input type='password' onChange={handlePasswordChange}
+                placeholder={password}/>
             </FormControl>
             <Stack spacing={10}>
               <Button
