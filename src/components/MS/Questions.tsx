@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react';
 
 import { Link } from 'react-router-dom';
+import userDataService from '../../services/userDataService';
 
 /*interface LevelQuestion {
     id: number; 
@@ -26,29 +27,6 @@ import { Link } from 'react-router-dom';
   }*/
 
 const Questions = (props: any) => {
-    /*const questions = [
-    {
-      id: 1,
-      question: "Question 1: What is the capital of France?",
-      options: ["Paris", "London", "Berlin"],
-      correctAnswer: "Paris",
-      explanation: "Paris is the capital of France.",
-    },
-    {
-      id: 2,
-      question: "Question 2: What is the largest planet in our solar system?",
-      options: ["Mars", "Saturn", "Jupiter"],
-      correctAnswer: "Jupiter",
-      explanation: "Jupiter is the largest planet in our solar system.",
-    },
-    {
-      id: 3,
-      question: "Question 3: What is the symbol for the chemical element Iron?",
-      options: ["Fe", "Au", "Ag"],
-      correctAnswer: "Fe",
-      explanation: "The symbol for Iron is Fe.",
-    },
-  ]; */
 
     const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
     const questions = props.quiz;
@@ -88,9 +66,6 @@ const Questions = (props: any) => {
             index: currentQuestionIndex,
             count: steps.length
         });
-
-        //const max = questions.length - 1
-        //const progressPercent = (activeStep / max) * 100
 
         return (
             <Stepper size="md" index={activeStep} gap="0">
@@ -249,79 +224,17 @@ const Questions = (props: any) => {
         );
     };
 
-    // showing the correct view
-    /*const chooseView = () => {
-    if (screenStage == "question") {
-      return (
-        <Grid 
-        templateColumns='repeat(5, 1fr)'
-        templateRows='repeat(8, 1fr)'
-         w="100vw" height="100vh" gap="5">
-          <GridItem colSpan={3} colStart={2} rowSpan={1} rowStart={1} justifySelf="center" alignSelf="end" w="50%" border="2px" borderColor="blue">
-            <Box  fontSize="22" textAlign="center"> {currentQuestion.question} </Box>
-          </GridItem>
-          <GridItem  colSpan={1} colStart={3} rowSpan={2} rowStart={2} alignSelf="start" justifySelf="center" border="2px" borderColor="blue">
-          <ButtonGroup flexDir="column" alignItems="end">
-            {currentQuestion.options.map((option, index) =>
-              answerButton(option, index)
-            )}
-          </ButtonGroup>
-          </GridItem>
-          <GridItem colSpan={1} colStart={3} rowSpan={1} rowStart={7} border="2px" borderColor="blue">
-            {chooseButton()}
-          </GridItem>
-          <GridItem  colSpan={3} colStart={2} rowSpan={1} rowStart={8} border="2px" borderColor="blue">
-          <Steps/>
-          </GridItem>
-        </Grid>
-      );
-    } if (screenStage == "information") {
-      return (
-        <Grid templateAreas={'"question explanation" "button button" "steps steps"'}
-        templateRows={'60% 10% 1fr'}
-        templateColumns={'50% 1fr'}
-        w="100vw" height="100vh" gap="2"
-        alignItems="stretch">
-          <GridItem area={'question'} justifySelf="center" border="2px" borderColor="blue">
-          <Box display="flex" flexDir="column" alignItems="center" margin="10">
-            <Box textAlign="center" fontSize="18">
-          {currentQuestion.question}
-          </Box>
-            <Box border="2px" borderColor="game.green" marginTop="10" width="300px" textAlign="center" padding="2" alignSelf="center">
-              {currentQuestion.correctAnswer}
-            </Box>
-            </Box>
-            </GridItem>
-            <GridItem area={'explanation'}justifySelf="center" border="2px" borderColor="blue">
-          <Box whiteSpace="pre-wrap" margin="10">
-          {currentQuestion.explanation}
-          </Box>
-          </GridItem>
-          <GridItem area={'button'}  border="2px" borderColor="blue">
-          <Box display="flex" flexDir="column" alignSelf="center" justifySelf="center" >
-          {chooseButton()}
-          </Box>
-          </GridItem>
-          <GridItem area={'steps'}  border="2px" borderColor="blue">
-            <Box display="flex" flexDir="column" alignSelf="center" justifySelf="center" w="600px" marginBottom="20" border="2px">
-          <Steps/>
-          </Box>
-          </GridItem>
-        </Grid>
-      );
-    } if (screenStage == "end") {
-      return (
-        <Box display="flex" flexDir="column" alignItems="center" paddingTop="20">
-        <Box border="4px" borderColor="game.white" width="500px" display="flex" flexDir="column" alignItems="center" >
-          <Box padding="10" fontSize="20">
-        You have finished Level 1
-        </Box>
-        <Box paddingBottom="10">Correct answers: {score}/{questions.length}</Box>
-        </Box>
-        </Box>
-      );
+    const handleLevelComplete = async () => {
+        const userAuthDataJSON = window.localStorage.getItem('userAuthDataJSON');
+        if (userAuthDataJSON) {
+            const user = JSON.parse(userAuthDataJSON);
+            let userAuthData = user;
+            const userData = await userDataService.getUserData({userId: userAuthData.user_id, userToken: userAuthData.token})
+            const updatedUserData = userData;
+            updatedUserData.levels[0][0].completed = true;
+            await userDataService.updateUserData( { userId: userAuthData.user_id, userToken: userAuthData.token, userData: updatedUserData })
+        }
     }
-  };*/
 
     const chooseView = () => {
         if (screenStage == 'question') {
@@ -441,7 +354,7 @@ const Questions = (props: any) => {
                             Correct answers: {score}/{questions.length}
                         </Box>
                     </Box>
-                    <Link to="/">
+                    <Link to="/" onClick={handleLevelComplete}>
                         <Button border="2px" m="5em 0 0 0" borderRadius="0px">
                             Main menu
                         </Button>
@@ -456,4 +369,3 @@ const Questions = (props: any) => {
 
 export default Questions;
 
-// choose and next buttons should be in the same place all the time
