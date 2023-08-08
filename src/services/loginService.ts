@@ -27,11 +27,9 @@ const login = async ( credentials: ICredentials ) : Promise<IUserAuthData> => {
     return response.data
 }
 
-const signup = async ( signupInfo: ISignupInfo ): Promise<IUserAuthData> => {
-    await axios.post<IStudent>(baseUrl + '/signup')
-
-    const loginResponse = await login({ username: signupInfo.username, password: signupInfo.password })
-    return loginResponse
+const signup = async ( signupInfo: ISignupInfo ): Promise<IStudent> => {
+    const signupResponse = await axios.post<IStudent>(baseUrl + '/signup', signupInfo)
+    return signupResponse.data
 }
 
 export default { login, signup };

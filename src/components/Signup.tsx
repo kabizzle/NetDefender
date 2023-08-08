@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react'
 
 import loginService, { IUserAuthData } from '../services/loginService'
+import { IStudent } from '../interfaces/Student';
 
 interface ISignupProps {
     setUserAuthData: Dispatch<SetStateAction<IUserAuthData>>;
@@ -52,29 +53,46 @@ const Signup = ( {setUserAuthData, setShowLogin}: ISignupProps) => {
     // attempts to sign user up and log them in, consecutively 
     const handleSignup: React.FormEventHandler = async (event: React.FormEvent<HTMLInputElement>) => {
         event.preventDefault();
-
         try {
-            const user: IUserAuthData = await (loginService.signup({ name: name, username: username, student_number: studentNumber, password: password }));
+            if (name === '' || username === '' || password === '') {
+                throw new Error('invalidProps')
+            }
+            const user: IStudent = await (loginService.signup({ name: name, username: username, student_number: studentNumber, password: password }));
             console.log('user: ', user);
-            setUserAuthData(user);
-            window.localStorage.setItem('userAuthDataJSON', JSON.stringify(user));
+            
             setUsername('');
             setPassword('');
+            setStudentNumber('');
+            setName('');
             // window.location.reload();
             
             toast({
-                title: 'Successful login!',
+                title: 'Successfully signed up!',
                 status: 'success',
-                duration: 3500,
+                duration: 1500,
                 isClosable: true
             })
-        } catch {
-            toast({
-                title: 'Wrong Credentials',
-                status: 'error',
-                duration: 5000,
-                isClosable: true
-            })
+            setTimeout(()=>{
+                setShowLogin(true);
+            }, 2000)
+        } catch (e) {
+            if ( e instanceof Error ) {
+                if (e.message === 'invalidProps'){
+                    toast({
+                        title: 'Invalid name, username or password.',
+                        status: 'error',
+                        duration: 3500,
+                        isClosable: true
+                    })
+                }
+            } else {
+                toast({
+                    title: 'Something went wrong. Try again.',
+                    status: 'error',
+                    duration: 3500,
+                    isClosable: true
+                })
+            }
         }
     }
 
