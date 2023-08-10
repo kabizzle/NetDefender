@@ -136,9 +136,6 @@ const App = () => {
         )
     );
     
-    // if (userData == undefined) {
-    //     console.log("lol wtf")
-    // }
     if (userAuthData.token === '') {
         return (
             <ChakraProvider theme={theme}>

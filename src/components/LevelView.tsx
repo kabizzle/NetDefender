@@ -11,47 +11,12 @@ interface ILevelViewProps {
 }
 
 const LevelView = ( { levelData, setShowLevel }: ILevelViewProps ) => {
-
-    // console.log("level data:", levelData)
-    
-    // const levels = [<></>];
-    //
-    // const renderLevels = () => { 
-    //     levelData.map(( level: ILevel ) => {
-    //         return (
-    //             <Center w="50vw">
-    //                 <Level key={level.id} name={level.name} completed={level.completed} activity={'/level/' + level.id} />
-    //             </Center>);
-    //     })
-    // };
-    // 
-    // useEffect(() => {
-    //     renderLevels();
-    //     console.log('levels: ', levels)
-    // }, [])
-
-
-                // <Center w="50vw">
-                //     <Level name="Level 1: Identify Attacks" completed={false} activity="/level/1" />
-                // </Center>
-                // <Center w="50vw">
-                //     <Level name="Level 2: Caesar Cipher" completed={false} activity="" />
-                // </Center>
     return (
         <>
             <Box border="2px" h="25em" pos="relative">
                 <Link to='/'>
-                    <Center
-                        w="36px"
-                        h="36px"
-                        border="2px"
-                        borderColor="game.white"
-                        pos="absolute"
-                        top="1em"
-                        right="1em"
-                        _hover={{ color: 'game.black', bg: 'game.white' }}
-                    >
-                         <CloseIcon onClick={() => setShowLevel(false)}/>
+                    <Center w="36px" h="36px" border="2px" borderColor="game.white" pos="absolute" top="1em" right="1em" _hover={{ color: 'game.black', bg: 'game.white' }}>
+                        <CloseIcon onClick={() => setShowLevel(false)}/>
                     </Center>
                 </Link>
                 <Flex direction="column" border="2px" align="center" justify="space-evenly" h="25em" >
