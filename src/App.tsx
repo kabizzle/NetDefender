@@ -123,12 +123,12 @@ const App = () => {
                 </Route>
                 <Route path="level">
                     <Route path="1" element={<Level0 />} />
-                    <Route path="rsa" element={<LevelRSA />} />
-                    <Route path="c" element={<CC />} />
-                    <Route path="2" element={<LevelCC />} />
-                    <Route path="e" element={<CCEmail />} />
-                    <Route path="p" element={<Phishing />} />
-                    <Route path="em" element={<EmailMenu />} />
+                    <Route path="2" element={<CCEmail />} />
+                    <Route path="3" element={<LevelRSA />} />
+                    <Route path="cc" element={<CC />} />
+                    <Route path="levelcc" element={<LevelCC />} />
+                    <Route path="phishing" element={<Phishing />} />
+                    <Route path="emailmenu" element={<EmailMenu />} />
                 </Route>
                 <Route path="sandbox" element={<Sandbox />} />
                 <Route path="*" element={<Error />} />

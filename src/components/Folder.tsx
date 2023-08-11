@@ -20,7 +20,7 @@ const Folder = ( { showLevel, levelToShow, folderType, name, number }: IFolderPr
         } else {
             setFolderIcon('/folder_unlocked.png');
         }
-    }, []);
+    }, [showLevel, levelToShow]);
 
 
     return (

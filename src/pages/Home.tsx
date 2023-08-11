@@ -88,7 +88,7 @@ const Home = ({ setUserAuthData, userAuthData }: { setUserAuthData: Dispatch<Set
                 )
             } else if (levelData[i-2].every((level) => level.completed)) {
                 return (
-                    <Box onClick={() => { setLevelToShow(2); setShowLevel(!showLevel)}} cursor='pointer'>
+                    <Box onClick={() => { setLevelToShow(i); setShowLevel(!showLevel)}} cursor='pointer'>
                         <Folder showLevel={showLevel} levelToShow={levelToShow} folderType="unlocked" name={`Week ${i}`} number={i} />
                     </Box>
                 )
