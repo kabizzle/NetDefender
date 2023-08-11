@@ -12,10 +12,11 @@ import {
     useSteps,
     Grid,
     GridItem,
-    Icon
+    Icon,
+    useToast
 } from '@chakra-ui/react';
 
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import userDataService from '../../services/userDataService';
 
 /*interface LevelQuestion {
@@ -48,7 +49,9 @@ const Questions = (props: any) => {
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [buttonStage, setButtonStage] = useState('choose'); // choose, next, next2
     const [screenStage, setScreenStage] = useState('question');
-
+    
+    const toast = useToast();
+    const navigate = useNavigate();
     // icon for stepper
     const CircleIcon = (props: any) => (
         <Icon viewBox="0 0 200 200" {...props}>
@@ -230,9 +233,20 @@ const Questions = (props: any) => {
             const user = JSON.parse(userAuthDataJSON);
             let userAuthData = user;
             const userData = await userDataService.getUserData({userId: userAuthData.user_id, userToken: userAuthData.token})
-            const updatedUserData = userData;
-            updatedUserData.levels[0][0].completed = true;
-            await userDataService.updateUserData( { userId: userAuthData.user_id, userToken: userAuthData.token, userData: updatedUserData })
+            if (!userData.levels[0][0].completed) {
+                const updatedUserData = userData;
+                updatedUserData.levels[0][0].completed = true;
+                updatedUserData.points = userData.points + userData.levels[0][0].points
+                await userDataService.updateUserData( { userId: userAuthData.user_id, userToken: userAuthData.token, userData: updatedUserData })
+            }
+            toast({
+                title: 'Good job!',
+                status: 'success',
+                duration: 3500
+            });
+            setTimeout(() => {
+                navigate('/');
+            }, 3500)
         }
     }
 
@@ -354,11 +368,9 @@ const Questions = (props: any) => {
                             Correct answers: {score}/{questions.length}
                         </Box>
                     </Box>
-                    <Link to="/" onClick={handleLevelComplete}>
-                        <Button border="2px" m="5em 0 0 0" borderRadius="0px">
-                            Main menu
-                        </Button>
-                    </Link>
+                    <Button border="2px" m="5em 0 0 0" borderRadius="0px" onClick={handleLevelComplete}>
+                        Main menu
+                    </Button>
                 </Box>
             );
         }

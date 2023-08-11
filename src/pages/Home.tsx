@@ -113,7 +113,7 @@ const Home = ({ setUserAuthData, userAuthData }: { setUserAuthData: Dispatch<Set
                 <Grid templateRows="1fr 3fr 1fr" templateColumns="25em auto 25em" h="100vh">
                     <GridItem colSpan={1}>
                         <Box maxW="25em" p="0 0 2em 0">
-                            <UserProgress name={userData.name} completed={0} rating={5} />
+                            <UserProgress name={userData.name} points={userData.points} rating={userData.rating} />
                             <Button onClick={handleLogout}
                                 m="2em 0 0 2em"
                             >Logout </Button>

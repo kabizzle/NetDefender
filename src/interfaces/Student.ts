@@ -4,6 +4,8 @@ export interface IStudent {
 	student_number?: string; // student_number is optional for now, as students may not want to get graded from game. This needs to be discussed further.
 	tutorial_completed: boolean;
 	public_key: string;
+	rating: number;
+    points: number;
 	levels: [
         [{ id: number, completed: boolean, points: number, name: string }, { id: number, completed: boolean, points: number, name: string }],
         [{ id: number, completed: boolean, points: number, name: string }],
@@ -11,7 +13,8 @@ export interface IStudent {
         [{ id: number, completed: boolean, points: number, name: string }],
         [{ id: number, completed: boolean, points: number, name: string }]
     ];
-	rating: number;
+    id: string;
+
 }
 
 export const defaultStudent: IStudent = {
@@ -27,5 +30,7 @@ export const defaultStudent: IStudent = {
         [{ id: 5, completed: false, points: 20, name: ''  }],
         [{ id: 6, completed: false, points: 20, name: ''  }]
     ],
-    rating: 5
+    rating: 5,
+    points: 0,
+    id: ''
 }

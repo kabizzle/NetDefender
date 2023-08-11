@@ -32,18 +32,21 @@ const CCEmail = () => {
                 const user = JSON.parse(userAuthDataJSON);
                 let userAuthData = user;
                 const userData = await userDataService.getUserData({userId: userAuthData.user_id, userToken: userAuthData.token})
-                const updatedUserData = userData;
-                updatedUserData.levels[1][0].completed = true;
-                await userDataService.updateUserData( { userId: userAuthData.user_id, userToken: userAuthData.token, userData: updatedUserData })
-                toast({
-                    title: 'Good job!',
-                    status: 'success',
-                    duration: 3500
-                });
-                setTimeout(() => {
-                    navigate('/');
-                }, 3500)
+                if (!userData.levels[1][0].completed){
+                    const updatedUserData = userData;
+                    updatedUserData.levels[1][0].completed = true;
+                    updatedUserData.points = userData.points + userData.levels[1][0].points;
+                    await userDataService.updateUserData( { userId: userAuthData.user_id, userToken: userAuthData.token, userData: updatedUserData })
+                }
             }
+            toast({
+                title: 'Good job!',
+                status: 'success',
+                duration: 3500
+            });
+            setTimeout(() => {
+                navigate('/');
+            }, 3500)
         } else {
             toast({
                 title: 'Wrong code word',
