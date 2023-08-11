@@ -1,6 +1,8 @@
 import { Box, Center, Flex, Text, Button, FormLabel, Textarea, useToast, FormControl } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import JSEncrypt from 'jsencrypt';
+import userDataService from '../../services/userDataService';
+import { useNavigate } from 'react-router-dom';
 
 const LevelRSA = () => {
     const [count, setCount] = useState(0);
@@ -14,24 +16,13 @@ const LevelRSA = () => {
     // const [displayText, setDisplayText] = useState("")
     const toast = useToast();
     const pubKeyRegex = /^-----BEGIN PUBLIC KEY-----([A-Za-z0-9+/=\s]+)-----END PUBLIC KEY-----\n?$/;
+    const userAuthDataJSON = window.localStorage.getItem('userAuthDataJSON')
+    const navigate = useNavigate();
 
-    // TODO:
-    // - Turn these keys into environment variables, instead of hardcoding them.
-    game_RSA.setPrivateKey(
-        '-----BEGIN RSA PRIVATE KEY-----MIICXAIBAAKBgQDB0Uko9wj9ULdwcjS8+89sYqPzIpBziLFJod57vtZBF19BUgR/DVO4MlYGodB3Fn86d7szQzEbyHZOdK23JuVH3EL2U/BVH3XeAIj7ybDmDTe2sb7gcA9/3EBxmt0l0bGxal9buWbCn0zOwOvjzNXJ5tXmtqM0eH0yIBEFdwgtiwIDAQABAoGANAzAWP/+qgjDOq9w+k+lpLXY0bK2mFBdTCjsVs8pOtHMAv7Dtlsd4JmkAKP0GAcyo8EDxQCGb6+mFeu/uy/24p2bgWBMn7kPudZnXsmLYxxNWk9DN5YPbNxlsUkM02H9ZDyXn3SZ5rzKNQrKjibHIrvrzmhEu6rCl7O8EVS2LAECQQDuMOFU5xHw3opXgmM+kCIu42pvxYwjgHtJDTMOrrjkQIoD9QJOBbIRGdyON0lvLe7wo2iJjzNhUMSZ8+yVeuVzAkEA0E8SQ7hF5FvwbeU9iKcY70/HpwN4PKGX876ugfgE6mfBFmrfSuTbKeE7bzht5UI/dJbhfcnwkwKASGLXeS5RiQJADiu0TDPPGnBy9I/aTa+PiRCYlXvAQaB0NT1myznT4CiCzYd3EqM+G8xZFdDuOoIWFBT0tDJj0SdX+vzLF32PRwJAD3qwusOIvg1u8luklPEF01K0XV7OooLHjd9PjGznwJtxJ79NVH1pI9WO2xbwY6bmnD1SCEznSaVX7wkZRfIBMQJBAIQUrR8Bz8b86Vjl3UiLNuf2iQl5MdetMRqIWe0uP3sJVCYRdEnLYXiVK2nh1zzzD4+XZH5/KRc27RSyGsqQuR0=-----END RSA PRIVATE KEY-----'
-    );
+    // set game's private key from .env file
+    game_RSA.setPrivateKey(import.meta.env.VITE_GAME_PRIVATE_KEY);
 
-    // useEffect( () => {
-    //   setUserPubKey("-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDB0Uko9wj9ULdwcjS8+89sYqPzIpBziLFJod57vtZBF19BUgR/DVO4MlYGodB3Fn86d7szQzEbyHZOdK23JuVH3EL2U/BVH3XeAIj7ybDmDTe2sb7gcA9/3EBxmt0l0bGxal9buWbCn0zOwOvjzNXJ5tXmtqM0eH0yIBEFdwgtiwIDAQAB-----END PUBLIC KEY-----")
-    //   setGivenPubKey(true)
-    //   student_rsa.setPublicKey(userPubKey)
-    //
-    //   let cipherText = student_rsa.encrypt("The encrypted word is: Netdefender")
-    //   if (cipherText !== false) {
-    //     setEncryptedMsg(cipherText)
-    //   }
-    // }, [])
-
+    // updates the count so that different content is shown
     const handleClick = () => {
         setCount(count + 1);
     };
@@ -52,13 +43,23 @@ const LevelRSA = () => {
     // This public key should be used for encrypting any text input from the user
     // TODO:
     // - send userPubKey to database when submitted. Implement a POST request for this in API
-    const handlePubKeySubmit: React.FormEventHandler = (event: React.FormEvent<HTMLInputElement>) => {
+    const handlePubKeySubmit: React.FormEventHandler = async (event: React.FormEvent<HTMLInputElement>) => {
         event.preventDefault();
         console.log('attempt to submit public key');
         if (pubKeyRegex.test(userPubKey)) {
             // handleClick()
             setGivenPubKey(true);
             setCount(0);
+
+            // update value of user's public key in database
+            if (userAuthDataJSON) {
+                const userAuthData = JSON.parse(userAuthDataJSON);
+                const userData = await userDataService.getUserData({userId: userAuthData.user_id, userToken: userAuthData.token})
+                const updatedUserData = userData;
+                updatedUserData.public_key = userPubKey;
+                await userDataService.updateUserData( { userId: userAuthData.user_id, userToken: userAuthData.token, userData: updatedUserData })
+            }
+
             toast({
                 title: 'Public key added.',
                 status: 'success',
@@ -75,21 +76,20 @@ const LevelRSA = () => {
                 title: 'Error:',
                 description: 'Check if public key is inputted correctly.',
                 status: 'error',
-                duration: 8000
+                duration: 3500,
+                isClosable: true
             });
         }
     };
 
     // changes givenPubKey to true, indicating that user has inputted a public key.
     // This public key should be used for encrypting any text input from the user
-    // TODO:
-    // - send userPubKey to database when submitted. Implement a POST request for this in API
-    const handleTaskSubmit: React.FormEventHandler = (event: React.FormEvent<HTMLInputElement>): boolean => {
+    const handleTaskSubmit: React.FormEventHandler = async (event: React.FormEvent<HTMLInputElement>): Promise<boolean> => {
         event.preventDefault();
         if (task === 1) {
             console.log('Task 1: user has to decrypt message');
             // if (game_RSA.decrypt(userInput) === "Netdefender") {
-            if (userInput === 'Netdefender') {
+            if (userInput === "Netdefender") {
                 toast({
                     title: 'Good job!',
                     description: 'You solved the first task',
@@ -111,22 +111,38 @@ const LevelRSA = () => {
             }
         } else if (task == 2) {
             console.log('Task 2: user has to encrypt message');
-            if (game_RSA.decrypt(userInput) === '1234567') {
-                toast({
-                    title: 'Good job!',
-                    description: 'You solved the third task',
-                    status: 'success',
-                    duration: 3500
-                });
-                return true;
-            } else {
-                toast({
-                    title: 'Error:',
-                    description:
-                        'You did not submit the right answer. Did you get the hint from the encrypted message?',
-                    status: 'error',
-                    duration: 8000
-                });
+
+            if (userAuthDataJSON) {
+                const userAuthData = JSON.parse(userAuthDataJSON);
+                
+                if (game_RSA.decrypt(userInput) === userAuthData.username) {
+                    const userData = await userDataService.getUserData({userId: userAuthData.user_id, userToken: userAuthData.token})
+                    const updatedUserData = userData;
+                    updatedUserData.points = userData.points + userData.levels[2][0].points;
+                    updatedUserData.levels[2][0].completed = true;
+                    await userDataService.updateUserData( { userId: userAuthData.user_id, userToken: userAuthData.token, userData: updatedUserData })
+                    toast({
+                        title: 'Good job!',
+                        description: 'You solved the third task',
+                        status: 'success',
+                        duration: 3500
+                    });
+                    setTimeout(() => {
+                        navigate('/');
+                    }, 3500)
+                    return true;
+                } else {
+                    toast({
+                        title: 'Error:',
+                        description:
+                            'You did not submit the right answer. Did you get the hint from the encrypted message?',
+                        status: 'error',
+                        duration: 8000
+                    });
+                    return false;
+                }
+            }
+            else {
                 return false;
             }
         } else {
