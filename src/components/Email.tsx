@@ -35,7 +35,7 @@ const Email = (props: any) => {
     };
 
     return (
-        <Box w="100vw" h="100vh" display="flex" alignItems="center" justifyContent="center">
+        <>
             <Box
                 w="800px"
                 h="500px"
@@ -47,12 +47,17 @@ const Email = (props: any) => {
             >
                 <Grid w="100%" h="100%" templateRows="11% 14% 1fr 11%">
                     <GridItem border="0px" borderColor="pink.500">
+                            {/*
                         <Box h="100%" display="flex" flexDir="row" alignItems="center" justifyContent="end">
+                            */}
+                        <Box>
                             <Heading fontFamily="mono" padding="5px" paddingLeft="10px">
                                 {heading}
                             </Heading>
+                            {/*
                             <Spacer />
                             <Box w="20px" h="20px" bg="game.white" marginRight="15px"></Box>
+                            */}
                         </Box>
                     </GridItem>
                     <GridItem border="0px" borderColor="yellow">
@@ -89,6 +94,7 @@ const Email = (props: any) => {
                             {message}
                         </Box>
                     </GridItem>
+                    {/*
                     <GridItem>
                         <Box
                             h="100%"
@@ -113,6 +119,7 @@ const Email = (props: any) => {
                             </Button>
                         </Box>
                     </GridItem>
+                    */}
                 </Grid>
             </Box>
 
@@ -165,7 +172,7 @@ const Email = (props: any) => {
                     </ModalFooter>
                 </ModalContent>
             </Modal>
-        </Box>
+        </>
     );
 };
 
