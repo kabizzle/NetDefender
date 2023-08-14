@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import { Box, Grid, GridItem, Heading, Spacer } from '@chakra-ui/react';
 
 // Now working as a layout, needs to be merged with actual emails and have them as links
 
 const EmailMenu = () => {
+    {/*
     const [emails, setEmails] = useState([
         {
             heading: 'Important!!',
@@ -26,6 +26,29 @@ const EmailMenu = () => {
             sent: true
         }
     ]);
+    */}
+    const emails = [
+        {
+            heading: 'Important!!',
+            sender: 'sender@email.com',
+            sent: true
+        },
+        {
+            heading: 'More important!!',
+            sender: 'sender2@email.com',
+            sent: true
+        },
+        {
+            heading: 'Open this email',
+            sender: 'sender3@email.com',
+            sent: false
+        },
+        {
+            heading: 'Important, open now!!',
+            sender: 'sender4@email.com',
+            sent: true
+        }
+    ]
 
     const sentEmails = emails.filter((email) => email.sent);
 

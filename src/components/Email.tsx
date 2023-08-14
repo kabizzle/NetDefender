@@ -1,22 +1,12 @@
-import { useState } from 'react';
 import {
     Box,
-    Button,
     Grid,
     GridItem,
     Text,
     Divider,
     Heading,
-    Spacer,
     Tooltip,
     HStack,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton
 } from '@chakra-ui/react';
 
 const Email = (props: any) => {
@@ -25,6 +15,7 @@ const Email = (props: any) => {
     const you = props.you;
     const message = props.message;
 
+                    {/*
     // Reporting popup
     const [isReportModalOpen, setIsReportModalOpen] = useState(false);
     const handleReportModalOpen = () => {
@@ -33,6 +24,7 @@ const Email = (props: any) => {
     const handleReportModalClose = () => {
         setIsReportModalOpen(false);
     };
+                    */}
 
     return (
         <>
@@ -123,6 +115,7 @@ const Email = (props: any) => {
                 </Grid>
             </Box>
 
+            {/*
             <Modal isOpen={isReportModalOpen} onClose={handleReportModalClose} isCentered>
                 <ModalOverlay />
                 <ModalContent
@@ -172,6 +165,7 @@ const Email = (props: any) => {
                     </ModalFooter>
                 </ModalContent>
             </Modal>
+                    */}
         </>
     );
 };

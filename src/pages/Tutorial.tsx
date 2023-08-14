@@ -44,7 +44,7 @@ const Tutorial = ({setShowTutorial}: {setShowTutorial: Dispatch<SetStateAction<b
             <Grid templateRows="1fr 3fr 1fr" templateColumns="25em auto 25em" h="100vh">
                 <GridItem colSpan={1}>
                     <Box maxW="25em" p="0 0 2em 0">
-                        <UserProgress name={'Neo'} completed={1} rating={4} />
+                        <UserProgress name={'Neo'} points={15} rating={4} />
                     </Box>
                 </GridItem>
                 <GridItem colSpan={1} colStart={3}>
