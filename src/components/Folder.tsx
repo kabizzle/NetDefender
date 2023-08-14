@@ -1,53 +1,37 @@
-import { Image, Box } from '@chakra-ui/react'
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Image, Box, Text } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 
-interface Level {
-    forwardSource: string;
-    backSource: string;
+interface IFolderProps {
+    showLevel: boolean;
+    levelToShow: number;
     folderType: string;
+    name: string;
+    number: number;
 }
 
-const Folder = ( {forwardSource, backSource, folderType}: Level) => {
-    const [source, setSource] = useState("")
-    const [folderIcon, setFolderIcon] = useState("/folder_unlocked.png")
-    const [folderStatus, setFolderStatus] = useState(folderType)
-    const location = useLocation();
+const Folder = ( { showLevel, levelToShow, folderType, name, number }: IFolderProps ) => {
+    const [folderIcon, setFolderIcon] = useState('/folder_unlocked.png');
 
     useEffect(() => {
-        if (folderType === "locked") {
-            setFolderIcon("/folder_locked.svg")
+        if (folderType === 'locked') {
+            setFolderIcon('/folder_locked.svg');
+        } else if (showLevel && levelToShow === number) {
+            setFolderIcon('/folder_opened.svg');
+        } else {
+            setFolderIcon('/folder_unlocked.png');
         }
-        else if (location.pathname === "/" && folderStatus === "opened") {
-            setFolderStatus("unlocked")
-            setFolderIcon("/folder_unlocked.svg")
-        }
-    },[folderStatus, folderType, forwardSource, location])
+    }, [showLevel, levelToShow]);
 
-    const handleChange = () => {
-        console.log(location)
-        console.log(folderStatus);
-        
-        if (folderStatus == "unlocked"){
-          setSource(backSource)
-          setFolderStatus("opened")
-          setFolderIcon("/folder_opened.svg")
-        }
-        else if (folderStatus == "opened") {
-          setSource(forwardSource)
-          setFolderStatus("unlocked")
-          setFolderIcon("/folder_unlocked.svg")
-        }
-    }
 
-      return (
-        <Box>
-          <Link to={source} onClick={handleChange}>
-            <Image src={folderIcon} w="10em"/>
-          </Link>
-        </Box>          
-    )
+    return (
+        <Box display="flex" flexDir="column" alignItems="center">
+            <Image src={folderIcon} w="10em" />
+            { folderType === 'locked' 
+            ? <Text marginTop="1em" color="game.gray">{name}</Text>
+            : <Text marginTop="1em">{name}</Text>
+            }
+        </Box>
+    );
 };
 
 export default Folder;
