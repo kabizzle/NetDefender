@@ -11,7 +11,6 @@ import Error from './pages/Error.tsx';
 import LevelRSA from './components/MS/LevelRSA.tsx';
 import Sandbox from './components/Sandbox.tsx';
 import { useEffect, useState } from 'react';
-import { IStudent, defaultStudent } from './interfaces/Student.ts';
 import { IUserAuthData } from './services/loginService.ts';
 import Login from './components/Login.tsx';
 import Signup from './components/Signup.tsx';

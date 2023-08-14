@@ -1,3 +1,4 @@
+ // @ts-ignore
 const StartScreen = ({ handleScreenChange }) => {
     return (
         <div>

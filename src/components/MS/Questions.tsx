@@ -64,7 +64,7 @@ const Questions = (props: any) => {
         Array.from({ length: questions.length }, () => ({ border: 'game.white', fill: 'game.black' }))
     );
 
-    function Steps() {
+    function Steps() { // @ts-ignore
         const { activeStep, setActiveStep } = useSteps({
             index: currentQuestionIndex,
             count: steps.length
@@ -73,11 +73,11 @@ const Questions = (props: any) => {
         return (
             <Stepper size="md" index={activeStep} gap="0">
                 {steps.map(
-                    (
-                        step,
-                        index // eslint-disable-line // eslint-disable-next-line
+                    ( // @ts-ignore
+                        step, // eslint-disable-line // eslint-disable-next-line
+                        index 
                     ) => (
-                        <Step key={index} gap="0">
+                        <Step key={index}>
                             <StepIndicator>
                                 <StepStatus
                                     complete={<CircleIcon boxSize={8} color={stepColors[index].fill} />}
