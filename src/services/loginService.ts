@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { IStudent } from '../interfaces/Student';
 
-const baseUrl = 'http://netdefender.org.aalto.fi/api';
+const baseUrl = 'https://netdefender.org.aalto.fi/api';
 
 export interface ICredentials {
     username: string,
