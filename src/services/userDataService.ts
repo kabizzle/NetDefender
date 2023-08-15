@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { IStudent } from '../interfaces/Student';
 
-const baseUrl = 'https://netdefender.org.aalto.fi/api';
+const baseUrl = 'https://netdefender.org.aalto.fi/api/students/';
 
 interface IGetUserDataProps {
     userId: string;
@@ -20,7 +20,7 @@ const getUserData = async ({userId, userToken}: IGetUserDataProps): Promise<IStu
         headers: {Authorization: token}
     }
 
-    const userUrl = baseUrl + '/' + userId;
+    const userUrl = baseUrl + userId;
     const userData = await axios.get(userUrl, httpAuth);
     return userData.data.student
 }
@@ -31,7 +31,7 @@ const updateUserData = async ({userId, userToken, userData}: IUpdateUserDataProp
         headers: {Authorization: token}
     }
 
-    const userUrl = baseUrl + '/' + userId;
+    const userUrl = baseUrl + userId;
     const userReturnData = await axios.put(userUrl, userData, httpAuth);
     return userReturnData.data.student
 }
