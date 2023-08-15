@@ -27,7 +27,6 @@ const Home = ({ setUserAuthData, userAuthData }: { setUserAuthData: Dispatch<Set
         setUserData(data)
         setShowTutorial(!data.tutorial_completed)
         setUserDataFetched(true)
-        console.log('user data: ', data)
     }
 
     const updateTutorial = async () => {
@@ -51,13 +50,11 @@ const Home = ({ setUserAuthData, userAuthData }: { setUserAuthData: Dispatch<Set
     // function that allows user to log out of app
     const handleLogout: React.FormEventHandler = (event: React.FormEvent<HTMLInputElement> ) => {
         event.preventDefault();
-        console.log('clicked')
         try {
-            console.log('Trying to logout');
             setUserAuthData({ token: '', username: '', name: '', user_id: '' });
             window.localStorage.removeItem('userAuthDataJSON');
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }
 

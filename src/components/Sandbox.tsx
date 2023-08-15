@@ -57,7 +57,6 @@ const Sandbox = () => {
     // This public key should be used for encrypting any text input from the user
     const handlePubKeySubmit: React.FormEventHandler = (event: React.FormEvent<HTMLInputElement>) => {
         event.preventDefault();
-        console.log('clicked');
         setGivenPubKey(true);
     };
 
@@ -65,7 +64,6 @@ const Sandbox = () => {
     // This private key should be used for decrypting any text input from the user
     const handlePrivKeySubmit: React.FormEventHandler = (event: React.FormEvent<HTMLInputElement>) => {
         event.preventDefault();
-        console.log('priv key submit clicked');
         setGivenPrivKey(true);
     };
 
@@ -78,17 +76,14 @@ const Sandbox = () => {
 
         if (givenPubKey) {
             // if user has inputted public key, use it to encrypt
-            console.log('encrypting using input private key');
             student_pub_RSA.setPublicKey(userPubKey);
             toEncrypt = student_pub_RSA.encrypt(userInput);
         } else {
             // else, use game public key
-            console.log('using game public key');
             toEncrypt = game_encrypt_RSA.encrypt(userInput.valueOf());
         }
 
         if (toEncrypt !== false) {
-            console.log(toEncrypt);
             setDisplayText(
                 <>
                     <Text>Encrypted text: </Text>
@@ -96,7 +91,6 @@ const Sandbox = () => {
                 </>
             );
         } else {
-            console.log('Error: unable to encrypt');
             setDisplayText(<Text>Error: unable to encrypt</Text>);
         }
     };
@@ -110,18 +104,14 @@ const Sandbox = () => {
 
         if (givenPrivKey) {
             // if user has inputted private key, use it to decrypt
-            console.log('Using user submitted private key');
-            console.log('attempting to decrypt: \n' + userInput.valueOf());
             student_RSA.setPrivateKey(userPrivKey);
             toDecrypt = student_RSA.decrypt(userInput);
         } else {
             // else, use game private key
-            console.log('Using game private key');
             toDecrypt = game_decrypt_RSA.decrypt(userInput.valueOf());
         }
 
         if (toDecrypt !== false) {
-            console.log(toDecrypt);
             setDisplayText(
                 <>
                     <Text>Decrypted text: </Text>
@@ -129,7 +119,6 @@ const Sandbox = () => {
                 </>
             );
         } else {
-            console.log('Error: unable to decrypt');
             setDisplayText(<Text>Error: unable to decrypt</Text>);
         }
     };

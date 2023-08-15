@@ -105,9 +105,7 @@ const App = () => {
     // on page load, check if user auth credentials stored.
     // If so, get user data from api.
     useEffect(() => {
-        console.log('useEffect begins')
         const userAuthDataJSON = window.localStorage.getItem('userAuthDataJSON');
-        console.log('userJSON: ', userAuthDataJSON)
         if (userAuthDataJSON) {
             const user = JSON.parse(userAuthDataJSON);
             setUserAuthData(user)

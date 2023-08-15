@@ -41,7 +41,6 @@ const Login = ( {setUserAuthData, setShowLogin}: ILoginProps) => {
 
         try {
             const user: IUserAuthData = await (login.login({ username, password }));
-            console.log('user: ', user);
             setUserAuthData(user);
             window.localStorage.setItem('userAuthDataJSON', JSON.stringify(user));
             setUsername('');
