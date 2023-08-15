@@ -45,7 +45,6 @@ const LevelRSA = () => {
     // - send userPubKey to database when submitted. Implement a POST request for this in API
     const handlePubKeySubmit: React.FormEventHandler = async (event: React.FormEvent<HTMLInputElement>) => {
         event.preventDefault();
-        console.log('attempt to submit public key');
         if (pubKeyRegex.test(userPubKey)) {
             // handleClick()
             setGivenPubKey(true);
@@ -87,7 +86,6 @@ const LevelRSA = () => {
     const handleTaskSubmit: React.FormEventHandler = async (event: React.FormEvent<HTMLInputElement>): Promise<boolean> => {
         event.preventDefault();
         if (task === 1) {
-            console.log('Task 1: user has to decrypt message');
             // if (game_RSA.decrypt(userInput) === "Netdefender") {
             if (userInput === "Netdefender") {
                 toast({
@@ -110,7 +108,6 @@ const LevelRSA = () => {
                 return false;
             }
         } else if (task == 2) {
-            console.log('Task 2: user has to encrypt message');
 
             if (userAuthDataJSON) {
                 const userAuthData = JSON.parse(userAuthDataJSON);
@@ -151,7 +148,6 @@ const LevelRSA = () => {
     };
 
     const pubKeyTask = () => {
-        console.log('count = ' + count);
         if (count == 0) {
             return (
                 <>

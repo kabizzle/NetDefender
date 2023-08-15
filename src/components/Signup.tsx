@@ -58,7 +58,6 @@ const Signup = ( {setUserAuthData, setShowLogin}: ISignupProps) => {
                 throw new Error('invalidProps')
             }
             const user: IStudent = await (loginService.signup({ name: name, username: username, student_number: studentNumber, password: password }));
-            console.log('user: ', user);
             
             setUsername('');
             setPassword('');
