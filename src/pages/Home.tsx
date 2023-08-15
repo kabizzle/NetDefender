@@ -54,7 +54,7 @@ const Home = ({ setUserAuthData, userAuthData }: { setUserAuthData: Dispatch<Set
             setUserAuthData({ token: '', username: '', name: '', user_id: '' });
             window.localStorage.removeItem('userAuthDataJSON');
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }
 
