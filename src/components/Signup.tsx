@@ -13,7 +13,6 @@ import {
 } from '@chakra-ui/react'
 
 import loginService, { IUserAuthData } from '../services/loginService'
-import { IStudent } from '../interfaces/Student';
 
 interface ISignupProps {
     setUserAuthData: Dispatch<SetStateAction<IUserAuthData>>;
@@ -57,13 +56,12 @@ const Signup = ( {setUserAuthData, setShowLogin}: ISignupProps) => {
             if (name === '' || username === '' || password === '') {
                 throw new Error('invalidProps')
             }
-            const user: IStudent = await (loginService.signup({ name: name, username: username, student_number: studentNumber, password: password }));
+            await (loginService.signup({ name: name, username: username, student_number: studentNumber, password: password }));
             
             setUsername('');
             setPassword('');
             setStudentNumber('');
             setName('');
-            // window.location.reload();
             
             toast({
                 title: 'Successfully signed up!',
