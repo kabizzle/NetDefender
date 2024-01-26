@@ -5,7 +5,7 @@ import Notification from '../components/Notification';
 import IntroScreen from '../components/IntroScreen';
 import { Dispatch, SetStateAction, useState } from 'react';
 
-const Tutorial = ({setShowTutorial}: {setShowTutorial: Dispatch<SetStateAction<boolean>>}) => {
+const Tutorial = ({ setShowTutorial }: { setShowTutorial: Dispatch<SetStateAction<boolean>> }) => {
     const [displayText, setDisplayText] = useState('Welcome to NetDefender.');
     const [count, setCount] = useState(0);
     const [arrowProps, setArrowProps] = useState(['', '', '0']);

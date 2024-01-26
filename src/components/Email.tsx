@@ -47,7 +47,7 @@ const Email = (props: any) => {
             >
                 <Grid w="100%" h="100%" templateRows="11% 14% 1fr 11%">
                     <GridItem border="0px" borderColor="pink.500">
-                            {/*
+                        {/*
                         <Box h="100%" display="flex" flexDir="row" alignItems="center" justifyContent="end">
                             */}
                         <Box>

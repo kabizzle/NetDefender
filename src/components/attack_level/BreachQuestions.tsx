@@ -18,25 +18,19 @@ import {
 
 import { useNavigate } from 'react-router-dom';
 import userDataService from '../../services/userDataService';
+import { LevelQuestion } from "./BreachMCQ";
 
-/*interface LevelQuestion {
-    id: number; 
-    question: string;
-    options: string[]; 
-    correctAnswer: string; 
-    explanation: string;
-  }*/
 
-const Questions = (props: any) => {
+const QuestionTask = ({quiz} : {quiz: LevelQuestion[]}) => {
     const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
-    const questions = props.quiz;
-    const ogButtonColors = Array.from({ length: questions.length }, () => ({
+    const breachMCQs = quiz;
+    const ogButtonColors = Array.from({ length: breachMCQs.length }, () => ({
         border: 'game.white',
         fill: 'game.black',
         text_color: 'game.white'
     }));
     const [buttonColors, setButtonColors] = useState(
-        Array.from({ length: questions.length }, () => ({
+        Array.from({ length: breachMCQs.length }, () => ({
             border: 'game.white',
             fill: 'game.black',
             text_color: 'game.white'
@@ -58,9 +52,9 @@ const Questions = (props: any) => {
         </Icon>
     );
 
-    const steps = Array.from({ length: questions.length }, () => ({ title: 'step', description: 'step' }));
+    const steps = Array.from({ length: breachMCQs.length }, () => ({ title: 'step', description: 'step' }));
     const [stepColors, setStepColors] = useState(
-        Array.from({ length: questions.length }, () => ({ border: 'game.white', fill: 'game.black' }))
+        Array.from({ length: breachMCQs.length }, () => ({ border: 'game.white', fill: 'game.black' }))
     );
 
     function Steps() {
@@ -76,7 +70,7 @@ const Questions = (props: any) => {
                         step,
                         index // eslint-disable-line // eslint-disable-next-line
                     ) => (
-                        <Step key={index} gap="0">
+                        <Step key={index} >
                             <StepIndicator>
                                 <StepStatus
                                     complete={<CircleIcon boxSize={8} color={stepColors[index].fill} />}
@@ -110,7 +104,7 @@ const Questions = (props: any) => {
 
     // Going to the next question and reseting the chosen answer
     const next = () => {
-        if (currentQuestionIndex < questions.length - 1) {
+        if (currentQuestionIndex < breachMCQs.length - 1) {
             setScreenStage('question');
             setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
             setSelectedIndex(-1);
@@ -203,7 +197,7 @@ const Questions = (props: any) => {
         }
     };
 
-    const currentQuestion = questions[currentQuestionIndex];
+    const currentQuestion = breachMCQs[currentQuestionIndex];
 
     const answerButton = (option: string, index: number) => {
         return (
@@ -336,7 +330,7 @@ const Questions = (props: any) => {
                     </GridItem>
                     <GridItem area={'explanation'} justifySelf="center" border="0px" borderColor="grey">
                         <Box whiteSpace="pre-wrap" paddingTop="20" paddingLeft="10" paddingRight="20">
-                            {currentQuestion.explanation}
+                            {currentQuestion.response}
                         </Box>
                     </GridItem>
                     <GridItem area={'button'} alignSelf="end" justifySelf="center" border="0px" borderColor="grey">
@@ -368,10 +362,10 @@ const Questions = (props: any) => {
                         alignItems="center"
                     >
                         <Box padding="10" fontSize="20">
-                            You have finished Level 1
+                            Good job on this mission!
                         </Box>
                         <Box paddingBottom="10">
-                            Correct answers: {score}/{questions.length}
+                            Correct answers: {score}/{breachMCQs.length}
                         </Box>
                     </Box>
                     <Button border="2px" m="5em 0 0 0" borderRadius="0px" onClick={handleLevelComplete}>
@@ -385,4 +379,4 @@ const Questions = (props: any) => {
     return <Box>{chooseView()}</Box>;
 };
 
-export default Questions;
+export default QuestionTask;

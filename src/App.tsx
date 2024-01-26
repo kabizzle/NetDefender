@@ -15,6 +15,7 @@ import { IStudent, defaultStudent } from './interfaces/Student.ts';
 import { IUserAuthData } from './services/loginService.ts';
 import Login from './components/Login.tsx';
 import Signup from './components/Signup.tsx';
+import BreachLevel from './components/attack_level/Breach.tsx';
 
 const baseStyle = {
     indicator: {
@@ -98,29 +99,29 @@ const App = () => {
     // authentication credentials to make calls to api
     const [userAuthData, setUserAuthData] = useState<IUserAuthData>({ token: '', username: '', name: '', user_id: '' });
     const [showLoginPage, setShowLoginPage] = useState(true);
-    
+
     // user data returned from api
     // const [userGameData, setUserGameData] = useState<IStudent>(defaultStudent)
 
-    
     // on page load, check if user auth credentials stored.
     // If so, get user data from api.
     useEffect(() => {
-        console.log('useEffect begins')
+        console.log('useEffect begins');
         const userAuthDataJSON = window.localStorage.getItem('userAuthDataJSON');
-        console.log('userJSON: ', userAuthDataJSON)
+        console.log('userJSON: ', userAuthDataJSON);
         if (userAuthDataJSON) {
             const user = JSON.parse(userAuthDataJSON);
-            setUserAuthData(user)
+            setUserAuthData(user);
         }
+    }, []);
 
-    }, [])
-   
     const router = createBrowserRouter(
         createRoutesFromElements(
             <>
-                <Route path="/" element={<Home setUserAuthData={setUserAuthData} userAuthData={userAuthData}/>}>
-                </Route>
+                <Route
+                    path="/"
+                    element={<Home setUserAuthData={setUserAuthData} userAuthData={userAuthData} />}
+                ></Route>
                 <Route path="level">
                     <Route path="1" element={<Level0 />} />
                     <Route path="2" element={<CCEmail />} />
@@ -129,29 +130,30 @@ const App = () => {
                     <Route path="levelcc" element={<LevelCC />} />
                     <Route path="phishing" element={<Phishing />} />
                     <Route path="emailmenu" element={<EmailMenu />} />
+                    <Route path="breach" element={<BreachLevel />} />
                 </Route>
                 <Route path="sandbox" element={<Sandbox />} />
                 <Route path="*" element={<Error />} />
             </>
         )
     );
-    
+
     if (userAuthData.token === '') {
         return (
             <ChakraProvider theme={theme}>
-                { showLoginPage
-                    ? <Login setUserAuthData={setUserAuthData} setShowLogin={setShowLoginPage}/>
-                    : <Signup setUserAuthData={setUserAuthData} setShowLogin={setShowLoginPage}/> 
-                }
+                {showLoginPage ? (
+                    <Login setUserAuthData={setUserAuthData} setShowLogin={setShowLoginPage} />
+                ) : (
+                    <Signup setUserAuthData={setUserAuthData} setShowLogin={setShowLoginPage} />
+                )}
             </ChakraProvider>
         );
-    }
-    else {
+    } else {
         return (
             <ChakraProvider theme={theme}>
                 <RouterProvider router={router} />
             </ChakraProvider>
-        )
+        );
     }
 };
 

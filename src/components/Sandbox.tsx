@@ -29,11 +29,11 @@ const Sandbox = () => {
     // boolean that tells whether the user has inputted a public or private key for use
     const [givenPubKey, setGivenPubKey] = useState(false);
     const [givenPrivKey, setGivenPrivKey] = useState(false);
-    
+
     // set Private and Public keys for game from .env file
     game_decrypt_RSA.setPrivateKey(import.meta.env.VITE_GAME_PRIVATE_KEY);
-    
-    game_encrypt_RSA.setPublicKey(import.meta.env.VITE_GAME_PUBLIC_KEY)
+
+    game_encrypt_RSA.setPublicKey(import.meta.env.VITE_GAME_PUBLIC_KEY);
 
     // updates userPubKey hook with inputted Public Key
     const handlePubKeyChange: React.ChangeEventHandler = (event: React.ChangeEvent<HTMLInputElement>) => {

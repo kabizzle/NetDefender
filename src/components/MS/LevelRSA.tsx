@@ -16,7 +16,7 @@ const LevelRSA = () => {
     // const [displayText, setDisplayText] = useState("")
     const toast = useToast();
     const pubKeyRegex = /^-----BEGIN PUBLIC KEY-----([A-Za-z0-9+/=\s]+)-----END PUBLIC KEY-----\n?$/;
-    const userAuthDataJSON = window.localStorage.getItem('userAuthDataJSON')
+    const userAuthDataJSON = window.localStorage.getItem('userAuthDataJSON');
     const navigate = useNavigate();
 
     // set game's private key from .env file
@@ -54,10 +54,17 @@ const LevelRSA = () => {
             // update value of user's public key in database
             if (userAuthDataJSON) {
                 const userAuthData = JSON.parse(userAuthDataJSON);
-                const userData = await userDataService.getUserData({userId: userAuthData.user_id, userToken: userAuthData.token})
+                const userData = await userDataService.getUserData({
+                    userId: userAuthData.user_id,
+                    userToken: userAuthData.token
+                });
                 const updatedUserData = userData;
                 updatedUserData.public_key = userPubKey;
-                await userDataService.updateUserData( { userId: userAuthData.user_id, userToken: userAuthData.token, userData: updatedUserData })
+                await userDataService.updateUserData({
+                    userId: userAuthData.user_id,
+                    userToken: userAuthData.token,
+                    userData: updatedUserData
+                });
             }
 
             toast({
@@ -84,12 +91,14 @@ const LevelRSA = () => {
 
     // changes givenPubKey to true, indicating that user has inputted a public key.
     // This public key should be used for encrypting any text input from the user
-    const handleTaskSubmit: React.FormEventHandler = async (event: React.FormEvent<HTMLInputElement>): Promise<boolean> => {
+    const handleTaskSubmit: React.FormEventHandler = async (
+        event: React.FormEvent<HTMLInputElement>
+    ): Promise<boolean> => {
         event.preventDefault();
         if (task === 1) {
             console.log('Task 1: user has to decrypt message');
             // if (game_RSA.decrypt(userInput) === "Netdefender") {
-            if (userInput === "Netdefender") {
+            if (userInput === 'Netdefender') {
                 toast({
                     title: 'Good job!',
                     description: 'You solved the first task',
@@ -114,13 +123,20 @@ const LevelRSA = () => {
 
             if (userAuthDataJSON) {
                 const userAuthData = JSON.parse(userAuthDataJSON);
-                
+
                 if (game_RSA.decrypt(userInput) === userAuthData.username) {
-                    const userData = await userDataService.getUserData({userId: userAuthData.user_id, userToken: userAuthData.token})
+                    const userData = await userDataService.getUserData({
+                        userId: userAuthData.user_id,
+                        userToken: userAuthData.token
+                    });
                     const updatedUserData = userData;
                     updatedUserData.points = userData.points + userData.levels[2][0].points;
                     updatedUserData.levels[2][0].completed = true;
-                    await userDataService.updateUserData( { userId: userAuthData.user_id, userToken: userAuthData.token, userData: updatedUserData })
+                    await userDataService.updateUserData({
+                        userId: userAuthData.user_id,
+                        userToken: userAuthData.token,
+                        userData: updatedUserData
+                    });
                     toast({
                         title: 'Good job!',
                         description: 'You solved the third task',
@@ -129,7 +145,7 @@ const LevelRSA = () => {
                     });
                     setTimeout(() => {
                         navigate('/');
-                    }, 3500)
+                    }, 3500);
                     return true;
                 } else {
                     toast({
@@ -141,8 +157,7 @@ const LevelRSA = () => {
                     });
                     return false;
                 }
-            }
-            else {
+            } else {
                 return false;
             }
         } else {

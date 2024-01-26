@@ -8,14 +8,14 @@ const CCEmail = () => {
     const heading = 'Important message!';
     const sender = { email: 'mysterious.sender@email.com', name: 'Mysterious Sender' };
     const you = { email: 'your.name@email.com', name: 'Player Name' };
-    const message1 = 'SEVEN\n\nIwtgt xh hdbtdct puitg jh. Lt wpkt id bpzt djg rdbbjcxrpixdc hputg.' + 
-        'Ugdb cdl dc lt hwdjas jht iwt Rtphpg rxewtg id tcrgnei djg rdbbjcxrpixdc.\n\nNlx gnfuxk yhnk.' + 
+    const message1 =
+        'SEVEN\n\nIwtgt xh hdbtdct puitg jh. Lt wpkt id bpzt djg rdbbjcxrpixdc hputg.' +
+        'Ugdb cdl dc lt hwdjas jht iwt Rtphpg rxewtg id tcrgnei djg rdbbjcxrpixdc.\n\nNlx gnfuxk yhnk.' +
         '\n\nX wpkt p rajt lwd bxvwi qt qtwxcs iwxh qji X ctts ndjg wtae. Xu ndj vti iwxh bthhpvt htcs qprz iwt ldgs ZJCXCVPHZPAPHIPYP';
-    
+
     const toast = useToast();
     const navigate = useNavigate();
-    const [userInput, setUserInput] = useState('')
-
+    const [userInput, setUserInput] = useState('');
 
     const message = () => {
         return <Box>{message1}</Box>;
@@ -24,19 +24,26 @@ const CCEmail = () => {
     const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
         setUserInput(event.target.value);
-    }
+    };
     const handleLevelComplete = async () => {
         if (userInput === 'KUNINGASKALASTAJA') {
             const userAuthDataJSON = window.localStorage.getItem('userAuthDataJSON');
             if (userAuthDataJSON) {
                 const user = JSON.parse(userAuthDataJSON);
-                let userAuthData = user;
-                const userData = await userDataService.getUserData({userId: userAuthData.user_id, userToken: userAuthData.token})
-                if (!userData.levels[1][0].completed){
+                const userAuthData = user;
+                const userData = await userDataService.getUserData({
+                    userId: userAuthData.user_id,
+                    userToken: userAuthData.token
+                });
+                if (!userData.levels[1][0].completed) {
                     const updatedUserData = userData;
                     updatedUserData.levels[1][0].completed = true;
                     updatedUserData.points = userData.points + userData.levels[1][0].points;
-                    await userDataService.updateUserData( { userId: userAuthData.user_id, userToken: userAuthData.token, userData: updatedUserData })
+                    await userDataService.updateUserData({
+                        userId: userAuthData.user_id,
+                        userToken: userAuthData.token,
+                        userData: updatedUserData
+                    });
                 }
             }
             toast({
@@ -46,7 +53,7 @@ const CCEmail = () => {
             });
             setTimeout(() => {
                 navigate('/');
-            }, 3500)
+            }, 3500);
         } else {
             toast({
                 title: 'Wrong code word',
@@ -54,15 +61,23 @@ const CCEmail = () => {
                 duration: 3500
             });
         }
-    }
+    };
 
     return (
-        <Box w="100vw" h="100vh" display="flex" flexDir='column' alignItems="center" justifyContent="space-evenly" p='0em 25em 0em 25em'>
+        <Box
+            w="100vw"
+            h="100vh"
+            display="flex"
+            flexDir="column"
+            alignItems="center"
+            justifyContent="space-evenly"
+            p="0em 25em 0em 25em"
+        >
             <Email heading={heading} sender={sender} you={you} message={message()} />
-            <Box display='flex' flexDir='row' alignItems='start' justifyContent='space-evenly' gap='1em'>
-                <Text fontSize='20'>Code word:</Text>
-                <Box display='flex' flexDir='column' alignItems='end' justifyContent='space-between' gap='1em'>
-                    <Input w='20em' onChange={handleInput}/>
+            <Box display="flex" flexDir="row" alignItems="start" justifyContent="space-evenly" gap="1em">
+                <Text fontSize="20">Code word:</Text>
+                <Box display="flex" flexDir="column" alignItems="end" justifyContent="space-between" gap="1em">
+                    <Input w="20em" onChange={handleInput} />
                     <Button onClick={handleLevelComplete}>Submit</Button>
                 </Box>
             </Box>
