@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useState } from 'react';
 import {
     Box,
@@ -18,10 +17,9 @@ import {
 
 import { useNavigate } from 'react-router-dom';
 import userDataService from '../../services/userDataService';
-import { LevelQuestion } from "./BreachMCQ";
+import { LevelQuestion } from './BreachMCQ';
 
-
-const QuestionTask = ({quiz} : {quiz: LevelQuestion[]}) => {
+const QuestionTask = ({ quiz }: { quiz: LevelQuestion[] }) => {
     const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
     const breachMCQs = quiz;
     const ogButtonColors = Array.from({ length: breachMCQs.length }, () => ({
@@ -70,7 +68,7 @@ const QuestionTask = ({quiz} : {quiz: LevelQuestion[]}) => {
                         step,
                         index // eslint-disable-line // eslint-disable-next-line
                     ) => (
-                        <Step key={index} >
+                        <Step key={index}>
                             <StepIndicator>
                                 <StepStatus
                                     complete={<CircleIcon boxSize={8} color={stepColors[index].fill} />}
@@ -224,7 +222,7 @@ const QuestionTask = ({quiz} : {quiz: LevelQuestion[]}) => {
         const userAuthDataJSON = window.localStorage.getItem('userAuthDataJSON');
         if (userAuthDataJSON) {
             const user = JSON.parse(userAuthDataJSON);
-            let userAuthData = user;
+            const userAuthData = user;
             const userData = await userDataService.getUserData({
                 userId: userAuthData.user_id,
                 userToken: userAuthData.token

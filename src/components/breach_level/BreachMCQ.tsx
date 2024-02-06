@@ -6,6 +6,9 @@ interface LevelQuestion {
     response: string[];
 }
 
+// LevelQuestion is the format for each question in the quiz.
+// Each question should have a list of options and a correct answer, along with a response about why the selected answer is correct
+
 const testQuestions = [
     {
         id: 1,

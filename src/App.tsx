@@ -2,7 +2,7 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import Home from './pages/Home.tsx';
 import Level0 from './components/MS/Level0.tsx';
-import CC from './components/CC.tsx';
+import CC from './components/CaesarCipher.tsx';
 import LevelCC from './components/LevelCC.tsx';
 import CCEmail from './components/CCEmail.tsx';
 import Phishing from './components/Phishing.tsx';
@@ -15,7 +15,8 @@ import { IStudent, defaultStudent } from './interfaces/Student.ts';
 import { IUserAuthData } from './services/loginService.ts';
 import Login from './components/Login.tsx';
 import Signup from './components/Signup.tsx';
-import BreachLevel from './components/attack_level/Breach.tsx';
+import BreachLevel from './components/breach_level/Breach.tsx';
+import AttackQuiz from './components/attacks_quiz/AttackQuiz.tsx';
 
 const baseStyle = {
     indicator: {
@@ -126,6 +127,7 @@ const App = () => {
                     <Route path="1" element={<Level0 />} />
                     <Route path="2" element={<CCEmail />} />
                     <Route path="3" element={<LevelRSA />} />
+                    <Route path="attack" element={<AttackQuiz />} />
                     <Route path="cc" element={<CC />} />
                     <Route path="levelcc" element={<LevelCC />} />
                     <Route path="phishing" element={<Phishing />} />
