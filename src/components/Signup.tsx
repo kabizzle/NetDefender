@@ -9,6 +9,7 @@ import {
   Stack,
   Button,
   Heading,
+  Text,
   useToast,
 } from '@chakra-ui/react'
 
@@ -18,7 +19,7 @@ interface ISignupProps {
     setUserAuthData: Dispatch<SetStateAction<IUserAuthData>>;
     setShowLogin: Dispatch<SetStateAction<boolean>>;
 }
- // @ts-ignore
+
 const Signup = ( {setUserAuthData, setShowLogin}: ISignupProps) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -133,29 +134,30 @@ const Signup = ( {setUserAuthData, setShowLogin}: ISignupProps) => {
                 placeholder={password}/>
             </FormControl>
 
-            <Stack spacing={10}>
-              <Button
-                onClick={handleSignup}
-                m="2px 0 0 0"
-                bg='game.black'
-                color='game.green'
-                border='2px'
-                borderColor='game.green'
-                _hover={{ color: 'game.black', bg: 'game.green'}}
-                >
-                Sign up
-              </Button>
-                <Button
-                    onClick={handleLogin}
-                    bg="game.black"
-                    border="2px"
-                    borderColor="game.white"
-                    color="game.white"
-                    _hover={{ color: 'game.black', bg: 'game.white' }}
-                >
-                Log in
-                </Button>
+            <Button
+              onClick={handleSignup}
+              m="2px 0 0 0"
+              bg='game.black'
+              color='game.green'
+              border='2px'
+              borderColor='game.green'
+              _hover={{ color: 'game.black', bg: 'game.green'}}
+              >
+              Sign up
+            </Button>
 
+            <Stack spacing={4}>
+              <Text fontSize="22" marginTop="1em">Already have an account?</Text>
+              <Button
+                  onClick={handleLogin}
+                  bg="game.black"
+                  border="2px"
+                  borderColor="game.white"
+                  color="game.white"
+                  _hover={{ color: 'game.black', bg: 'game.white' }}
+              >
+              Log in
+              </Button>
             </Stack>
           </Stack>
         </Box>

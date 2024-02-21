@@ -9,6 +9,7 @@ import {
   Button,
   Heading,
   useToast,
+  Text,
 } from '@chakra-ui/react'
 
 import login, { IUserAuthData } from '../services/loginService'
@@ -92,29 +93,29 @@ const Login = ( {setUserAuthData, setShowLogin}: ILoginProps) => {
               <Input type='password' onChange={handlePasswordChange}
                 placeholder={password}/>
             </FormControl>
-            <Stack spacing={10}>
+            <Button
+              onClick={handleLogin}
+              m="2px 0 0 0"
+              bg='game.black'
+              color='game.green'
+              border='2px'
+              borderColor='game.green'
+              _hover={{ color: 'game.black', bg: 'game.green'}}
+              >
+              Log in
+            </Button>
+            <Stack spacing={4}>
+              <Text fontSize="22" marginTop="2em">Need to create an account?</Text>
               <Button
-                onClick={handleLogin}
-                m="2px 0 0 0"
-                bg='game.black'
-                color='game.green'
-                border='2px'
-                borderColor='game.green'
-                _hover={{ color: 'game.black', bg: 'game.green'}}
-                >
-                Log in
+                  onClick={handleSignup}
+                  bg="game.black"
+                  border="2px"
+                  borderColor="game.white"
+                  color="game.white"
+                  _hover={{ color: 'game.black', bg: 'game.white' }}
+              >
+              Sign up
               </Button>
-                <Button
-                    onClick={handleSignup}
-                    bg="game.black"
-                    border="2px"
-                    borderColor="game.white"
-                    color="game.white"
-                    _hover={{ color: 'game.black', bg: 'game.white' }}
-                >
-                Sign up
-                </Button>
-
             </Stack>
           </Stack>
         </Box>
