@@ -227,6 +227,7 @@ const Questions = (props: any) => {
     // function that sets level as completed and adds points to user's score 
     const handleLevelComplete = async () => {
       const userAuthDataJSON = window.localStorage.getItem('userAuthDataJSON');
+
       if (userAuthDataJSON) {
         const user = JSON.parse(userAuthDataJSON);
         let userAuthData = user;
