@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 import { IUserAuthData } from './services/loginService.ts';
 import Login from './components/Login.tsx';
 import Signup from './components/Signup.tsx';
+import Tutorial from './pages/Tutorial.tsx';
 
 const baseStyle = {
     indicator: {
@@ -97,6 +98,7 @@ const App = () => {
     // authentication credentials to make calls to api
     const [userAuthData, setUserAuthData] = useState<IUserAuthData>({ token: '', username: '', name: '', user_id: '' });
     const [showLoginPage, setShowLoginPage] = useState(true);
+    const [showTutorial, setShowTutorial] = useState(false);
     
     // user data returned from api
     // const [userGameData, setUserGameData] = useState<IStudent>(defaultStudent)
@@ -128,6 +130,7 @@ const App = () => {
                     <Route path="emailmenu" element={<EmailMenu />} />
                 </Route>
                 <Route path="sandbox" element={<Sandbox />} />
+                <Route path="tutorial" element={<Tutorial setShowTutorial={setShowTutorial}/>} />
                 <Route path="*" element={<Error />} />
             </>
         )

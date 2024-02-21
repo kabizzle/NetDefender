@@ -6,38 +6,48 @@ import IntroScreen from '../components/IntroScreen';
 import { Dispatch, SetStateAction, useState } from 'react';
 
 const Tutorial = ({setShowTutorial}: {setShowTutorial: Dispatch<SetStateAction<boolean>>}) => {
-    const [displayText, setDisplayText] = useState('Welcome to NetDefender.');
-    const [count, setCount] = useState(0);
-    const [arrowProps, setArrowProps] = useState(['', '', '0']);
-    const [endTutorial, setEndTutorial] = useState(false);
+  const [displayText, setDisplayText] = useState('Welcome to NetDefender!');
+  const [count, setCount] = useState(0);
+  const [arrowProps, setArrowProps] = useState(['', '', '0']);
+  const [endTutorial, setEndTutorial] = useState(false);
 
-    const handleClick = () => {
-        setCount(count + 1);
-        if (count === 0) {
-            setDisplayText('Your company is being hacked and IT found that the attack started from your computer.');
-        }
-        if (count === 1) {
-            setDisplayText(
-                'This is your progress section. Here, you can see your completion of the game, along with your current rating.'
-            );
-            setArrowProps(['10em 0 0 20em', 'rotate(0.6turn)', '7.5em']);
-        } else if (count === 2) {
-            setDisplayText(
-                'Here you can find your messages. Be sure to check new messages, as there may be hidden clues :)'
-            );
-            setArrowProps(['12em 0 0 82em', 'rotate(0.875turn)', '7.5em']);
-        } else if (count === 3) {
-            setDisplayText('These are the level folders. Each folder contains the activities for one week.');
-            setArrowProps(['40em 0 0 80em', 'rotate(0.35turn)', '7.5em']);
-        } else if (count === 4) {
-            setDisplayText('It is up to you to stop the attack and prove your innocence.');
-            setArrowProps(['', '', '0']);
-        } else if (count === 5) {
-            setDisplayText('Enter the world of NetDefender.');
-            setEndTutorial(true);
-            setShowTutorial(false);
-        }
-    };
+  const handleClick = () => {
+    setCount(count + 1);
+    if (count === 0) {
+      setDisplayText('This game is designed for the course Basic Principles of Networking at Aalto University.');
+    } 
+    else if (count === 1) {
+      setDisplayText(
+        'This is your progress section. Here, you can see points and special badges you have earned.'
+      );
+      setArrowProps(['10em 0 0 20em', 'rotate(0.6turn)', '7.5em']);
+    }
+    else if (count === 2) {
+      setDisplayText(
+        'Each week, new missions will be unlocked.'
+      );
+      setArrowProps(['', '', '0']);
+      // setArrowProps(['12em 0 0 82em', 'rotate(0.875turn)', '7.5em']);
+    }
+    else if (count === 3) {
+      setDisplayText(
+        'Missions include flashcards, quizzes and interactive tasks, giving you hands on experience with cybersecurity principles.'
+      );
+    }
+    else if (count === 4) {
+      setDisplayText('Each folder contains the missions for one week.');
+      setArrowProps(['40em 0 0 80em', 'rotate(0.35turn)', '7.5em']);
+    }
+    else if (count === 5) {
+      setDisplayText('Complete the weekly missions to gain points and compete for a spot in the leaderboard!');
+      setArrowProps(['', '', '0']);
+    }
+    else {
+      setDisplayText('Enter the world of NetDefender.');
+      setEndTutorial(true);
+      setShowTutorial(false);
+    }
+  };
 
     return (
         <>
