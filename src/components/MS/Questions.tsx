@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useState } from 'react';
 import {
     Box,
@@ -74,14 +73,13 @@ const Questions = (props: any) => {
                 {steps.map(
                     (
                         step,
-                        index // eslint-disable-line // eslint-disable-next-line
+                        index 
                     ) => (
                         <Step key={index} gap="0">
                             <StepIndicator>
                                 <StepStatus
                                     complete={<CircleIcon boxSize={8} color={stepColors[index].fill} />}
-                                    active={<CircleIcon boxSize={8} color={stepColors[index].fill} />}
-                                />
+                                    active={<CircleIcon boxSize={8} color={stepColors[index].fill} />} />
                             </StepIndicator>
                             <StepSeparator />
                         </Step>
@@ -226,33 +224,40 @@ const Questions = (props: any) => {
         );
     };
 
+    // function that sets level as completed and adds points to user's score 
     const handleLevelComplete = async () => {
-        const userAuthDataJSON = window.localStorage.getItem('userAuthDataJSON');
-        if (userAuthDataJSON) {
-            const user = JSON.parse(userAuthDataJSON);
-            let userAuthData = user;
-            const userData = await userDataService.getUserData({
-                userId: userAuthData.user_id,
-                userToken: userAuthData.token
-            });
-            if (!userData.levels[0][0].completed) {
-                const updatedUserData = userData;
-                updatedUserData.levels[0][0].completed = true;
-                updatedUserData.points = userData.points + userData.levels[0][0].points;
-                await userDataService.updateUserData({
-                    userId: userAuthData.user_id,
-                    userToken: userAuthData.token,
-                    userData: updatedUserData
-                });
-            }
-            toast({
-                title: 'Good job!',
-                status: 'success',
-                duration: 3500
-            });
-            setTimeout(() => {
-                navigate('/');
-            }, 3500);
+      const userAuthDataJSON = window.localStorage.getItem('userAuthDataJSON');
+      if (userAuthDataJSON) {
+        const user = JSON.parse(userAuthDataJSON);
+        let userAuthData = user;
+        const userData = await userDataService.getUserData({
+          userId: userAuthData.user_id,
+          userToken: userAuthData.token
+        });
+        
+      const updatedUserData = userData;
+            
+      if (!userData.levels[0][0].completed) {
+        updatedUserData.levels[0][0].completed = true;
+      }
+      
+      updatedUserData.points = userData.points + userData.levels[0][0].points;
+      
+      await userDataService.updateUserData({
+          userId: userAuthData.user_id,
+          userToken: userAuthData.token,
+          userData: updatedUserData
+      });
+      
+      toast({
+          title: 'Good job!',
+          status: 'success',
+          duration: 3500
+      });
+      
+      setTimeout(() => {
+          navigate('/');
+      }, 3500);
         }
     };
 
