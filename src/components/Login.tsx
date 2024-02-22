@@ -10,6 +10,7 @@ import {
   Heading,
   useToast,
   Text,
+  Image,
 } from '@chakra-ui/react'
 
 import login, { IUserAuthData } from '../services/loginService'
@@ -76,7 +77,8 @@ const Login = ( {setUserAuthData, setShowLogin}: ILoginProps) => {
       justify={'center'}
       bg="game.black">
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-      <Heading ml='56px' fontFamily='mono' fontSize={'3xl'}>Log in to your NetDefender account</Heading>
+        <Image mx="7em" boxSize="12em" src='/NetDefender_icon.png' alt='NetDefender icon'/>
+        <Heading ml='56px' fontFamily='mono' fontSize={'3xl'}>Log in to your NetDefender account</Heading>
         <Box
           rounded={'lg'}
           bg="game.black"
