@@ -20,6 +20,7 @@ interface ISignupProps {
     setShowLogin: Dispatch<SetStateAction<boolean>>;
 }
 
+// @ts-ignore
 const Signup = ( {setUserAuthData, setShowLogin}: ISignupProps) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
