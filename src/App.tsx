@@ -98,6 +98,7 @@ const App = () => {
     // authentication credentials to make calls to api
     const [userAuthData, setUserAuthData] = useState<IUserAuthData>({ token: '', username: '', name: '', user_id: '' });
     const [showLoginPage, setShowLoginPage] = useState(true);
+    // @ts-ignore
     const [showTutorial, setShowTutorial] = useState(false);
     
     // user data returned from api
