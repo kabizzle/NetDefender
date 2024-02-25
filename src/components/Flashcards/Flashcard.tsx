@@ -1,6 +1,7 @@
 import { Box, Button, Card, CardBody, CardHeader, Center, Heading, Text } from '@chakra-ui/react';
-import { InfoOutlineIcon } from '@chakra-ui/icons';
+import { ArrowBackIcon, InfoOutlineIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 interface FlashcardContent {
   id: number;
@@ -38,11 +39,14 @@ const Flashcard = () => {
   return (
     <>
       <Center h="100vh" w="100vw"> 
-        <Box display="flex" flexDir="column" justifyContent="space-between" gap="4em">
+        <Box display="flex" flexDir="column" justifyContent="space-evenly" gap="4em" marginX="2em" >
+          <Link to="/">
+            <ArrowBackIcon boxSize={10} pos="absolute" border="1px" />
+          </Link>
           <Card
             alignSelf="center"
             justifySelf="center"
-            maxW="lg"
+            w={["xs", "md", "lg"]}
             bg="game.black"
             borderColor="game.gray"
             borderWidth="2px"
@@ -57,18 +61,32 @@ const Flashcard = () => {
               </Box>
             </CardBody>
           </Card>
-          <Button onClick={() => {
-            setCount(count + 1);
-            
-            if (count >= flashcards.length - 1) {
-              setCount(0) 
-            };
-            
-            setFlashcard(flashcards[count]);
-          }}
-          >
-            Next flashcard
-          </Button>
+          <Box display="flex" justifyContent="space-between">
+            <Button w={["6em", "8em"]} onClick={() => {
+              setCount(count - 1);
+              
+              if (count <= 0) {
+                setCount(flashcards.length - 1) 
+              };
+              
+              setFlashcard(flashcards[count]);
+            }}
+            >
+              Previous
+            </Button>
+            <Button w={["6em", "8em"]} onClick={() => {
+              setCount(count + 1);
+              
+              if (count >= flashcards.length - 1) {
+                setCount(0) 
+              };
+              
+              setFlashcard(flashcards[count]);
+            }}
+            >
+              Next
+            </Button>
+          </Box>
         </Box>
       </Center>
     </>
