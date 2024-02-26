@@ -1,20 +1,7 @@
 import { useState } from 'react';
-import {
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  VStack,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  Textarea
-} from '@chakra-ui/react';
+import { Box, Button, FormControl, FormLabel, Input, VStack } from '@chakra-ui/react';
 
-const LevelCC = () => {
+const CC = () => {
   const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
   const UPPER_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
@@ -26,8 +13,8 @@ const LevelCC = () => {
     setPlaintext(event.target.value);
   };
 
-  const handleShiftChange = (value: any) => {
-    setShift(parseInt(value, 10));
+  const handleShiftChange = (event: any) => {
+    setShift(parseInt(event.target.value, 10));
   };
 
   const handleSubmit = (event: any) => {
@@ -68,22 +55,21 @@ const LevelCC = () => {
   }
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+    <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
       <Box
         display="flex"
         alignItems="center"
         justifyContent="center"
         w="700px"
-        h="400px"
+        h="500px"
         borderColor="game.white"
         borderWidth="6px"
-        bg="game.black"
       >
         <form onSubmit={handleSubmit}>
           <VStack spacing={4} align="flex-start">
             <FormControl id="plaintext">
               <FormLabel>Plaintext</FormLabel>
-              <Textarea
+              <Input
                 border="2px"
                 borderColor="game.white"
                 bg="game.black"
@@ -91,28 +77,26 @@ const LevelCC = () => {
                 borderRadius="0px"
                 w="500px"
                 textAlign="start"
+                type="text"
                 value={plaintext}
                 onChange={handlePlaintextChange}
-                resize="none"
               />
             </FormControl>
 
             <FormControl id="shift">
               <FormLabel>Shift Value</FormLabel>
-              <NumberInput
-                defaultValue={0}
-                w="20"
-                variant="outline"
+              <Input
+                border="2px"
+                borderColor="game.white"
+                bg="game.black"
                 color="game.white"
-                focusBorderColor="whiteAlpha"
+                borderRadius="0px"
+                w="50px"
+                textAlign="center"
+                type="number"
+                value={shift}
                 onChange={handleShiftChange}
-              >
-                <NumberInputField borderRadius="0" />
-                <NumberInputStepper>
-                  <NumberIncrementStepper color="game.white" bg="game.black" />
-                  <NumberDecrementStepper color="game.white" bg="game.black" />
-                </NumberInputStepper>
-              </NumberInput>
+              />
             </FormControl>
 
             <Button
@@ -122,9 +106,8 @@ const LevelCC = () => {
               bg="game.black"
               color="game.white"
               borderRadius="0px"
-              _hover={{ color: 'game.black', bg: 'game.white' }}
             >
-              Decrypt
+              Encrypt
             </Button>
 
             <FormControl id="ciphertext">
@@ -149,4 +132,4 @@ const LevelCC = () => {
   );
 };
 
-export default LevelCC;
+export default CC;

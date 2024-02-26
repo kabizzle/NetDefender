@@ -1,4 +1,4 @@
-export interface LevelQuestion {
+interface QuizQuestion {
   id: number;
   question: string;
   options: string[];
@@ -6,7 +6,7 @@ export interface LevelQuestion {
   explanation: string;
 }
 
-export const testQuestions = [
+const testQuestions = [
   {
     id: 1,
     question: 'Question 1: What is the capital of France?',
@@ -31,7 +31,7 @@ export const testQuestions = [
 ];
 
 // explanation part needs to be changed
-export const level1Questions: LevelQuestion[] = [
+const AttackQuestions: QuizQuestion[] = [
   {
     id: 1,
     question: 'Which type of attack renders a website unusable for legitimate users?',
@@ -56,5 +56,29 @@ export const level1Questions: LevelQuestion[] = [
     correctAnswer: 'Packet sniffing',
     explanation:
       'Security vulnerabilities exist when data is sent over a network to wirelessly-connected devices.\n\nMalicious third parties can access the traffic across a network and analyze packets sent, packet content, private/sensitive information, connection habits, social ties and patterns.\n\nIn order to prevent this, online traffic should be encrypted. This can be done using a VPN, SSL, PGP and other methods that will be discussed in future missions.'
+  },
+  {
+    id: 4,
+    question: 'What measure could prevent against Packet Sniffing?',
+    options: [
+      'Sending well-crafted messages to operating systems',
+      'Trojan Horse',
+      'Encryption of packets',
+      'Sending vast amounts of packets'
+    ],
+    correctAnswer: 'Encryption of packets',
+    explanation:
+      'If encrypted packets are intercepted, it is not easy to understand the information contained in them. This allows information to be kept safe from malicious third-parties.'
+  },
+  {
+    id: 5,
+    question: 'What measure could prevent against Masquerading?',
+    options: ['IP Spoofing', 'End-point Authentication', 'Injecting packets', 'DDoS Attacks'],
+    correctAnswer: 'End-point Authentication',
+    explanation:
+      'If encrypted packets are intercepted, it is not easy to understand the information contained in them. This allows information to be kept safe from malicious third-parties.'
   }
 ];
+
+export type { QuizQuestion };
+export { AttackQuestions };

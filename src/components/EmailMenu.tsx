@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Box, Grid, GridItem, Heading, Spacer } from '@chakra-ui/react';
 
 // Now working as a layout, needs to be merged with actual emails and have them as links

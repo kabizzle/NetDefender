@@ -380,4 +380,3 @@ const Questions = (props: any) => {
 };
 
 export default Questions;
-

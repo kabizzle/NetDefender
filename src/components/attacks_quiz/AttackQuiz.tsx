@@ -1,27 +1,23 @@
 import { useState } from 'react';
 import { Box, Button } from '@chakra-ui/react';
-import Questions from './Questions.tsx';
-import { level1Questions } from './MultipleChoiceQuestion';
+import Questions from './AttackQuestions.tsx';
+import { AttackQuestions } from './MultipleChoiceQuestion.tsx';
+import { QuizQuestion } from './MultipleChoiceQuestion.tsx';
 
-const Level0 = () => {
-  const questions = level1Questions;
+const AttackQuiz = () => {
+  const questions: QuizQuestion[] = AttackQuestions;
   const [currentScreen, setCurrentScreen] = useState('startScreen');
 
+  // Function to render the information on the screen.
   const renderScreen = () => {
     switch (currentScreen) {
+      // If current screen is the start screen, text and a start button will be shown
       case 'startScreen':
         return (
           <Box display="flex" flexDir="column" alignItems="center" justifyContent="center" h="100vh">
-            <Box
-              border="4px"
-              borderColor="game.white"
-              width="500px"
-              display="flex"
-              flexDir="column"
-              alignItems="center"
-            >
-              <Box padding="10" fontSize="30">
-                Welcome to Level 1
+            <Box border="4px" borderColor="game.white" width="60vh" display="flex" flexDir="column" alignItems="center">
+              <Box padding="12" fontSize="24">
+                Time to test your knowledge on attacks...
               </Box>
               <Button
                 margin="8"
@@ -39,6 +35,7 @@ const Level0 = () => {
           </Box>
         );
 
+      // If current screen is the question screen, the questions will be rendered, one at a time
       case 'questionScreen':
         return (
           <Box>
@@ -51,4 +48,4 @@ const Level0 = () => {
   return <div>{renderScreen()}</div>;
 };
 
-export default Level0;
+export default AttackQuiz;
