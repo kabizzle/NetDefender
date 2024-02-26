@@ -1,20 +1,17 @@
-import { Box, Button, Card, CardBody, CardHeader, Center, Heading, IconButton, Text } from '@chakra-ui/react';
+import { Box, Button, Card, CardBody, CardHeader, Center, Heading, IconButton, Text, useToast } from '@chakra-ui/react';
 import { ArrowBackIcon, InfoOutlineIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import * as FlashcardData from "./FlashcardData";
 import userDataService from '../../services/userDataService';
 import { useNavigate } from 'react-router-dom';
 
+// FlashcardContent is the format for each flashcard.
+// Each flashcard should have a title and the content of the flashcard, along with an id to identify it.
 interface FlashcardContent {
   id: number;
   title: string;
   content: string;
 }
-
-// FlashcardContent is the format for each flashcard.
-// Each flashcard should have a title and the content of the flashcard, along with an id to identify it.
-
 
 const Flashcard = () => {
   const [count, setCount] = useState(1);
@@ -22,6 +19,7 @@ const Flashcard = () => {
   const [flashcard, setFlashcard] = useState(flashcards[0]);
  
   const navigate = useNavigate();
+  const toast = useToast();
 
   // function that sets level as completed and adds points to user's score 
   const handleLevelComplete = async () => {
@@ -118,7 +116,4 @@ const Flashcard = () => {
 
 export type { FlashcardContent };
 export default Flashcard;
-function toast(arg0: { title: string; status: string; duration: number; }) {
-    throw new Error('Function not implemented.');
-}
 

@@ -112,40 +112,35 @@ const HomePage = ({
             <Flex align="center" justify="space-between">
               <Folder
                 showLevel={showLevel}
-                setShowLevel={setShowLevel}
-                setLevelToShow={setLevelToShow}
+                levelToShow={levelToShow}
                 folderType="unlocked"
                 name="Week 1"
                 number={1}
               />
               <Folder
                 showLevel={showLevel}
-                setShowLevel={setShowLevel}
-                setLevelToShow={setLevelToShow}
+                levelToShow={levelToShow}
                 folderType="locked"
                 name="Week 2"
                 number={2}
               />
               <Folder
                 showLevel={showLevel}
-                setShowLevel={setShowLevel}
-                setLevelToShow={setLevelToShow}
+                levelToShow={levelToShow}
                 folderType="locked"
                 name="Week 3"
                 number={3}
               />
               <Folder
                 showLevel={showLevel}
-                setShowLevel={setShowLevel}
-                setLevelToShow={setLevelToShow}
+                levelToShow={levelToShow}
                 folderType="locked"
                 name="Week 4"
                 number={4}
               />
               <Folder
                 showLevel={showLevel}
-                setShowLevel={setShowLevel}
-                setLevelToShow={setLevelToShow}
+                levelToShow={levelToShow}
                 folderType="locked"
                 name="Week 5"
                 number={5}
