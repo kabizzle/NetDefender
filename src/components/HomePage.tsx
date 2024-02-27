@@ -10,6 +10,7 @@ import { IUserAuthData } from '../services/loginService';
 import Tutorial from '../pages/Tutorial';
 import LevelView from './LevelView';
 
+// This component renders the home page view, when the user is logged in (i.e., the view with folders and their username etc.)
 const HomePage = ({
   setUserAuthData,
   userAuthData
@@ -83,7 +84,7 @@ const HomePage = ({
         <Grid templateRows="1fr 3fr 1fr" templateColumns="25em auto 25em" h="100vh">
           <GridItem colSpan={1}>
             <Box maxW="25em" p="0 0 2em 0">
-              <UserProgress name={userData.name} completed={0} rating={5} />
+              <UserProgress name={userData.name} points={0} rating={5} />
               <Button onClick={handleLogout} m="2em 0 0 2em">
                 Logout{' '}
               </Button>
@@ -110,41 +111,11 @@ const HomePage = ({
 
           <GridItem rowSpan={1} colSpan={3} padding="3em 10em 2em 10em">
             <Flex align="center" justify="space-between">
-              <Folder
-                showLevel={showLevel}
-                levelToShow={levelToShow}
-                folderType="unlocked"
-                name="Week 1"
-                number={1}
-              />
-              <Folder
-                showLevel={showLevel}
-                levelToShow={levelToShow}
-                folderType="locked"
-                name="Week 2"
-                number={2}
-              />
-              <Folder
-                showLevel={showLevel}
-                levelToShow={levelToShow}
-                folderType="locked"
-                name="Week 3"
-                number={3}
-              />
-              <Folder
-                showLevel={showLevel}
-                levelToShow={levelToShow}
-                folderType="locked"
-                name="Week 4"
-                number={4}
-              />
-              <Folder
-                showLevel={showLevel}
-                levelToShow={levelToShow}
-                folderType="locked"
-                name="Week 5"
-                number={5}
-              />
+              <Folder showLevel={showLevel} levelToShow={levelToShow} folderType="unlocked" name="Week 1" number={1} />
+              <Folder showLevel={showLevel} levelToShow={levelToShow} folderType="locked" name="Week 2" number={2} />
+              <Folder showLevel={showLevel} levelToShow={levelToShow} folderType="locked" name="Week 3" number={3} />
+              <Folder showLevel={showLevel} levelToShow={levelToShow} folderType="locked" name="Week 4" number={4} />
+              <Folder showLevel={showLevel} levelToShow={levelToShow} folderType="locked" name="Week 5" number={5} />
             </Flex>
           </GridItem>
         </Grid>

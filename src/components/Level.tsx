@@ -7,6 +7,8 @@ interface LevelProps {
   completed: boolean;
 }
 
+// This is the component for each level that is shown when you open the folder view.
+
 const Level = ({ name, activity, completed }: LevelProps) => {
   return (
     <Link to={activity}>
@@ -24,7 +26,7 @@ const Level = ({ name, activity, completed }: LevelProps) => {
         <GridItem>
           {completed && (
             <Badge variant="outline" colorScheme="green" right="0">
-              Success
+              Completed
             </Badge>
           )}
         </GridItem>

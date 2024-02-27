@@ -14,7 +14,7 @@ const UserProgress = ({ name, points, rating }: UserStats) => {
         {name}
       </Text>
       <Box w="20em" m="1.5em 0 0 2em" marginBottom="0" border="2px">
-        <Progress hasStripe value={points} backgroundColor="game.black" />
+        <Progress hasStripe value={points / 3.5} backgroundColor="game.black" />
       </Box>
       <Box m="1.5em 0 0 0">
         <Rating amount={rating} />

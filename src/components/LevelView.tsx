@@ -10,6 +10,8 @@ interface ILevelViewProps {
   setShowLevel: Dispatch<SetStateAction<boolean>>;
 }
 
+// This is the component that processes the list of levels to show when the folder view is opened
+
 const LevelView = ({ levelData, setShowLevel }: ILevelViewProps) => {
   return (
     <>

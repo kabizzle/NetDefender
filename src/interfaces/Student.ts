@@ -8,13 +8,13 @@ export interface IStudent {
   points: number;
   levels: [
     [
-      { id: number; completed: boolean; points: number; name: string },
-      { id: number; completed: boolean; points: number; name: string }
+      { id: string; completed: boolean; points: number; name: string },
+      { id: string; completed: boolean; points: number; name: string }
     ],
-    [{ id: number; completed: boolean; points: number; name: string }],
-    [{ id: number; completed: boolean; points: number; name: string }],
-    [{ id: number; completed: boolean; points: number; name: string }],
-    [{ id: number; completed: boolean; points: number; name: string }]
+    [{ id: string; completed: boolean; points: number; name: string }],
+    [{ id: string; completed: boolean; points: number; name: string }],
+    [{ id: string; completed: boolean; points: number; name: string }],
+    [{ id: string; completed: boolean; points: number; name: string }]
   ];
   id: string;
 }
@@ -27,13 +27,13 @@ export const defaultStudent: IStudent = {
   public_key: '',
   levels: [
     [
-      { id: 1, completed: false, points: 10, name: '' },
-      { id: 2, completed: false, points: 10, name: '' }
+      { id: 'quiz1', completed: false, points: 10, name: 'Quiz: Identify Attacks' },
+      { id: 'flashcards1', completed: false, points: 10, name: 'Flashcards: Attack Types' }
     ],
-    [{ id: 3, completed: false, points: 20, name: '' }],
-    [{ id: 4, completed: false, points: 20, name: '' }],
-    [{ id: 5, completed: false, points: 20, name: '' }],
-    [{ id: 6, completed: false, points: 20, name: '' }]
+    [{ id: '2', completed: false, points: 10, name: 'Level 2: Caesar Cipher' }],
+    [{ id: '3', completed: false, points: 20, name: 'Level 3: RSA encryption' }],
+    [{ id: '4', completed: false, points: 20, name: 'Level 4: Web of Trust' }],
+    [{ id: '5', completed: false, points: 20, name: 'Level 5: Capture the flag' }]
   ],
   rating: 5,
   points: 0,

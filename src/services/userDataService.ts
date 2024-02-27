@@ -4,35 +4,35 @@ import { IStudent } from '../interfaces/Student';
 const baseUrl = 'https://netdefender.org.aalto.fi/api/students/';
 
 interface IGetUserDataProps {
-    userId: string;
-    userToken: string;
+  userId: string;
+  userToken: string;
 }
 
 interface IUpdateUserDataProps {
-    userId: string;
-    userToken: string;
-    userData: IStudent;
+  userId: string;
+  userToken: string;
+  userData: IStudent;
 }
 
-const getUserData = async ({userId, userToken}: IGetUserDataProps): Promise<IStudent> => {
-    const token = `Bearer ${userToken}`
-    const httpAuth = {
-        headers: {Authorization: token}
-    }
+const getUserData = async ({ userId, userToken }: IGetUserDataProps): Promise<IStudent> => {
+  const token = `Bearer ${userToken}`;
+  const httpAuth = {
+    headers: { Authorization: token }
+  };
 
-    const userUrl = baseUrl + userId;
-    const userData = await axios.get(userUrl, httpAuth);
-    return userData.data.student
-}
+  const userUrl = baseUrl + userId;
+  const userData = await axios.get(userUrl, httpAuth);
+  return userData.data.student;
+};
 
-const updateUserData = async ({userId, userToken, userData}: IUpdateUserDataProps): Promise<IStudent> => {
-    const token = `Bearer ${userToken}`
-    const httpAuth = {
-        headers: {Authorization: token}
-    }
+const updateUserData = async ({ userId, userToken, userData }: IUpdateUserDataProps): Promise<IStudent> => {
+  const token = `Bearer ${userToken}`;
+  const httpAuth = {
+    headers: { Authorization: token }
+  };
 
-    const userUrl = baseUrl + userId;
-    const userReturnData = await axios.put(userUrl, userData, httpAuth);
-    return userReturnData.data.student
-}
-export default {getUserData, updateUserData};
+  const userUrl = baseUrl + userId;
+  const userReturnData = await axios.put(userUrl, userData, httpAuth);
+  return userReturnData.data.student;
+};
+export default { getUserData, updateUserData };

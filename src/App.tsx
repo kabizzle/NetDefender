@@ -16,6 +16,7 @@ import Login from './components/Login.tsx';
 import Signup from './components/Signup.tsx';
 import Flashcard from './components/Flashcards/Flashcard.tsx';
 import Tutorial from './pages/Tutorial.tsx';
+import AttackQuiz from './components/attacks_quiz/AttackQuiz.tsx';
 
 const baseStyle = {
   indicator: {
@@ -99,33 +100,32 @@ const App = () => {
   // authentication credentials to make calls to api
   const [userAuthData, setUserAuthData] = useState<IUserAuthData>({ token: '', username: '', name: '', user_id: '' });
   const [showLoginPage, setShowLoginPage] = useState(true);
-  // @ts-ignore
   const [showTutorial, setShowTutorial] = useState(false);
-    
+
   // on page load, check if user auth credentials stored.
   // If so, get user data from api.
   useEffect(() => {
     const userAuthDataJSON = window.localStorage.getItem('userAuthDataJSON');
     if (userAuthDataJSON) {
       const user = JSON.parse(userAuthDataJSON);
-      setUserAuthData(user)
-        }
-  }, [])
+      setUserAuthData(user);
+    }
+  }, []);
 
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
         <Route path="/" element={<Home setUserAuthData={setUserAuthData} userAuthData={userAuthData} />}></Route>
         <Route path="level">
-          <Route path="1" element={<Level0 />} />
-          <Route path="2" element={<CCEmail />} />
-          <Route path="3" element={<LevelRSA />} />
-          <Route path="attack" element={<AttackQuiz />} />
+          <Route path="quiz1" element={<AttackQuiz />} />
+          <Route path="task1" element={<CCEmail />} />
+          {/*<Route path="3" element={<LevelRSA />} />*/}
+          <Route path="flashcard1-attack" element={<Flashcard />} />
           <Route path="cc" element={<CC />} />
-          <Route path="levelcc" element={<LevelCC />} />
         </Route>
         <Route path="sandbox" element={<Sandbox />} />
         <Route path="flashcard" element={<Flashcard />} />
+        <Route path="tutorial" element={<Tutorial setShowTutorial={setShowTutorial} />} />
         <Route path="*" element={<Error />} />
       </>
     )
