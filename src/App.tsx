@@ -2,7 +2,7 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import Home from './pages/Home.tsx';
 import Level0 from './components/MS/Level0.tsx';
-import CC from './components/CC.tsx';
+import CC from './components/CaesarCipher.tsx';
 import LevelCC from './components/LevelCC.tsx';
 import CCEmail from './components/CCEmail.tsx';
 import Phishing from './components/Phishing.tsx';
@@ -14,146 +14,151 @@ import { useEffect, useState } from 'react';
 import { IUserAuthData } from './services/loginService.ts';
 import Login from './components/Login.tsx';
 import Signup from './components/Signup.tsx';
+import Flashcard from './components/Flashcards/Flashcard.tsx';
 import Tutorial from './pages/Tutorial.tsx';
+import AttackQuiz from './components/attacks_quiz/AttackQuiz.tsx';
+import * as FlashcardData from './components/Flashcards/FlashcardData';
 
 const baseStyle = {
-    indicator: {
-        '&[data-status=active]': {
-            borderWidth: '2px',
-            borderColor: '#F9F9F9',
-            bg: '#0A0A0A'
-        },
-        '&[data-status=complete]': {
-            borderWidth: '2px',
-            borderColor: '#F9F9F9',
-            bg: '#0A0A0A'
-        },
-        '&[data-status=incomplete]': {
-            borderWidth: '2px',
-            borderColor: '#F9F9F9',
-            bg: '#0A0A0A',
-            opacity: '50%'
-        }
+  indicator: {
+    '&[data-status=active]': {
+      borderWidth: '2px',
+      borderColor: '#F9F9F9',
+      bg: '#0A0A0A'
     },
-    separator: {
-        bg: '#F9F9F9',
-        opacity: '50%',
-        '&[data-status=complete]': {
-            bg: '#F9F9F9',
-            opacity: '100%'
-        },
-        '&[data-orientation=horizontal]': {
-            width: '100%',
-            height: '2px',
-            marginStart: '0'
-        }
+    '&[data-status=complete]': {
+      borderWidth: '2px',
+      borderColor: '#F9F9F9',
+      bg: '#0A0A0A'
+    },
+    '&[data-status=incomplete]': {
+      borderWidth: '2px',
+      borderColor: '#F9F9F9',
+      bg: '#0A0A0A',
+      opacity: '50%'
     }
+  },
+  separator: {
+    bg: '#F9F9F9',
+    opacity: '50%',
+    '&[data-status=complete]': {
+      bg: '#F9F9F9',
+      opacity: '100%'
+    },
+    '&[data-orientation=horizontal]': {
+      width: '100%',
+      height: '2px',
+      marginStart: '0'
+    }
+  }
 };
 
 const stepperTheme = {
-    baseStyle
+  baseStyle
 };
 
 const theme = extendTheme({
-    colors: {
-        game: {
-            green: '#04A130',
-            black: '#0A0A0A',
-            white: '#F9F9F9',
-            red: '#C0181F',
-            gray: '#5F5F5F'
-        }
-    },
-    styles: {
-        global: () => ({
-            body: {
-                bg: 'game.black',
-                color: 'game.white',
-                fontFamily: 'mono'
-            }
-        })
-    },
-    components: {
-        Stepper: stepperTheme,
-        Progress: {
-            defaultProps: {
-                size: 'lg',
-                colorScheme: 'green'
-            }
-        },
-        Text: {
-            defaultProps: {
-                fontFamily: 'mono'
-            }
-        },
-        Header: {
-            defaultProps: {
-                fontFamily: 'mono'
-            }
-        }
+  colors: {
+    game: {
+      green: '#04A130',
+      black: '#0A0A0A',
+      white: '#F9F9F9',
+      red: '#C0181F',
+      gray: '#5F5F5F'
     }
+  },
+  styles: {
+    global: () => ({
+      body: {
+        bg: 'game.black',
+        color: 'game.white',
+        fontFamily: 'mono'
+      }
+    })
+  },
+  components: {
+    Stepper: stepperTheme,
+    Progress: {
+      defaultProps: {
+        size: 'lg',
+        colorScheme: 'green'
+      }
+    },
+    Text: {
+      defaultProps: {
+        fontFamily: 'mono'
+      }
+    },
+    Header: {
+      defaultProps: {
+        fontFamily: 'mono'
+      }
+    }
+  }
 });
 
 const App = () => {
-    // authentication credentials to make calls to api
-    const [userAuthData, setUserAuthData] = useState<IUserAuthData>({ token: '', username: '', name: '', user_id: '' });
-    const [showLoginPage, setShowLoginPage] = useState(true);
-    // @ts-ignore
-    const [showTutorial, setShowTutorial] = useState(false);
-    
-    // user data returned from api
-    // const [userGameData, setUserGameData] = useState<IStudent>(defaultStudent)
+  // authentication credentials to make calls to api
+  const [userAuthData, setUserAuthData] = useState<IUserAuthData>({ token: '', username: '', name: '', user_id: '' });
+  const [showLoginPage, setShowLoginPage] = useState(true);
+  const [showTutorial, setShowTutorial] = useState(false);
 
-    
-    // on page load, check if user auth credentials stored.
-    // If so, get user data from api.
-    useEffect(() => {
-        const userAuthDataJSON = window.localStorage.getItem('userAuthDataJSON');
-        if (userAuthDataJSON) {
-            const user = JSON.parse(userAuthDataJSON);
-            setUserAuthData(user)
-        }
+  // on page load, check if user auth credentials stored.
+  // If so, get user data from api.
+  useEffect(() => {
+    const userAuthDataJSON = window.localStorage.getItem('userAuthDataJSON');
+    if (userAuthDataJSON) {
+      const user = JSON.parse(userAuthDataJSON);
+      setUserAuthData(user);
+    }
+  }, []);
 
-    }, [])
-   
-    const router = createBrowserRouter(
-        createRoutesFromElements(
-            <>
-                <Route path="/" element={<Home setUserAuthData={setUserAuthData} userAuthData={userAuthData}/>}>
-                </Route>
-                <Route path="level">
-                    <Route path="1" element={<Level0 />} />
-                    <Route path="2" element={<CCEmail />} />
-                    <Route path="3" element={<LevelRSA />} />
-                    <Route path="cc" element={<CC />} />
-                    <Route path="levelcc" element={<LevelCC />} />
-                    <Route path="phishing" element={<Phishing />} />
-                    <Route path="emailmenu" element={<EmailMenu />} />
-                </Route>
-                <Route path="sandbox" element={<Sandbox />} />
-                <Route path="tutorial" element={<Tutorial setShowTutorial={setShowTutorial}/>} />
-                <Route path="*" element={<Error />} />
-            </>
-        )
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <>
+        <Route path="/" element={<Home setUserAuthData={setUserAuthData} userAuthData={userAuthData} />}></Route>
+        <Route path="level">
+          <Route path="quiz1" element={<AttackQuiz weekNumber={1} taskNumber={3} />} />
+          <Route path="task1" element={<CCEmail weekNumber={1} taskNumber={4} />} />
+          {/*<Route path="3" element={<LevelRSA />} />*/}
+          <Route
+            path="flashcard1-attacks"
+            element={<Flashcard content={FlashcardData.week1_attacks} weekNumber={1} taskNumber={1} />}
+          />
+          <Route
+            path="flashcard1-crypto"
+            element={<Flashcard content={FlashcardData.week1_crypto} weekNumber={1} taskNumber={2} />}
+          />
+          <Route path="cc" element={<CC />} />
+        </Route>
+        <Route path="sandbox" element={<Sandbox />} />
+        <Route
+          path="flashcard"
+          element={<Flashcard content={FlashcardData.week1_attacks} weekNumber={1} taskNumber={1} />}
+        />
+        <Route path="tutorial" element={<Tutorial setShowTutorial={setShowTutorial} />} />
+        <Route path="*" element={<Error />} />
+      </>
+    )
+  );
+
+  if (userAuthData.token === '') {
+    return (
+      <ChakraProvider theme={theme}>
+        {showLoginPage ? (
+          <Login setUserAuthData={setUserAuthData} setShowLogin={setShowLoginPage} />
+        ) : (
+          <Signup setUserAuthData={setUserAuthData} setShowLogin={setShowLoginPage} />
+        )}
+      </ChakraProvider>
     );
-    
-    if (userAuthData.token === '') {
-        return (
-            <ChakraProvider theme={theme}>
-                { showLoginPage
-                    ? <Login setUserAuthData={setUserAuthData} setShowLogin={setShowLoginPage}/>
-                    : <Signup setUserAuthData={setUserAuthData} setShowLogin={setShowLoginPage}/> 
-                }
-            </ChakraProvider>
-        );
-    }
-    else {
-        return (
-            <ChakraProvider theme={theme}>
-                <RouterProvider router={router} />
-            </ChakraProvider>
-        )
-    }
+  } else {
+    return (
+      <ChakraProvider theme={theme}>
+        <RouterProvider router={router} />
+      </ChakraProvider>
+    );
+  }
 };
 
 export default App;
