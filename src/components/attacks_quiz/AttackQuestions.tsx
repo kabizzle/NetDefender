@@ -73,7 +73,7 @@ const AttackQuestions = ({
     return (
       <Stepper size="md" index={activeStep} gap="0">
         {steps.map((step, index) => (
-          <Step key={index} gap="0">
+          <Step key={index}>
             <StepIndicator>
               <StepStatus
                 complete={<CircleIcon boxSize={8} color={stepColors[index].fill} />}
