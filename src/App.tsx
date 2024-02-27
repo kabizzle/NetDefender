@@ -17,6 +17,7 @@ import Signup from './components/Signup.tsx';
 import Flashcard from './components/Flashcards/Flashcard.tsx';
 import Tutorial from './pages/Tutorial.tsx';
 import AttackQuiz from './components/attacks_quiz/AttackQuiz.tsx';
+import * as FlashcardData from './components/Flashcards/FlashcardData';
 
 const baseStyle = {
   indicator: {
@@ -117,14 +118,24 @@ const App = () => {
       <>
         <Route path="/" element={<Home setUserAuthData={setUserAuthData} userAuthData={userAuthData} />}></Route>
         <Route path="level">
-          <Route path="quiz1" element={<AttackQuiz />} />
-          <Route path="task1" element={<CCEmail />} />
+          <Route path="quiz1" element={<AttackQuiz weekNumber={1} taskNumber={3} />} />
+          <Route path="task1" element={<CCEmail weekNumber={1} taskNumber={4} />} />
           {/*<Route path="3" element={<LevelRSA />} />*/}
-          <Route path="flashcard1-attack" element={<Flashcard />} />
+          <Route
+            path="flashcard1-attacks"
+            element={<Flashcard content={FlashcardData.week1_attacks} weekNumber={1} taskNumber={1} />}
+          />
+          <Route
+            path="flashcard1-crypto"
+            element={<Flashcard content={FlashcardData.week1_crypto} weekNumber={1} taskNumber={2} />}
+          />
           <Route path="cc" element={<CC />} />
         </Route>
         <Route path="sandbox" element={<Sandbox />} />
-        <Route path="flashcard" element={<Flashcard />} />
+        <Route
+          path="flashcard"
+          element={<Flashcard content={FlashcardData.week1_attacks} weekNumber={1} taskNumber={1} />}
+        />
         <Route path="tutorial" element={<Tutorial setShowTutorial={setShowTutorial} />} />
         <Route path="*" element={<Error />} />
       </>

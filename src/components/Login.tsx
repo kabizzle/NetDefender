@@ -52,7 +52,7 @@ const Login = ({ setUserAuthData, setShowLogin }: ILoginProps) => {
       toast({
         title: 'Successful login!',
         status: 'success',
-        duration: 3500,
+        duration: 1500,
         isClosable: true
       });
     } catch {

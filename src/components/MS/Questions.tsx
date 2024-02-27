@@ -242,11 +242,11 @@ const Questions = (props: any) => {
             toast({
                 title: 'Good job!',
                 status: 'success',
-                duration: 3500
+                duration: 1500
             });
             setTimeout(() => {
                 navigate('/');
-            }, 3500)
+            }, 1500)
         }
     }
 

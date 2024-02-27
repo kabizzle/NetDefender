@@ -4,7 +4,7 @@ import userDataService from '../services/userDataService';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
-const CCEmail = () => {
+const CCEmail = ({ weekNumber, taskNumber }: { weekNumber: number; taskNumber: number }) => {
   const heading = 'Important message!';
   const sender = { email: 'mysterious.sender@email.com', name: 'Mysterious Sender' };
   const you = { email: 'your.name@email.com', name: 'Player Name' };
@@ -35,10 +35,10 @@ const CCEmail = () => {
           userId: userAuthData.user_id,
           userToken: userAuthData.token
         });
-        if (!userData.levels[1][0].completed) {
+        if (!userData.levels[weekNumber - 1][taskNumber - 1].completed) {
           const updatedUserData = userData;
-          updatedUserData.levels[1][0].completed = true;
-          updatedUserData.points = userData.points + userData.levels[1][0].points;
+          updatedUserData.levels[weekNumber - 1][taskNumber - 1].completed = true;
+          updatedUserData.points = userData.points + userData.levels[weekNumber - 1][taskNumber - 1].points;
           await userDataService.updateUserData({
             userId: userAuthData.user_id,
             userToken: userAuthData.token,
@@ -49,11 +49,11 @@ const CCEmail = () => {
       toast({
         title: 'Good job!',
         status: 'success',
-        duration: 3500
+        duration: 1500
       });
       setTimeout(() => {
         navigate('/');
-      }, 3500);
+      }, 1500);
     } else {
       toast({
         title: 'Wrong code word',

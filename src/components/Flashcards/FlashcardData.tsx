@@ -1,6 +1,6 @@
 import { FlashcardContent } from './Flashcard';
 
-const testFlashcards: FlashcardContent[] = [
+const week1_attacks: FlashcardContent[] = [
   {
     id: 1,
     title: 'Packet Sniffing',
@@ -17,9 +17,18 @@ const testFlashcards: FlashcardContent[] = [
   },
   {
     id: 3,
-    title: 'Third for test',
-    content: 'test third flashcard.'
+    title: 'Man in the Middle',
+    content: ''
   }
 ];
 
-export { testFlashcards };
+const week1_crypto: FlashcardContent[] = [
+  {
+    id: 1,
+    title: 'Symmetric Key Cryptography',
+    content:
+      'In Symmetric Key Cryptography, each letter of the plaintext is mapped to a letter of the alphabet to form ciphertext. If the mapping of plaintext letters to ciphertext letters is known, an encrypted message can be decrypted.'
+  }
+];
+
+export { week1_attacks, week1_crypto };

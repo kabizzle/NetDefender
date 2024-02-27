@@ -17,8 +17,17 @@ import {
 
 import { useNavigate } from 'react-router-dom';
 import userDataService from '../../services/userDataService';
+import { QuizQuestion } from './MultipleChoiceQuestion';
 
-const AttackQuestions = ({ quiz }: { quiz: LevelQuestion[] }) => {
+const AttackQuestions = ({
+  quiz,
+  weekNumber,
+  taskNumber
+}: {
+  quiz: QuizQuestion[];
+  weekNumber: number;
+  taskNumber: number;
+}) => {
   const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
   const questions = quiz;
   const ogButtonColors = Array.from({ length: questions.length }, () => ({
@@ -221,24 +230,26 @@ const AttackQuestions = ({ quiz }: { quiz: LevelQuestion[] }) => {
         userId: userAuthData.user_id,
         userToken: userAuthData.token
       });
-      if (!userData.levels[0][0].completed) {
-        const updatedUserData = userData;
-        updatedUserData.levels[0][0].completed = true;
-        updatedUserData.points = userData.points + userData.levels[0][0].points;
-        await userDataService.updateUserData({
-          userId: userAuthData.user_id,
-          userToken: userAuthData.token,
-          userData: updatedUserData
-        });
+      const updatedUserData = userData;
+
+      if (!userData.levels[weekNumber - 1][taskNumber - 1].completed) {
+        updatedUserData.levels[weekNumber - 1][taskNumber - 1].completed = true;
       }
+      updatedUserData.points = userData.points + userData.levels[weekNumber][taskNumber - 1].points;
+
+      await userDataService.updateUserData({
+        userId: userAuthData.user_id,
+        userToken: userAuthData.token,
+        userData: updatedUserData
+      });
       toast({
         title: 'Good job!',
         status: 'success',
-        duration: 3500
+        duration: 1500
       });
       setTimeout(() => {
         navigate('/');
-      }, 3500);
+      }, 1500);
     }
   };
 

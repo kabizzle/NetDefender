@@ -13,9 +13,17 @@ interface FlashcardContent {
   content: string;
 }
 
-const Flashcard = () => {
+const Flashcard = ({
+  content,
+  weekNumber,
+  taskNumber
+}: {
+  content: FlashcardContent[];
+  weekNumber: number;
+  taskNumber: number;
+}) => {
   const [count, setCount] = useState(1);
-  const flashcards: FlashcardContent[] = FlashcardData.testFlashcards;
+  const flashcards: FlashcardContent[] = content;
   const [flashcard, setFlashcard] = useState(flashcards[0]);
 
   const navigate = useNavigate();
@@ -35,11 +43,11 @@ const Flashcard = () => {
 
       const updatedUserData = userData;
 
-      // if (!userData.levels[0][0].completed) {
-      //   updatedUserData.levels[0][0].completed = true;
-      // }
+      if (!userData.levels[weekNumber - 1][taskNumber - 1].completed) {
+        updatedUserData.levels[weekNumber - 1][taskNumber - 1].completed = true;
+      }
 
-      updatedUserData.points = userData.points + 5;
+      updatedUserData.points = userData.points + userData.levels[weekNumber - 1][taskNumber - 1].points;
 
       await userDataService.updateUserData({
         userId: userAuthData.user_id,
