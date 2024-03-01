@@ -118,23 +118,23 @@ const App = () => {
       <>
         <Route path="/" element={<Home setUserAuthData={setUserAuthData} userAuthData={userAuthData} />}></Route>
         <Route path="level">
-          <Route path="quiz1" element={<AttackQuiz weekNumber={1} taskNumber={3} />} />
-          <Route path="task1" element={<CCEmail weekNumber={1} taskNumber={4} />} />
+          <Route path="quiz1" element={<AttackQuiz weekNumber={1} taskID={'quiz1'} />} />
+          <Route path="task1" element={<CCEmail weekNumber={1} taskID={'task1'} />} />
           {/*<Route path="3" element={<LevelRSA />} />*/}
           <Route
-            path="flashcard1-attacks"
-            element={<Flashcard content={FlashcardData.week1_attacks} weekNumber={1} taskNumber={1} />}
+            path="flashcards1-attacks"
+            element={<Flashcard content={FlashcardData.week1_attacks} weekNumber={1} taskID={'flashcards1-attacks'} />}
           />
           <Route
-            path="flashcard1-crypto"
-            element={<Flashcard content={FlashcardData.week1_crypto} weekNumber={1} taskNumber={2} />}
+            path="flashcards1-crypto"
+            element={<Flashcard content={FlashcardData.week1_crypto} weekNumber={1} taskID={'flashcards1-crypto'} />}
           />
           <Route path="cc" element={<CC />} />
         </Route>
         <Route path="sandbox" element={<Sandbox />} />
         <Route
           path="flashcard"
-          element={<Flashcard content={FlashcardData.week1_attacks} weekNumber={1} taskNumber={1} />}
+          element={<Flashcard content={FlashcardData.week1_attacks} weekNumber={1} taskID={'flashcards1-attacks'} />}
         />
         <Route path="tutorial" element={<Tutorial setShowTutorial={setShowTutorial} />} />
         <Route path="*" element={<Error />} />

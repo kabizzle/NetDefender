@@ -4,7 +4,7 @@ import userDataService from '../services/userDataService';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
-const CCEmail = ({ weekNumber, taskNumber }: { weekNumber: number; taskNumber: number }) => {
+const CCEmail = ({ weekNumber, taskID }: { weekNumber: number; taskID: string }) => {
   const heading = 'Important message!';
   const sender = { email: 'mysterious.sender@email.com', name: 'Mysterious Sender' };
   const you = { email: 'your.name@email.com', name: 'Player Name' };
@@ -35,10 +35,13 @@ const CCEmail = ({ weekNumber, taskNumber }: { weekNumber: number; taskNumber: n
           userId: userAuthData.user_id,
           userToken: userAuthData.token
         });
-        if (!userData.levels[weekNumber - 1][taskNumber - 1].completed) {
+
+        const currentTask = userData.levels[weekNumber-1].find(obj=>obj.id===taskID);
+
+        if (!currentTask!.completed) {
           const updatedUserData = userData;
-          updatedUserData.levels[weekNumber - 1][taskNumber - 1].completed = true;
-          updatedUserData.points = userData.points + userData.levels[weekNumber - 1][taskNumber - 1].points;
+          updatedUserData.levels[weekNumber - 1].find(obj => obj.id === taskID)!.completed = true;
+          updatedUserData.points = userData.points + currentTask!.points;
           await userDataService.updateUserData({
             userId: userAuthData.user_id,
             userToken: userAuthData.token,

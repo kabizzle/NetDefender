@@ -4,7 +4,7 @@ import Questions from './AttackQuestions.tsx';
 import { AttackQuestions } from './MultipleChoiceQuestion.tsx';
 import { QuizQuestion } from './MultipleChoiceQuestion.tsx';
 
-const AttackQuiz = ({ weekNumber, taskNumber }: { weekNumber: number; taskNumber: number }) => {
+const AttackQuiz = ({ weekNumber, taskID }: { weekNumber: number; taskID: string }) => {
   const questions: QuizQuestion[] = AttackQuestions;
   const [currentScreen, setCurrentScreen] = useState('startScreen');
 
@@ -39,7 +39,7 @@ const AttackQuiz = ({ weekNumber, taskNumber }: { weekNumber: number; taskNumber
       case 'questionScreen':
         return (
           <Box>
-            <Questions quiz={questions} weekNumber={weekNumber} taskNumber={taskNumber} />
+            <Questions quiz={questions} weekNumber={weekNumber} taskID={taskID} />
           </Box>
         );
     }

@@ -16,11 +16,11 @@ interface FlashcardContent {
 const Flashcard = ({
   content,
   weekNumber,
-  taskNumber
+  taskID
 }: {
   content: FlashcardContent[];
   weekNumber: number;
-  taskNumber: number;
+  taskID: string;
 }) => {
   const [count, setCount] = useState(1);
   const flashcards: FlashcardContent[] = content;
@@ -42,18 +42,21 @@ const Flashcard = ({
       });
 
       const updatedUserData = userData;
+      const currentTask = userData.levels[weekNumber - 1].find(obj => obj.id === taskID);
 
-      if (!userData.levels[weekNumber - 1][taskNumber - 1].completed) {
-        updatedUserData.levels[weekNumber - 1][taskNumber - 1].completed = true;
+      if (currentTask) {
+        if (!currentTask.completed) {
+          updatedUserData.levels[weekNumber - 1].find(obj => obj.id === taskID)!.completed = true;
+        }
+
+        updatedUserData.points = userData.points + currentTask.points;
+
+        await userDataService.updateUserData({
+          userId: userAuthData.user_id,
+          userToken: userAuthData.token,
+          userData: updatedUserData
+        });
       }
-
-      updatedUserData.points = userData.points + userData.levels[weekNumber - 1][taskNumber - 1].points;
-
-      await userDataService.updateUserData({
-        userId: userAuthData.user_id,
-        userToken: userAuthData.token,
-        userData: updatedUserData
-      });
 
       toast({
         title: 'Good job!',
