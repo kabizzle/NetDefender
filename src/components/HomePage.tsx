@@ -32,7 +32,6 @@ const HomePage = ({
     setUserData(data);
     setShowTutorial(!data.tutorial_completed);
     setUserDataFetched(true);
-    console.log('user data: ', data);
   };
 
   const updateTutorial = async () => {
