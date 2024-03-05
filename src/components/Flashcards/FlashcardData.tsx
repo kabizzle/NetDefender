@@ -92,4 +92,37 @@ const week1_crypto: FlashcardContent[] = [
   },
 ];
 
-export { week1_attacks, week1_crypto };
+const week2_crypto: FlashcardContent[] = [
+  {
+    id: 1,
+    title: 'Asymmetric Cryptography',
+    content:
+      'Asymmetric Cryptography requires a one-way function for encryption. For example, RSA relies on modulo arithmetic.'
+  },
+  {
+    id: 2,
+    title: 'Asymmetric Cryptography - principle',
+    content:
+      'Finding the product of large prime numbers has a relatively low computational cost. On the other hand, it is very computationally demanding to factorize these products.'
+  },
+  {
+    id: 3,
+    title: 'Asymmetric Cryptography - security',
+    content:
+      `By using large prime numbers as keys, their product can be computed with minimal resources. This makes encryption easily accessible. However, if the prime keys are not known, finding them will require a large computational cost, which makes this method secure.`
+  },
+  {
+    id: 4,
+    title: 'Cryptographic Hash Functions',
+    content:
+      'Hash function takes an input, m, and computes a hash as a fixed-sized string, H(m). Example: Internet checksum, MD5, SHA-2/3.'
+  },
+  {
+    id: 5,
+    title: 'Cryptographic Hash Functions',
+    content:
+      ''
+  },
+];
+
+export { week1_attacks, week1_crypto, week2_crypto };

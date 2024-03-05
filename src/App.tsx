@@ -130,6 +130,10 @@ const App = () => {
             element={<Flashcard content={FlashcardData.week1_crypto} weekNumber={1} taskID={'flashcards1-crypto'} />}
           />
           <Route path="cc" element={<CC />} />
+          <Route
+            path="flashcards2-crypto"
+            element={<Flashcard content={FlashcardData.week2_crypto} weekNumber={2} taskID={'flashcards2-crypto'} />}
+          />
         </Route>
         <Route path="sandbox" element={<Sandbox />} />
         <Route
