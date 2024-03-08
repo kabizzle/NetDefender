@@ -234,12 +234,12 @@ const AttackQuestions = ({
       });
 
       const updatedUserData = userData;
-      const currentTask = userData.levels[weekNumber - 1].find(obj => obj.id === taskID);
+      const currentTask = userData.levels[weekNumber - 1].find((obj) => obj.id === taskID);
 
       if (currentTask) {
         if (!currentTask.completed) {
-          if (updatedUserData.levels[weekNumber - 1].find(obj => obj.id === taskID)){
-            updatedUserData.levels[weekNumber - 1].find(obj => obj.id === taskID)!.completed = true;
+          if (updatedUserData.levels[weekNumber - 1].find((obj) => obj.id === taskID)) {
+            updatedUserData.levels[weekNumber - 1].find((obj) => obj.id === taskID)!.completed = true;
           }
         }
 
