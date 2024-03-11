@@ -103,7 +103,7 @@ const LevelRSA = () => {
           title: 'Good job!',
           description: 'You solved the first task',
           status: 'success',
-          duration: 3500
+          duration: 1500
         });
         setTask(2);
         // setUserInput("")
@@ -113,7 +113,7 @@ const LevelRSA = () => {
           title: 'Error:',
           description: 'You did not submit the right answer. Did you get the hint from the encrypted message?',
           status: 'error',
-          duration: 8000
+          duration: 3500
         });
         return false;
       }
@@ -404,7 +404,7 @@ const LevelRSA = () => {
                 <Text m="0.5em 0 0.5em 0">
                   Now that you are able to decrypt, you can send your first encrypted message.
                 </Text>
-                <Text m="0.5em 0 0.5em 0">Encrypt your student number, using the game's public key.</Text>
+                <Text m="0.5em 0 0.5em 0">Encrypt your username, using the game's public key.</Text>
                 {
                   // <Box w="40em" border="2px" p="0.5em 0 0.5em 1em">{encryptedMsg}</Box>
                 }
