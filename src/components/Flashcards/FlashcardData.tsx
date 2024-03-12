@@ -191,4 +191,4 @@ const week2_message_integrity: FlashcardContent[] = [
   }
 ];
 
-export { week1_attacks, week1_crypto, week2_crypto, week2_packets };
+export { week1_attacks, week1_crypto, week2_crypto, week2_packets, week2_message_integrity };
