@@ -9,7 +9,7 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --resolve-plugins-relative-to .",
     "lint-and-fix": "eslint . --ext ts,tsx --fix",
     "preview": "vite preview",
-    "prettier-format": "prettier --config .prettierrc src/**/*.ts src/**/*.tsx --write"
+    "prettier-format": "prettier --config .prettierrc src/**/*.ts src/**/*.tsx src/**/**/*.ts src/**/**/*.tsx --write"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.19",

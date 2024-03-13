@@ -4,7 +4,7 @@ import JSEncrypt from 'jsencrypt';
 import userDataService from '../../services/userDataService';
 import { useNavigate } from 'react-router-dom';
 
-const LevelRSA = () => {
+const LevelRSA = ({weekNumber, taskID} : {weekNumber: number; taskID: string}) => {
   const [count, setCount] = useState(0);
   const [userPubKey, setUserPubKey] = useState('');
   const [userInput, setUserInput] = useState('');
@@ -103,7 +103,7 @@ const LevelRSA = () => {
           title: 'Good job!',
           description: 'You solved the first task',
           status: 'success',
-          duration: 3500
+          duration: 1500
         });
         setTask(2);
         // setUserInput("")
@@ -113,7 +113,7 @@ const LevelRSA = () => {
           title: 'Error:',
           description: 'You did not submit the right answer. Did you get the hint from the encrypted message?',
           status: 'error',
-          duration: 8000
+          duration: 3500
         });
         return false;
       }
@@ -129,29 +129,35 @@ const LevelRSA = () => {
             userToken: userAuthData.token
           });
           const updatedUserData = userData;
-          updatedUserData.points = userData.points + userData.levels[2][0].points;
-          updatedUserData.levels[2][0].completed = true;
-          await userDataService.updateUserData({
-            userId: userAuthData.user_id,
-            userToken: userAuthData.token,
-            userData: updatedUserData
-          });
+
+          const currentTask = userData.levels[weekNumber - 1].find((obj) => obj.id === taskID);
+
+          if (!currentTask!.completed) {
+            updatedUserData.levels[weekNumber - 1].find((obj) => obj.id === taskID)!.completed = true;
+            updatedUserData.points = userData.points + currentTask!.points;
+            await userDataService.updateUserData({
+              userId: userAuthData.user_id,
+              userToken: userAuthData.token,
+              userData: updatedUserData
+            });
+          }
+
           toast({
             title: 'Good job!',
-            description: 'You solved the third task',
+            description: 'You solved this week\'s task',
             status: 'success',
-            duration: 3500
+            duration: 1500
           });
           setTimeout(() => {
             navigate('/');
-          }, 3500);
+          }, 1500);
           return true;
         } else {
           toast({
             title: 'Error:',
             description: 'You did not submit the right answer. Did you get the hint from the encrypted message?',
             status: 'error',
-            duration: 8000
+            duration: 4000
           });
           return false;
         }
@@ -318,14 +324,6 @@ const LevelRSA = () => {
                   <Button onClick={handlePubKeySubmit}>submit</Button>
                 </Box>
               </Box>
-
-              {
-                //   <Button onClick={handleClick} marginLeft="15em"
-                //     bg='game.black' border='2px' borderColor="game.white" color="game.white"
-                //     _hover={{color:"game.black", bg:"game.white"}}>
-                //     next
-                //   </Button>
-              }
             </Flex>
           </Center>
         </>
@@ -404,7 +402,7 @@ const LevelRSA = () => {
                 <Text m="0.5em 0 0.5em 0">
                   Now that you are able to decrypt, you can send your first encrypted message.
                 </Text>
-                <Text m="0.5em 0 0.5em 0">Encrypt your student number, using the game's public key.</Text>
+                <Text m="0.5em 0 0.5em 0">Encrypt your username, using the game's public key.</Text>
                 {
                   // <Box w="40em" border="2px" p="0.5em 0 0.5em 1em">{encryptedMsg}</Box>
                 }

@@ -36,11 +36,11 @@ const CCEmail = ({ weekNumber, taskID }: { weekNumber: number; taskID: string })
           userToken: userAuthData.token
         });
 
-        const currentTask = userData.levels[weekNumber-1].find(obj=>obj.id===taskID);
+        const currentTask = userData.levels[weekNumber - 1].find((obj) => obj.id === taskID);
 
         if (!currentTask!.completed) {
           const updatedUserData = userData;
-          updatedUserData.levels[weekNumber - 1].find(obj => obj.id === taskID)!.completed = true;
+          updatedUserData.levels[weekNumber - 1].find((obj) => obj.id === taskID)!.completed = true;
           updatedUserData.points = userData.points + currentTask!.points;
           await userDataService.updateUserData({
             userId: userAuthData.user_id,

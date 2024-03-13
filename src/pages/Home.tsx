@@ -10,7 +10,7 @@ import { IUserAuthData } from '../services/loginService';
 import Tutorial from '../pages/Tutorial';
 import LevelView from '../components/LevelView';
 
-const releaseDates = [new Date(2024, 3, 5), new Date(2024, 3, 12), new Date(2024, 3, 19), new Date(2024, 3, 26)];
+const releaseDates = [new Date(2024, 2, 12), new Date(2024, 2, 18), new Date(2024, 2, 24), new Date(2024, 2, 27)];
 const currentDate = new Date();
 
 const Home = ({
@@ -105,7 +105,7 @@ const Home = ({
         );
       } else if (
         levelData[i - 2].every((level) => level.completed) &&
-        currentDate.getTime > releaseDates[i - 1].getTime
+        currentDate.getTime() > releaseDates[i - 2].getTime()
       ) {
         return (
           <Box

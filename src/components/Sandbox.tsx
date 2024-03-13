@@ -21,7 +21,11 @@ const Sandbox = () => {
   const student_RSA = new JSEncrypt();
 
   // text that will be shown - encrypted plaintext or decrypted ciphertext
-  const [displayText, setDisplayText] = useState(<></>);
+  const [displayText, setDisplayText] = useState(
+    <>
+      <Text>Submit a Public Key to encrypt a message or a Private Key to decrypt a message</Text>
+    </>
+  );
 
   // boolean that tells whether to show displayText or not
   const [showText, setShowText] = useState(false);
@@ -172,7 +176,7 @@ const Sandbox = () => {
       </GridItem>
 
       <GridItem rowSpan={1} colSpan={1} m="2em 0 0 0">
-        <FormLabel>Message to encrypt</FormLabel>
+        <FormLabel>Message to encrypt / decrypt</FormLabel>
         <Textarea
           placeholder="test message"
           w="30em"
@@ -193,13 +197,11 @@ const Sandbox = () => {
       </GridItem>
 
       <GridItem rowSpan={1} colSpan={2} m="2em 0 0 0">
-        {showText ? (
+        {
           <Box border="1px" minH="5em" p="1em">
             {displayText}
           </Box>
-        ) : (
-          <></>
-        )}
+        }
       </GridItem>
     </Grid>
   );

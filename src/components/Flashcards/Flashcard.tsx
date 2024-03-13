@@ -42,11 +42,11 @@ const Flashcard = ({
       });
 
       const updatedUserData = userData;
-      const currentTask = userData.levels[weekNumber - 1].find(obj => obj.id === taskID);
+      const currentTask = userData.levels[weekNumber - 1].find((obj) => obj.id === taskID);
 
       if (currentTask) {
         if (!currentTask.completed) {
-          updatedUserData.levels[weekNumber - 1].find(obj => obj.id === taskID)!.completed = true;
+          updatedUserData.levels[weekNumber - 1].find((obj) => obj.id === taskID)!.completed = true;
         }
 
         updatedUserData.points = userData.points + currentTask.points;
