@@ -144,7 +144,7 @@ const App = () => {
             element={<Flashcard content={FlashcardData.week2_message_integrity} weekNumber={2} taskID={'flashcards2-integrity'} />}
           />
           <Route path="quiz2" element={<Quiz weekNumber={2} taskID={'quiz2'} />} />
-          <Route path="rsa" element={<LevelRSA />} />
+          <Route path="task2" element={<LevelRSA weekNumber={2} taskID={'task2'} />} />
         </Route>
         <Route path="sandbox" element={<Sandbox />} />
         <Route
