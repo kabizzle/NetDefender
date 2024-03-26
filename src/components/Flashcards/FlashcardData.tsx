@@ -191,4 +191,55 @@ const week2_message_integrity: FlashcardContent[] = [
   }
 ];
 
-export { week1_attacks, week1_crypto, week2_crypto, week2_packets, week2_message_integrity };
+const week3_digital_signatures: FlashcardContent[] = [
+  {
+    id: 1,
+    title: 'Digital Signatures',
+    content: 'cryptographic technique to prove the identity of the creator of a document.'
+  },
+  {
+    id: 2,
+    title: 'Features of Digital Signatures',
+    content: 'must be unique, verifyable and non-forgeable.'
+  },
+  {
+    id: 3,
+    title: 'Digital Signatures - method',
+    content: 'A message is encrypted with sender\'s private key. Receiver can decrypt it with sender\'s known public key, verifying that the message came from sender.'
+  },
+  {
+    id: 4,
+    title: 'Digital Signatures',
+    content: 'Message Authentication Codes (MACs) cannot be used as digital signatures, since the receiver would need a copy of the MAC to verify it. This means it would not be unique.'
+  },
+];
+
+const week3_end_point_auth: FlashcardContent[] = [
+  {
+    id: 1,
+    title: 'End-point Authentication',
+    content: 'Authentication is difficult in networks, since the other party is "invisible".'
+  },
+  {
+    id: 2,
+    title: 'End-point Authentication - vulnerabilities',
+    content: 'Man-in-the-middle or replay attacks are possible.'
+  },
+  {
+    id: 3,
+    title: 'End-point Authentication - solution',
+    content: 'The solution to this is Certified Authorities (CAs).' },
+  {
+    id: 4,
+    title: 'Certified Authority (CA)',
+    content: 'Certified Authority (CA) generates a certificate that involves both the sender\'s and CA\'s keys.' 
+  },
+  {
+    id: 5,
+    title: 'Certified Authority - method',
+    content: 'Receiver\'s can use a CA-issued certificate, along with the sender\'s public key to authenticate the sender of a message'
+  }
+]
+
+
+export { week1_attacks, week1_crypto, week2_crypto, week2_packets, week2_message_integrity, week3_digital_signatures, week3_end_point_auth };
