@@ -48,6 +48,7 @@ const QuestionTask = ({
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [buttonStage, setButtonStage] = useState('choose'); // choose, next, next2
   const [screenStage, setScreenStage] = useState('question');
+  const [dialogue, setDialogue] = useState('');  // dialogue
 
   const toast = useToast();
   const navigate = useNavigate();
@@ -125,7 +126,7 @@ const QuestionTask = ({
   // Checking if the answer is correct
   const isCorrect = () => {
     if (selectedOption != null) {
-      if (selectedOption == currentQuestion.correctAnswer) {
+      if (currentQuestion.options[selectedOption]) {
         setScore(score + 1);
         setButtonColors((prevColors) => {
           const updatedColors = [...prevColors];
@@ -273,7 +274,7 @@ const QuestionTask = ({
           </GridItem>
           <GridItem area={'answers'} justifySelf="center" alignSelf="center" border="0px" borderColor="grey">
             <ButtonGroup flexDir="column" alignItems="end">
-              {currentQuestion.options.map((option: string, index: number) => answerButton(option, index))}
+              {Object.keys(currentQuestion.options).map((option: string, index: number) => answerButton(option, index))}
             </ButtonGroup>
           </GridItem>
           <GridItem area={'button'} alignSelf="end" justifySelf="center" border="0px" borderColor="grey">
@@ -296,37 +297,16 @@ const QuestionTask = ({
     if (screenStage == 'information') {
       return (
         <Grid
-          templateAreas={'"question explanation" "question explanation" "button button" "steps steps"'}
-          templateRows={'30% 30% 10% 1fr'}
+          templateAreas={'"explanation" "explanation" "button button" "steps steps"'}
+          templateRows={'60% 30% 1fr'}
           templateColumns={'50% 1fr'}
           w="100vw"
           height="100vh"
           gap="2"
         >
-          <GridItem area={'question'} justifySelf="center" border="0px" borderColor="grey">
-            <Box display="flex" flexDir="column" alignItems="center" paddingTop="20" paddingLeft="15">
-              <Box textAlign="center" fontSize="22">
-                {currentQuestionIndex + 1}. {currentQuestion.question}
-              </Box>
-              <Box
-                border="2px"
-                borderColor="game.green"
-                marginTop="10"
-                paddingLeft="5"
-                paddingTop="2"
-                paddingBottom="2"
-                width="300px"
-                textAlign="start"
-                alignSelf="center"
-              >
-                {alphabet[currentQuestion.options.indexOf(currentQuestion.correctAnswer)]}.{' '}
-                {currentQuestion.correctAnswer}
-              </Box>
-            </Box>
-          </GridItem>
           <GridItem area={'explanation'} justifySelf="center" border="0px" borderColor="grey">
             <Box whiteSpace="pre-wrap" paddingTop="20" paddingLeft="10" paddingRight="20">
-              {currentQuestion.response}
+              {currentQuestion.}
             </Box>
           </GridItem>
           <GridItem area={'button'} alignSelf="end" justifySelf="center" border="0px" borderColor="grey">

@@ -20,6 +20,7 @@ import AttackQuiz from './components/attacks_quiz/AttackQuiz.tsx';
 import Quiz from './components/Quizzes/Quiz.tsx';
 import * as FlashcardData from './components/Flashcards/FlashcardData';
 import LevelRSA from './components/attacks_quiz/LevelRSA.tsx';
+import BreachLevel from './components/breach_level/Breach.tsx';
 
 const baseStyle = {
   indicator: {
@@ -145,6 +146,7 @@ const App = () => {
           />
           <Route path="quiz2" element={<Quiz weekNumber={2} taskID={'quiz2'} />} />
           <Route path="task2" element={<LevelRSA weekNumber={2} taskID={'task2'} />} />
+          <Route path="task3" element={<BreachLevel username={userAuthData.username} weekNumber={3} taskID={'task3'} />} />
         </Route>
         <Route path="sandbox" element={<Sandbox />} />
         <Route
