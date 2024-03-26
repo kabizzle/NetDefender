@@ -200,7 +200,7 @@ const week3_digital_signatures: FlashcardContent[] = [
   {
     id: 2,
     title: 'Features of Digital Signatures',
-    content: 'must be unique, verifyable and non-forgeable.'
+    content: 'must be unique, verifiable and non-forgeable.'
   },
   {
     id: 3,
@@ -232,12 +232,12 @@ const week3_end_point_auth: FlashcardContent[] = [
   {
     id: 4,
     title: 'Certified Authority (CA)',
-    content: 'Certified Authority (CA) generates a certificate that involves both the sender\'s and CA\'s keys.' 
+    content: 'Certified Authority (CA) is a trusted third-party that generates a certificate to verify the sender\'s public key.' 
   },
   {
     id: 5,
     title: 'Certified Authority - method',
-    content: 'Receiver\'s can use a CA-issued certificate, along with the sender\'s public key to authenticate the sender of a message'
+    content: 'Receiver can use a CA-issued certificate, along with the sender\'s public key to authenticate the sender of a message.'
   }
 ]
 

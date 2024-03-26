@@ -103,5 +103,36 @@ const Week2Quiz: QuizQuestion[] = [
   }
 ];
 
+const Week3Quiz: QuizQuestion[] = [
+  {
+    id: 1, 
+    question: 'Why can\'t MACs be used as digital signatures?',
+    options: ['Receiver would need a copy, so it would not be unique.', 'MAC is too large in size.', 'Not computationally feasible to use a MAC.'],
+    correctAnswer: 'Receiver would need a copy, so it would not be unique.',
+    explanation: 'Digital Signatures need to be unique, verifiable and non-forgeable.'
+  },
+  {
+    id: 2, 
+    question: 'What is a digital signature?',
+    options: ['Writing your name electronically.', 'Crytographic technique to verify the identity of a sender.', 'Public key to encrypt an email.'],
+    correctAnswer: 'Cryptographic technique to verify the identity of a sender.',
+    explanation: 'A message is encrypted with sender\'s private key. Receiver can decrypt it with sender\'s known public key, verifying that the message came from sender.'
+  },
+  {
+    id: 3, 
+    question: 'What has been implemented to enable end-point authentication?',
+    options: ['Caesar Cipher', 'Certified Authorities', 'PGP Keys', 'API endpoints'],
+    correctAnswer: 'Certified Authorities',
+    explanation: 'Certified Authority (CA) is a trusted third-party that generates a certificate to verify the sender\'s public key.'
+  },
+  {
+    id: 1, 
+    question: 'How do Certified Authorities help with end-point authentication?',
+    options: ['Receiver can use copy of sender\'s private key to decrypt message', 'Receiver can use a CA-issued certificate, along with the sender\'s public key to authenticate the sender of a message.', 'Certified Authorities use a MAC to encrypt a sender\'s message'],
+    correctAnswer: 'Receiver can use a CA-issued certificate, along with the sender\'s public key to authenticate the sender of a message.',
+    explanation: 'Since the CA is a trusted third-party, the receiver can verify that the message indeed came from the sender, by comparing the public key of the message to the public key in the CA-certificate.'
+  },
+];
+
 export type { QuizQuestion };
-export { Week1Quiz, Week2Quiz };
+export { Week1Quiz, Week2Quiz, Week3Quiz };
