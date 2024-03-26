@@ -220,48 +220,32 @@ const RenderQuiz = ({
   };
 
   // sends data about level to api
-  // stores user's points from level and updates the level as completed in database
-  // function that sets level as completed and adds points to user's score
-  const handleLevelComplete = async () => {
-    const userAuthDataJSON = window.localStorage.getItem('userAuthDataJSON');
+  // calls function in userDataService that makes changes to database
+  const handleLevelSubmit = async () => {
 
-    if (userAuthDataJSON) {
-      const user = JSON.parse(userAuthDataJSON);
-      const userAuthData = user;
-      const userData = await userDataService.getUserData({
-        userId: userAuthData.user_id,
-        userToken: userAuthData.token
-      });
+    // amount refers to the percentage of questions answered correctly
+    // this affects the amount of points obtained by the user
+    const amount = score / questions.length;
 
-      const updatedUserData = userData;
-      const currentTask = userData.levels[weekNumber - 1].find((obj) => obj.id === taskID);
-
-      if (currentTask) {
-        if (!currentTask.completed) {
-          if (updatedUserData.levels[weekNumber - 1].find((obj) => obj.id === taskID)) {
-            updatedUserData.levels[weekNumber - 1].find((obj) => obj.id === taskID)!.completed = true;
-          }
-        }
-
-        updatedUserData.points = userData.points +  (score / questions.length * currentTask.points);
-
-        await userDataService.updateUserData({
-          userId: userAuthData.user_id,
-          userToken: userAuthData.token,
-          userData: updatedUserData
-        });
-      }
-
+    const success = await userDataService.handleLevelComplete({weekNumber, taskID, amount});
+    
+    if (success) {
       toast({
         title: 'Good job!',
         status: 'success',
         duration: 1500
       });
-
-      setTimeout(() => {
-        navigate('/');
-      }, 1500);
+    } else {
+      toast({
+        title: 'Error adding points.',
+        status: 'error',
+        duration: 1500
+      });
     }
+
+    setTimeout(() => {
+      navigate('/');
+    }, 1500);
   };
 
   // renders the information shown on the screen
@@ -349,7 +333,7 @@ const RenderQuiz = ({
               You answered {score}/{questions.length} correct
             </Box>
           </Box>
-          <Button border="2px" m="5em 0 0 0" onClick={handleLevelComplete}>
+          <Button border="2px" m="5em 0 0 0" onClick={handleLevelSubmit}>
             Main menu
           </Button>
         </Box>

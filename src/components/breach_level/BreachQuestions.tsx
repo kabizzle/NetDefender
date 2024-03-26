@@ -19,7 +19,15 @@ import { useNavigate } from 'react-router-dom';
 import userDataService from '../../services/userDataService';
 import { LevelQuestion } from './BreachMCQ';
 
-const QuestionTask = ({ quiz }: { quiz: LevelQuestion[] }) => {
+const QuestionTask = ({
+  quiz,
+  weekNumber,
+  taskID
+}: {
+  quiz: LevelQuestion[];
+  weekNumber: number;
+  taskID: string;
+}) => {
   const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
   const breachMCQs: LevelQuestion[] = quiz;
   const ogButtonColors = Array.from({ length: breachMCQs.length }, () => ({
@@ -218,34 +226,33 @@ const QuestionTask = ({ quiz }: { quiz: LevelQuestion[] }) => {
     );
   };
 
-  const handleLevelComplete = async () => {
-    const userAuthDataJSON = window.localStorage.getItem('userAuthDataJSON');
-    if (userAuthDataJSON) {
-      const user = JSON.parse(userAuthDataJSON);
-      const userAuthData = user;
-      const userData = await userDataService.getUserData({
-        userId: userAuthData.user_id,
-        userToken: userAuthData.token
-      });
-      if (!userData.levels[0][0].completed) {
-        const updatedUserData = userData;
-        updatedUserData.levels[0][0].completed = true;
-        updatedUserData.points = userData.points + userData.levels[0][0].points;
-        await userDataService.updateUserData({
-          userId: userAuthData.user_id,
-          userToken: userAuthData.token,
-          userData: updatedUserData
-        });
-      }
+  // sends data about level to api
+  // calls function in userDataService that makes changes to database
+  const handleLevelSubmit = async () => {
+
+    // amount refers to the percentage of questions answered correctly
+    // this affects the amount of points obtained by the user
+    const amount = score / breachMCQs.length;
+
+    const success = await userDataService.handleLevelComplete({weekNumber, taskID, amount});
+    
+    if (success) {
       toast({
         title: 'Good job!',
         status: 'success',
-        duration: 3500
+        duration: 1500
       });
-      setTimeout(() => {
-        navigate('/');
-      }, 3500);
+    } else {
+      toast({
+        title: 'Error adding points.',
+        status: 'error',
+        duration: 1500
+      });
     }
+
+    setTimeout(() => {
+      navigate('/');
+    }, 1500);
   };
 
   const chooseView = () => {
