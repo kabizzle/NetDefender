@@ -1,14 +1,9 @@
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import Home from './pages/Home.tsx';
-// import Level0 from './components/MS/Level0.tsx';
-import CC from './components/CaesarCipher.tsx';
-// import LevelCC from './components/LevelCC.tsx';
-import CCEmail from './components/CCEmail.tsx';
-// import Phishing from './components/Phishing.tsx';
-// import EmailMenu from './components/EmailMenu.tsx';
+import CC from './components/CaesarCipherDecryptionTool.tsx';
+import CCEmail from './components/Tasks/Week1.tsx';
 import Error from './pages/Error.tsx';
-// import LevelRSA from './components/MS/LevelRSA.tsx';
 import Sandbox from './components/Sandbox.tsx';
 import { useEffect, useState } from 'react';
 import { IUserAuthData } from './services/loginService.ts';
